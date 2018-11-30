@@ -32,10 +32,9 @@ from ninja_ide import translations
 from ninja_ide import resources
 from ninja_ide.tools import console
 from ninja_ide.tools.logger import NinjaLogger
-from ninja_ide.core import settings
 from ninja_ide.gui.editor import highlighter
 from ninja_ide.gui.editor import indenter
-from ninja_ide.gui.editor import base_editor
+from ninja_ide.gui.editor import base
 from ninja_ide.gui.tools_dock.tools_dock import _ToolsDock
 
 logger = NinjaLogger(__name__)
@@ -118,8 +117,8 @@ class ConsoleSideBar(QWidget):
         self.setGeometry(x, top, width, height)
 
 
-class ConsoleWidget(base_editor.BaseEditor):
-    """Extends QPlainTextEdit to emulate a python interpreter"""
+class ConsoleWidget(base.CodeEditor):
+    """Extends CodeEditor to emulate a python interpreter"""
 
     def __init__(self, parent=None):
         super().__init__()
@@ -134,7 +133,6 @@ class ConsoleWidget(base_editor.BaseEditor):
         self._current_command = ''
         # Console
         self._console = console.Console()
-        self.setFont(settings.FONT)
         # Set highlighter and indenter for Python
         syntax = highlighter.build_highlighter(language='python')
         if syntax is not None:
@@ -188,7 +186,7 @@ class ConsoleWidget(base_editor.BaseEditor):
         self.paste()
 
     def install_widget(self):
-        logger.debug("Installing {}".format(self.__class__.__name__))
+        logger.info("Installing %s", self.__class__.__name__)
 
     def __manage_left(self, event):
         return self._cursor_position == 0

@@ -212,3 +212,19 @@ def test_word_under_cursor(editor_fixture, text, position, expected):
     cursor = editor_fixture.word_under_cursor()
     assert not cursor.isNull()
     assert cursor.selectedText() == expected
+
+
+@pytest.mark.parametrize(
+    'text, col, expected',
+    [
+        ('ninja is not just another IDE', 2, 'ni'),
+        ('ninja is not just another IDE', 0, ''),
+        ('ninja is not just another IDE', 7, 'ninja i'),
+        ('ninja is not just another IDE', 9, 'ninja is '),
+        ('ninja is not just another IDE', 4, 'ninj')
+    ]
+)
+def test_text_before_cursor(editor_fixture, text, col, expected):
+    editor_fixture.text = text
+    editor_fixture.cursor_position = 0, col
+    assert editor_fixture.text_before_cursor() == expected

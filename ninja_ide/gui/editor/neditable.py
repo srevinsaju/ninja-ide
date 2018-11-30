@@ -52,8 +52,8 @@ class NEditable(QObject):
         self.text_modified = False
         self.ignore_checkers = False
         # Hot exit and autosave feature
-        from ninja_ide.core.file_handling import nswapfile
-        self._swap_file = nswapfile.NSwapFile(self)
+        # from ninja_ide.core.file_handling import nswapfile
+        # self._swap_file = nswapfile.NSwapFile(self)
         # Checkers:
         self.registered_checkers = []
         self._checkers_executed = 0
@@ -138,11 +138,11 @@ class NEditable(QObject):
             else:
                 self.ignore_checkers = False
 
-    def discard(self):
-        self._swap_file.discard()
+    # def discard(self):
+    #     self._swap_file.discard()
 
-    def recover(self):
-        self._swap_file.recover()
+    # def recover(self):
+    #     self._swap_file.recover()
 
     @property
     def file_path(self):

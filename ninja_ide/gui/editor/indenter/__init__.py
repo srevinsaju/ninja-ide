@@ -15,18 +15,16 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from ninja_ide.gui.editor.indenter import (
-    python_indenter,
-    html_indenter,
-    base
-)
+from ninja_ide.gui.editor.indenter.python_indenter import PythonIndenter
+from ninja_ide.gui.editor.indenter.html_indenter import HtmlIndenter
+from ninja_ide.gui.editor.indenter.base import BasicIndenter
 
 INDENTER_MAP = {
-    'python': python_indenter.PythonIndenter,
-    'html': html_indenter.HtmlIndenter
+    'python': PythonIndenter,
+    'html': HtmlIndenter
 }
 
 
 def load_indenter(editor, lang=None):
-    indenter_obj = INDENTER_MAP.get(lang, base.BasicIndenter)
+    indenter_obj = INDENTER_MAP.get(lang, BasicIndenter)
     return indenter_obj(editor)

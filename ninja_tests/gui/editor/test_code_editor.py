@@ -1,7 +1,5 @@
 import pytest
 
-from PyQt5.QtGui import QTextCursor
-
 from ninja_ide.gui.editor.base import CodeEditor
 
 
@@ -43,3 +41,50 @@ def test_replace_all(code_editor):
     assert code_editor.text == (
         'NINJA-Integrated Development Environment is not just another '
         'Integrated Development Environment')
+
+
+@pytest.mark.parametrize(
+    'text, line, col, center, expected',
+    [
+        ('NINJA-IDE\nis\nnot\nJUST\nanother\nIDE', 1, 3, False, (1, 2)),
+        ('NINJA-IDE\nis\nnot\nJUST\nanother\nIDE', 23, 1, False, (0, 0)),
+    ]
+)
+def test_go_to_line(code_editor, text, line, col, center, expected):
+    code_editor.text = text
+    code_editor.go_to_line(line, col, center)
+    assert code_editor.cursor_position == expected
+
+
+def test_zoom(code_editor):
+    font = code_editor.document().defaultFont()
+    assert font.pointSize() == 12  # default
+    for i in range(4):
+        code_editor.zoom(delta=1)
+    font = code_editor.document().defaultFont()
+    assert font.pointSize() == 16
+    for i in range(6):
+        code_editor.zoom(delta=-1)
+    font = code_editor.document().defaultFont()
+    assert font.pointSize() == 10
+
+
+@pytest.mark.parametrize(
+    'text, expected',
+    [
+        ('def foo():\n    pass   ', 'def foo():\n    pass'),
+        ('def foo(): \n    pass   ', 'def foo():\n    pass'),
+    ]
+)
+def test_remove_trailing_spaces(code_editor, text, expected):
+    code_editor.text = text
+    code_editor.remove_trailing_spaces()
+    assert code_editor.text == expected
+
+
+def test_insert_block_at_end(code_editor):
+    text = code_editor.text
+    code_editor.insert_block_at_end()
+    assert code_editor.text == text + '\n'
+    code_editor.insert_block_at_end()
+    assert code_editor.text == text + '\n'

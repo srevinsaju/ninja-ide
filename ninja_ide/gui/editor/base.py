@@ -24,9 +24,13 @@ from PyQt5.QtWidgets import QPlainTextEdit
 from PyQt5.QtGui import QTextBlockUserData
 from PyQt5.QtGui import QTextDocument
 from PyQt5.QtGui import QTextCursor
+from PyQt5.QtGui import QColor
 
 from PyQt5.QtCore import QPoint
+from PyQt5.QtCore import pyqtSignal
 
+from ninja_ide import resources
+from ninja_ide.core import settings
 
 _WORD_SEPARATORS = '`~!@#$%^&*()-=+[{]}\\|;:\'\",.<>/?'
 
@@ -177,6 +181,12 @@ class BaseTextEditor(QPlainTextEdit):
         cursor.setPosition(end_pos, QTextCursor.KeepAnchor)
         return cursor
 
+    def text_before_cursor(self, cursor=None):
+        if cursor is None:
+            cursor = self.textCursor()
+        text_block = cursor.block().text()
+        return text_block[:cursor.positionInBlock()]
+
     def move_up_down(self, up=False):
         cursor = self.textCursor()
         move = cursor
@@ -265,9 +275,34 @@ class BlockUserData(QTextBlockUserData):
 
 class CodeEditor(BaseTextEditor):
 
+    zoomChanged = pyqtSignal(int)
+
     def __init__(self):
         super().__init__()
+        self.setFrameStyle(QPlainTextEdit.NoFrame)
+        self.set_font(settings.FONT)
+        self.__init_style()
+        self.__apply_style()
         self.__visible_blocks = []
+
+    def __init_style(self):
+        self._background_color = QColor(
+            resources.COLOR_SCHEME.get("editor.background"))
+        self._foreground_color = QColor(
+            resources.COLOR_SCHEME.get("editor.foreground"))
+        self._selection_color = QColor(
+            resources.COLOR_SCHEME.get("editor.selection.foreground"))
+        self._selection_background_color = QColor(
+            resources.COLOR_SCHEME.get("editor.selection.background"))
+
+    def __apply_style(self):
+        palette = self.palette()
+        palette.setColor(palette.Base, self._background_color)
+        palette.setColor(palette.Text, self._foreground_color)
+        palette.setColor(palette.HighlightedText, self._selection_color)
+        palette.setColor(palette.Highlight,
+                         self._selection_background_color)
+        self.setPalette(palette)
 
     @property
     def visible_blocks(self):
@@ -295,6 +330,10 @@ class CodeEditor(BaseTextEditor):
             top = bottom
             bottom = top + self.blockBoundingRect(block).height()
             block_number += 1
+
+    def paintEvent(self, event):
+        self._update_visible_blocks()
+        super().paintEvent(event)
 
     def user_data(self, block=None):
         if block is None:
@@ -370,3 +409,47 @@ class CodeEditor(BaseTextEditor):
                 self.setTextCursor(found)
 
         return not found.isNull()
+
+    def set_font(self, font):
+        self.document().setDefaultFont(font)
+
+    def zoom(self, delta: int):
+        font = self.document().defaultFont()
+        previous_point_size = font.pointSize()
+        new_point_size = int(max(1, previous_point_size + delta))
+        if new_point_size != previous_point_size:
+            font.setPointSize(new_point_size)
+            self.set_font(font)
+            default_point_size = settings.FONT.pointSize()
+            percent = new_point_size / default_point_size * 100.0
+            self.zoomChanged.emit(percent)
+
+    def go_to_line(self, lineno, column=0, center=True):
+        """Go to an specific line"""
+
+        if self.line_count() >= lineno:
+            self.cursor_position = lineno, column
+            if center:
+                self.centerCursor()
+            else:
+                self.ensureCursorVisible()
+
+    def remove_trailing_spaces(self):
+        cursor = self.textCursor()
+        block = self.document().findBlockByLineNumber(0)
+        with self:
+            while block.isValid():
+                text = block.text()
+                if text.endswith(' '):
+                    cursor.setPosition(block.position())
+                    cursor.select(QTextCursor.LineUnderCursor)
+                    cursor.insertText(text.rstrip())
+                block = block.next()
+
+    def insert_block_at_end(self):
+        last_line = self.line_count() - 1
+        text = self.line_text(last_line)
+        if text:
+            cursor = self.textCursor()
+            cursor.movePosition(QTextCursor.End)
+            cursor.insertBlock()

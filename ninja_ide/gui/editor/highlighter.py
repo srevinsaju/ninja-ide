@@ -27,6 +27,9 @@ from PyQt5.QtGui import QTextFormat
 from ninja_ide.core import settings
 from ninja_ide import resources
 from ninja_ide.gui.ide import IDE
+from ninja_ide.tools.logger import NinjaLogger
+
+logger = NinjaLogger(__name__)
 
 
 class TextCharFormat(QTextCharFormat):
@@ -255,7 +258,7 @@ class SyntaxHighlighter(QSyntaxHighlighter):
 
         # reduce name look-ups for better speed
         scan_inside = {}
-        for inside_part, inside_scanner in list(self.scanner.items()):
+        for inside_part, inside_scanner in self.scanner.items():
             scan_inside[inside_part] = inside_scanner.scan
         self.get_scanner = scan_inside.get
         self.scan_partitions = partition_scanner.scan
@@ -301,16 +304,20 @@ class Syntax(object):
         for color in resources.COLOR_SCHEME.get("colors"):
             scope = color.get("scope")
             colors = color.get("settings")
+            if not colors['color']:
+                colors['color'] = resources.COLOR_SCHEME.get(
+                    'editor.foreground')
             self.context.append((scope, colors))
 
 
 def build_highlighter(language, force=False):
+    logger.debug('Loading highlighter for %s', language)
     syntax_registry = IDE.get_service("syntax_registry")
     syntax = syntax_registry.get_syntax_for(language)
     if syntax is None:
         syntax_structure = settings.SYNTAX.get(language)
         if syntax_structure is None:
-            print("Error")
+            logger.warning('No syntax highlighter for %s', language)
             return None
         part_scanner = PartitionScanner(syntax_structure.get("partitions"))
         scanners = {}

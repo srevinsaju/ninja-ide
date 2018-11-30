@@ -177,13 +177,12 @@ class ComboEditor(QWidget):
             # Connections
             neditable.fileClosing.connect(self._close_file)
             neditable.fileSaved.connect(self._update_symbols)
-            editor.editorFocusObtained.connect(self._editor_with_focus)
+            # editor.editorFocusObtained.connect(self._editor_with_focus)
             editor.modificationChanged.connect(self._editor_modified)
-            editor.cursor_position_changed[int, int].connect(
-                self._update_cursor_position)
-            editor.current_line_changed[int].connect(self._set_current_symbol)
-            if neditable._swap_file.dirty:
-                self._editor_modified(True, sender=editor)
+            editor.positionChanged[int, int].connect(self._update_cursor_position)
+            editor.currentLineChanged[int].connect(self._set_current_symbol)
+            # if neditable._swap_file.dirty:
+            #     self._editor_modified(True, sender=editor)
             neditable.checkersUpdated.connect(self._show_notification_icon)
             # Connect file system signals only in the original
             if self.__original:

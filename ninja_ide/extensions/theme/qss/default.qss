@@ -13,7 +13,7 @@ QTreeView::branch:selected {
 }
 
 QMenuBar {
-    background-color: #161719;
+    background-color: #3c3c3c;
 }
 
 QMenuBar::item {
@@ -28,8 +28,7 @@ QHeaderView::section {
 }
 
 QMenuBar::item:selected {
-    background: transparent;
-    border: 1px solid #ffaa00;
+    background: #505050;
 }
 
 QMenuBar::item:pressed {
@@ -42,13 +41,15 @@ QMenuBar::item:pressed {
 
 QMenu {
     color: #fff;
-    background-color: #232526;
+    background-color: #252526;
     border: 1px solid lightblue;
     border-radius: 2;
 }
 
 QMenu::item {
     padding: 5px 20px 5px 20px;
+    margin-bottom: 2px;
+    margin-top: 2px;
 }
 
 QMenu::item:selected {
@@ -61,7 +62,7 @@ QMenu::item:disabled {
 
 QMenu::separator {
     height: 1px;
-    background: #333;
+    background: #bbb;
     margin-left: 5px;
     margin-right: 5px;
 }
@@ -108,7 +109,7 @@ QPushButton#navigation_button {
     border: 1px solid gray;
     background: none;
     margin: 1px;
-    padding: 1;
+    padding: 0;
     border-radius: 3px;
 }
 
@@ -202,7 +203,7 @@ QFrame#actionbar {
         stop: 0 #717375, stop: 1.0 #232526);
     color: gray;
     border: 0px solid darkgray;
-    max-height: 1.3em;
+    min-height: 1.5em;
 }
 
 QScrollBar:horizontal {

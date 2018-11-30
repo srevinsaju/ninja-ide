@@ -50,7 +50,7 @@ class LocatorWidget(QDialog):
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setStyleSheet("background:transparent;")
         self.setFixedHeight(400)
-        self.setFixedWidth(500)
+        self.setFixedWidth(550)
         view = QQuickWidget()
         view.rootContext().setContextProperty("theme", resources.QML_COLORS)
         view.setResizeMode(QQuickWidget.SizeRootObjectToView)

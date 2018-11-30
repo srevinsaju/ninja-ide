@@ -19,7 +19,6 @@
 import os
 import sys
 import datetime
-import enum
 
 from PyQt5.QtGui import QFont
 from PyQt5.QtGui import QImageReader

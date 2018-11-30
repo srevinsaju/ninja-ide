@@ -478,7 +478,7 @@ class _MainContainer(QWidget):
     def create_editor_from_editable(self, editable):
         neditor = editor.create_editor(editable)
         neditor.zoomChanged.connect(self._on_zoom_changed)
-        neditor.addBackItemNavigation.connect(self.add_back_item_navigation)
+        # neditor.addBackItemNavigation.connect(self.add_back_item_navigation)
         editable.fileSaved.connect(
             lambda neditable: self._explore_file_code(neditable.file_path))
         return neditor

@@ -31,19 +31,19 @@
         "LocatorBackground": "#222326",
         "LocatorLineEdit": "#323438",
         "LocatorText": "#ffffff",
-        "LocatorCurrentItem": "#FF5644",
+        "LocatorCurrentItem": "#66FF5644",
         "LocatorListView": "#2b2d30",
         "LocatorAlternativeText": "#9c9e9e",
 
         "StartPageBackground": "#1b1c1f",
         "StartPageText": "#ffffff",
-        "StartPageAlternativeText": "#FF5644",
-        "StartPageLink": "#FF5644",
+        "StartPageAlternativeText": "#66FF5644",
+        "StartPageLink": "#66FF5644",
 
         "FilesHandlerBackground": "#222326",
         "FilesHandlerInput": "#323438",
         "FilesHandlerText": "#ffffff",
-        "FilesHandlerCurrentItem": "#FF5644",
+        "FilesHandlerCurrentItem": "#66FF5644",
         "FilesHandlerListView": "#2b2d30",
         "FilesHandlerAlternativeText": "#e9e9e9",
 
@@ -52,7 +52,7 @@
         "FileFolderLineEdit": "#232729",
 
         "SplitAssistantBackground": "#222326",
-        "SplitAssistantHighlight": "#FF5644",
+        "SplitAssistantHighlight": "#66FF5644",
         "SplitAssistantText": "#ffffff",
 
         "RectangleBorder": "transparent"
