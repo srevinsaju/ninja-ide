@@ -19,6 +19,7 @@ from PyQt5.QtWidgets import QToolTip
 
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtGui import QKeySequence
+from PyQt5.QtGui import QPaintEvent
 from PyQt5.QtGui import QFontMetrics
 
 from PyQt5.QtCore import pyqtSignal
@@ -40,6 +41,7 @@ class NEditor(CodeEditor):
 
     positionChanged = pyqtSignal(int, int)
     currentLineChanged = pyqtSignal(int)
+    painted = pyqtSignal(QPaintEvent)
 
     def __init__(self, neditable=None):
         super().__init__()
@@ -53,6 +55,10 @@ class NEditor(CodeEditor):
         # Extra selection manager
         self._extra_selections = ExtraSelectionManager(self)
 
+        from ninja_ide.gui.editor.features import current_line
+        self.ee = current_line.CurrentLine()
+        self.ee.register(self)
+
         # Custom scrollbar
         self._scrollbar = scrollbar.NScrollBar(self)
         self.setVerticalScrollBar(self._scrollbar)
@@ -65,6 +71,7 @@ class NEditor(CodeEditor):
             self._neditable.checkersUpdated.connect(self._highlight_checkers)
 
         self.cursorPositionChanged.connect(self._on_cursor_position_changed)
+        self.currentLineChanged.connect(self.viewport().update)
 
     @property
     def nfile(self):
@@ -91,6 +98,10 @@ class NEditor(CodeEditor):
     @encoding.setter
     def encoding(self, encoding):
         self.__encoding = encoding
+
+    @property
+    def extra_selections(self):
+        return self._extra_selections
 
     def _highlight_checkers(self, editable):
         """Highlight errors, warnings..."""
@@ -203,6 +214,10 @@ class NEditor(CodeEditor):
     def resizeEvent(self, event):
         super().resizeEvent(event)
         self.adjust_scrollbar_ranges()
+
+    def paintEvent(self, event):
+        super().paintEvent(event)
+        self.painted.emit(event)
 
     def viewportEvent(self, event):
         if event.type() == QEvent.ToolTip:
