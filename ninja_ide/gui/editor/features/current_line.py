@@ -16,6 +16,7 @@
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
 from PyQt5.QtGui import QPainter
+from PyQt5.QtGui import QFontMetricsF
 
 from ninja_ide.gui.editor.features import Feature
 from ninja_ide.gui.editor.extra_selection import ExtraSelection
@@ -60,6 +61,8 @@ class CurrentLine(Feature):
         line = layout.lineAt(line_count - 1)
         if line_count < 1:
             return
+        font_height = QFontMetricsF(
+            self._editor.document().defaultFont()).height()
         offset = self._editor.contentOffset()
         top = self._editor.blockBoundingGeometry(block).translated(
             offset).top()
@@ -68,9 +71,9 @@ class CurrentLine(Feature):
         painter.setPen(self._color)
         painter.drawLine(
             line_rect.x(),
-            line_rect.y() + self._editor.fontMetrics().height() + 5,
+            line_rect.y() + font_height,
             self._editor.width(),
-            line_rect.y() + self._editor.fontMetrics().height() + 5
+            line_rect.y() + font_height
         )
 
     def _highlight_full_mode(self):
