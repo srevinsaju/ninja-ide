@@ -19,12 +19,12 @@ from PyQt5.QtGui import QTextCursor
 from PyQt5.QtGui import QColor
 
 from ninja_ide import resources
-from ninja_ide.gui.editor.extensions import base
+from ninja_ide.gui.editor.features import Feature
 from ninja_ide.gui.editor.extra_selection import ExtraSelection
 # TODO: change colors for all editor clones
 
 
-class SymbolHighlighter(base.Extension):
+class SymbolHighlighter(Feature):
     """Symbol Matcher extension for Ninja-IDE Editor"""
 
     OPEN_SYMBOLS = "([{"
@@ -57,26 +57,26 @@ class SymbolHighlighter(base.Extension):
             color = QColor(color)
         self.__unmatched_background = color
 
-    def __init__(self):
-        super().__init__()
+    def initialize(self):
         self.__matched_background = QColor(
             resources.COLOR_SCHEME.get("editor.brace.matched"))
         self.__unmatched_background = QColor(
             resources.COLOR_SCHEME.get('editor.brace.unmatched'))
 
-    def install(self):
-        self._neditor.cursorPositionChanged.connect(self._highlight)
+    def on_enabled(self):
+        self._editor.cursorPositionChanged.connect(self._highlight)
 
-    def shutdown(self):
-        self._neditor.cursorPositionChanged.disconnect(self._highlight)
+    def on_disabled(self):
+        self._editor.cursorPositionChanged.disconnect(self._highlight)
 
     def _highlight(self):
 
-        self._neditor.extra_selections.remove("matcher")
-        cursor = self._neditor.textCursor()
+        self._editor.extra_selections.remove("matcher")
+        cursor = self._editor.textCursor()
         current_block = cursor.block()
-        if self._neditor.inside_string_or_comment(cursor):
-            return
+        # FIXME
+        # if self._editor.inside_string_or_comment(cursor):
+        #     return
         column_index = cursor.positionInBlock()
 
         if column_index < len(current_block.text()) and \
@@ -107,7 +107,7 @@ class SymbolHighlighter(base.Extension):
             selections = [
                 self._make_selection(current_block, column_index, False)
             ]
-        self._neditor.extra_selections.add("matcher", selections)
+        self._editor.extra_selections["matcher"] = selections
 
     def _make_selection(self, block, index, matched):
         cur = QTextCursor(block)
@@ -137,7 +137,7 @@ class SymbolHighlighter(base.Extension):
             # Because positionInBlock() = cursor.position() - block.position()
             # and positionInBlock() = column, then "setPositionInBlock":
             # cursor.setPosition(column + block.position())
-            # if self._neditor.inside_string_or_comment(cursor):
+            # if self._editor.inside_string_or_comment(cursor):
             #     continue
             if char == complementary:
                 count -= 1

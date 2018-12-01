@@ -1,20 +1,37 @@
+# -*- coding: utf-8 -*-
+#
+# This file is part of NINJA-IDE (http://ninja-ide.org).
+#
+# NINJA-IDE is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# any later version.
+#
+# NINJA-IDE is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
+
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtCore import Qt
-from ninja_ide.gui.editor.extensions import base
+from ninja_ide.gui.editor.features import Feature
 
 
-class AutocompleteQuotes(base.Extension):
+class Quotes(Feature):
 
     QUOTES = {
         Qt.Key_QuoteDbl: '"',
         Qt.Key_Apostrophe: "'"
     }
 
-    def install(self):
-        self._neditor.keyPressed.connect(self._on_key_pressed)
+    def on_enabled(self):
+        self._editor.keyPressed.connect(self._on_key_pressed)
 
-    def shutdown(self):
-        self._neditor.keyPressed.disconnect(self._on_key_pressed)
+    def on_disabled(self):
+        self._editor.keyPressed.disconnect(self._on_key_pressed)
 
     def _on_key_pressed(self, event):
         if event.isAccepted():
@@ -25,7 +42,7 @@ class AutocompleteQuotes(base.Extension):
             event.accept()
 
     def get_left_chars(self, nchars=1):
-        cursor = self.text_cursor()
+        cursor = self._editor.textCursor()
         chars = None
         for i in range(nchars):
             if not cursor.atBlockStart():
@@ -35,17 +52,17 @@ class AutocompleteQuotes(base.Extension):
 
     def _autocomplete_quotes(self, key):
         char = self.QUOTES[key]
-        cursor = self._neditor.textCursor()
+        cursor = self._editor.textCursor()
         two = self.get_left_chars(2)
         three = self.get_left_chars(3)
-        if self._neditor.has_selection():
-            text = self._neditor.selected_text()
+        if self._editor.has_selection():
+            text = self._editor.selected_text()
             cursor.insertText("{0}{1}{0}".format(char, text))
             # Keep selection
             cursor.movePosition(QTextCursor.Left, QTextCursor.MoveAnchor)
             cursor.movePosition(
                 QTextCursor.Left, QTextCursor.KeepAnchor, len(text))
-        elif self._neditor.get_right_character() == char:
+        elif self._editor.get_right_character() == char:
             cursor.movePosition(
                 QTextCursor.NextCharacter, QTextCursor.KeepAnchor)
             cursor.clearSelection()
@@ -57,4 +74,4 @@ class AutocompleteQuotes(base.Extension):
         else:
             cursor.insertText(char * 2)
             cursor.movePosition(QTextCursor.PreviousCharacter)
-        self._neditor.setTextCursor(cursor)
+        self._editor.setTextCursor(cursor)
