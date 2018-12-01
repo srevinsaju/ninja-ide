@@ -41,35 +41,40 @@ class CurrentLine(Feature):
         self._color = self.color.background
 
     def on_enabled(self):
-        self._editor.painted.connect(self._paint)
+        if self._mode == _LINE_MODE:
+            self._editor.painted.connect(self._paint_line_mode)
+        else:
+            self._editor.currentLineChanged.connect(self._highlight_full_mode)
 
     def on_disabled(self):
-        self._editor.painted.disconnect(self._paint)
-
-    def _paint(self, event):
-        if self._mode == _FULL_MODE:
-            selection = ExtraSelection(
-                self._editor.textCursor()
-            )
-            selection.set_full_width()
-            selection.set_background(self._color)
-            self._editor.extra_selections['current_line'] = selection
+        if self._mode == _LINE_MODE:
+            self._editor.painted.disconnect(self._paint_line_mode)
         else:
-            block = self._editor.textCursor().block()
-            layout = block.layout()
-            line_count = layout.lineCount()
-            line = layout.lineAt(line_count - 1)
-            if line_count < 1:
-                return
-            offset = self._editor.contentOffset()
-            top = self._editor.blockBoundingGeometry(block).translated(
-                offset).top()
-            line_rect = line.naturalTextRect().translated(offset.x(), top)
-            painter = QPainter(self._editor.viewport())
-            painter.setPen(self._color)
-            painter.drawLine(
-                line_rect.x(),
-                line_rect.y() + self._editor.fontMetrics().height() + 5,
-                self._editor.width(),
-                line_rect.y() + self._editor.fontMetrics().height() + 5
-            )
+            self._editor.currentLineChanged.disconnect(
+                self._highlight_full_mode)
+
+    def _paint_line_mode(self, event):
+        block = self._editor.textCursor().block()
+        layout = block.layout()
+        line_count = layout.lineCount()
+        line = layout.lineAt(line_count - 1)
+        if line_count < 1:
+            return
+        offset = self._editor.contentOffset()
+        top = self._editor.blockBoundingGeometry(block).translated(
+            offset).top()
+        line_rect = line.naturalTextRect().translated(offset.x(), top)
+        painter = QPainter(self._editor.viewport())
+        painter.setPen(self._color)
+        painter.drawLine(
+            line_rect.x(),
+            line_rect.y() + self._editor.fontMetrics().height() + 5,
+            self._editor.width(),
+            line_rect.y() + self._editor.fontMetrics().height() + 5
+        )
+
+    def _highlight_full_mode(self):
+        selection = ExtraSelection(self._editor.textCursor())
+        selection.set_full_width()
+        selection.set_background(self._color)
+        self._editor.extra_selections['current_line'] = selection
