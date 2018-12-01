@@ -15,27 +15,35 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt5.QtGui import (
-    QColor,
-    QPainter,
-    QPen,
-    QFontMetrics
-)
-from PyQt5.QtCore import Qt, QSize, QRect
-from ninja_ide.gui.editor import side_area
+from PyQt5.QtGui import QColor
+from PyQt5.QtGui import QPainter
+from PyQt5.QtGui import QPen
+from PyQt5.QtGui import QFontMetrics
+from PyQt5.QtGui import QFontMetricsF
+
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QSize
+
+from ninja_ide.gui.editor.side_area import SideWidget
 from ninja_ide import resources
 
 
-class LineNumberWidget(side_area.SideWidget):
+class LineNumberWidget(SideWidget):
     """
     Line number area Widget
     """
     LEFT_MARGIN = 5
     RIGHT_MARGIN = 3
 
-    def __init__(self):
-        side_area.SideWidget.__init__(self)
-        self.__selecting = False
+    def on_enabled(self):
+        self._editor.zoomChanged.connect(
+            self._editor.side_widgets.update_viewport)
+
+    def on_disabled(self):
+        self._editor.zoomChanged.disconnect(
+            self._editor.side_widgets.update_viewport)
+
+    def initialize(self):
         self._color_unselected = QColor(
             resources.COLOR_SCHEME.get('editor.sidebar.foreground'))
         self._color_selected = QColor(
@@ -48,23 +56,22 @@ class LineNumberWidget(side_area.SideWidget):
         super().paintEvent(event)
         painter = QPainter(self)
         width = self.width() - self.RIGHT_MARGIN - self.LEFT_MARGIN
-        height = self._neditor.fontMetrics().height()
-        font = self._neditor.font()
-        font_bold = self._neditor.font()
+        height = QFontMetricsF(self._editor.document().defaultFont()).height()
+        font = self._editor.document().defaultFont()
+        font_bold = self._editor.document().defaultFont()
         font_bold.setBold(True)
         pen = QPen(self._color_unselected)
         painter.setPen(pen)
         painter.setFont(font)
-        sel_start, sel_end = self._neditor.selection_range()
+        sel_start, sel_end = self._editor.selection_range()
         has_sel = sel_start != sel_end
-        current_line, _ = self._neditor.cursor_position
+        current_line, _ = self._editor.cursor_position
         # Draw visible blocks
-        for top, line, block in self._neditor.visible_blocks:
+        for top, line, block in self._editor.visible_blocks:
             # Set bold to current line and selected lines
             if ((has_sel and sel_start <= line <= sel_end) or
                     (not has_sel and current_line == line)):
-                painter.fillRect(
-                    QRect(0, top, self.width(), height), self._color_selected)
+                painter.setFont(font_bold)
             else:
                 painter.setPen(pen)
                 painter.setFont(font)
@@ -72,27 +79,27 @@ class LineNumberWidget(side_area.SideWidget):
                              Qt.AlignRight, str(line + 1))
 
     def __calculate_width(self):
-        digits = len(str(max(1, self._neditor.blockCount())))
+        digits = len(str(max(1, self._editor.blockCount())))
         fmetrics_width = QFontMetrics(
-            self._neditor.document().defaultFont()).width('9')
+            self._editor.document().defaultFont()).width('9')
 
         return self.LEFT_MARGIN + fmetrics_width * digits + self.RIGHT_MARGIN
 
     def mousePressEvent(self, event):
         self.__selecting = True
         self.__selection_start_pos = event.pos().y()
-        start = end = self._neditor.line_from_position(
+        start = end = self._editor.line_from_position(
             self.__selection_start_pos)
         self.__selection_start_line = start
-        self._neditor.select_lines(start, end)
+        self._editor.select_lines(start, end)
 
     def mouseMoveEvent(self, event):
         if self.__selecting:
             end_pos = event.pos().y()
-            end_line = self._neditor.line_from_position(end_pos)
+            end_line = self._editor.line_from_position(end_pos)
             if end_line == -1:
                 return
-            self._neditor.select_lines(self.__selection_start_line, end_line)
+            self._editor.select_lines(self.__selection_start_line, end_line)
 
     def wheelEvent(self, event):
-        self._neditor.wheelEvent(event)
+        self._editor.wheelEvent(event)

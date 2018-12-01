@@ -15,14 +15,22 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from collections import OrderedDict
+from ninja_ide.tools.logger import NinjaLogger
+
+logger = NinjaLogger(__name__)
+
+# FIXME: width property
 
 
-class SideWidgetManager(object):
+class UnknownSideWidgetError(Exception):
+    pass
+
+
+class SideWidgetManager:
     """Manages side widgets"""
 
     def __init__(self, neditor):
-        self.__widgets = OrderedDict()
+        self.__widgets = {}
         self._neditor = neditor
         self.__width = 0
 
@@ -31,7 +39,7 @@ class SideWidgetManager(object):
 
     def add(self, Widget):
         """Installs a widget on left area of the editor"""
-
+        logger.debug('Installing side widget: %s', Widget.__name__)
         widget_obj = Widget()
         self.__widgets[widget_obj.object_name] = widget_obj
         widget_obj.register(self._neditor)
@@ -40,14 +48,17 @@ class SideWidgetManager(object):
 
     def get(self, object_name):
         """Returns a side widget instance"""
-
-        return self.__widgets.get(object_name)
+        widget = self.__widgets.get(object_name)
+        if widget is None:
+            logger.error('Side widget %s doesn\'t exists', object_name)
+            raise UnknownSideWidgetError('%s' % object_name)
+        return widget
 
     def remove(self, object_name):
+        logger.debug('Removing side widget: %s', object_name)
         widget = self.get(object_name)
         del self.__widgets[object_name]
-        # widget.hide()
-        widget.setParent(None)
+        widget.unregister()
         widget.deleteLater()
 
     def _update(self):

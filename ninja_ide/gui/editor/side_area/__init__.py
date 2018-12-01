@@ -24,45 +24,28 @@ from PyQt5.QtGui import QPainter
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtCore import QPoint
 
+from ninja_ide.gui.editor.features import Feature
+
 from ninja_ide import resources
 
 
-class SideWidget(QWidget):
-    """
-    Base class for editor side widgets
-    """
+class SideWidget(Feature, QWidget):
 
     sidebarContextMenuRequested = pyqtSignal(int, QMenu)
 
     def __init__(self):
+        Feature.__init__(self)
         QWidget.__init__(self)
         self.object_name = self.__class__.__name__
         self.order = -1
 
-    def register(self, neditor):
-        """Set the NEditor instance as the parent widget
+    def register(self, editor):
+        super().register(editor)
+        self.setParent(editor)
 
-        When override this method, call super!
-        """
-        self.setParent(neditor)
-        self._neditor = neditor
-        self.on_register()
-
-    def on_register(self):
-        pass
-
-    def paintEvent(self, event):
-        if self.isVisible():
-            background_color = QColor(
-                resources.COLOR_SCHEME.get("editor.sidebar.background"))
-                # resources.get_color('SidebarBackground'))
-            painter = QPainter(self)
-            painter.fillRect(event.rect(), background_color)
-
-    def setVisible(self, value):
-        """Show/Hide the widget"""
-        QWidget.setVisible(self, value)
-        self._neditor.side_widgets.update_viewport()
+    def unregister(self):
+        super().unregister()
+        self.setParent(None)
 
     def contextMenuEvent(self, event):
         cursor = self._neditor.cursorForPosition(QPoint(0, event.pos().y()))
@@ -72,3 +55,25 @@ class SideWidget(QWidget):
             menu.exec_(event.globalPos())
         menu.deleteLater()
         event.accept()
+
+    def paintEvent(self, event):
+        if self.isVisible():
+            background_color = QColor(
+                resources.COLOR_SCHEME.get("editor.sidebar.background"))
+            painter = QPainter(self)
+            painter.fillRect(event.rect(), background_color)
+
+    def setVisible(self, value):
+        """Show/Hide the widget"""
+        QWidget.setVisible(self, value)
+        # self._editor.side_widgets.update_viewport()
+
+
+from ninja_ide.gui.editor.side_area.manager import SideWidgetManager  # noqa
+from ninja_ide.gui.editor.side_area.line_number_widget import LineNumberWidget  # noqa
+
+__all__ = [
+    'SideWidget',
+    'SideWidgetManager',
+    'LineNumberWidget'
+]
