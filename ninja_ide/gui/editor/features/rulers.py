@@ -41,7 +41,7 @@ class Ruler(Feature):
         self._editor.painted.disconnect(self._draw)
 
     def initialize(self):
-        self.__positions = [79, 130]
+        self.__positions = [79]
         self.color.background = 'white'
 
     def _draw(self, event):
@@ -52,5 +52,7 @@ class Ruler(Feature):
         offset = self._editor.contentOffset().x() + doc_margin
         rect = self._editor.viewport().rect()
         for pos in self.__positions:
+            if pos <= 0 or pos >= rect.width():
+                continue
             x = round(metrics.width(' ') * pos) + offset
             painter.drawLine(x, rect.top(), x, rect.bottom())
