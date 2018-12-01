@@ -116,10 +116,12 @@ class _Color:
 from ninja_ide.gui.editor.features.manager import FeatureManager  # noqa
 from ninja_ide.gui.editor.features.current_line import CurrentLine  # noqa
 from ninja_ide.gui.editor.features.braces import AutocompleteBraces  # noqa
+from ninja_ide.gui.editor.features.rulers import Ruler  # noqa
 
 __all__ = [
     'Feature',
     'FeatureManager',
     'CurrentLine',
-    'AutocompleteBraces'
+    'AutocompleteBraces',
+    'Ruler'
 ]
