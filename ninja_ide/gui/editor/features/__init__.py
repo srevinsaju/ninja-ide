@@ -51,8 +51,8 @@ class Feature:
         self.enabled = True
 
     def unregister(self):
-        self._editor = None
         self.enabled = False
+        self._editor = None
 
     def _state_changed(self, state: bool):
         if state:
@@ -111,3 +111,13 @@ class _Color:
         self._foreground_color = QColor('white')
         self._background_color = QColor('black')
         self._alpha = 255
+
+
+from ninja_ide.gui.editor.features.manager import FeatureManager  # noqa
+from ninja_ide.gui.editor.features.current_line import CurrentLine  # noqa
+
+__all__ = [
+    'Feature',
+    'FeatureManager',
+    'CurrentLine'
+]
