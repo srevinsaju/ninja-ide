@@ -71,9 +71,11 @@ class SideWidget(Feature, QWidget):
 
 from ninja_ide.gui.editor.side_area.manager import SideWidgetManager  # noqa
 from ninja_ide.gui.editor.side_area.line_number_widget import LineNumberWidget  # noqa
+from ninja_ide.gui.editor.side_area.text_change_widget import TextChangeWidget  # noqa
 
 __all__ = [
     'SideWidget',
     'SideWidgetManager',
-    'LineNumberWidget'
+    'LineNumberWidget',
+    'TextChangeWidget'
 ]
