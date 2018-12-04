@@ -26,7 +26,7 @@ from PyQt5.QtCore import (
 class NSettings(QSettings):
     """Extend QSettings to emit a signal when a value change."""
 
-    valueChanged = pyqtSignal("QString", "PyQt_PyObject")
+    valueChanged = pyqtSignal(str, object)
 
     def __init__(self, path, fformat=QSettings.IniFormat):
         super().__init__(path, fformat)
@@ -43,7 +43,7 @@ class NSettings(QSettings):
     @signals:
     valueChanged(QString, PyQt_PyObject)
     """
-    valueChanged = pyqtSignal('PyQt_PyObject', 'QString', 'PyQt_PyObject')
+    valueChanged = pyqtSignal(object, str, object)
 
     def __init__(self, path, obj=None, fformat=QSettings.IniFormat, prefix=''):
         super(NSettings, self).__init__(path, fformat)

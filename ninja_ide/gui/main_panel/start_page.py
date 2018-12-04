@@ -58,7 +58,7 @@ class StartPage(QWidget):
         self.root.newFile.connect(lambda: self.newFile.emit())
         self.load_items()
 
-    @pyqtSlot('QString')
+    @pyqtSlot(str)
     def _open_project(self, path):
         projects_explorer = IDE.get_service("projects_explorer")
         projects_explorer.open_project_folder(path)
@@ -77,9 +77,9 @@ class StartPage(QWidget):
         self.root.forceActiveFocus()
         """
         # Connections
-        self.root.openProject['QString'].connect(self._open_project)
-        self.root.removeProject['QString'].connect(self._on_click_on_delete)
-        self.root.markAsFavorite['QString',
+        self.root.openProject[str].connect(self._open_project)
+        self.root.removeProject[str].connect(self._on_click_on_delete)
+        self.root.markAsFavorite[str,
                                  bool].connect(self._on_click_on_favorite)
         self.root.openPreferences.connect(
             lambda: self.openPreferences.emit())

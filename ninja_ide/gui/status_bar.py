@@ -126,7 +126,7 @@ class _StatusBar(QWidget):
 class SearchWidget(QWidget):
     """Search widget component, search for text inside the editor"""
 
-    highlightResultsRequested = pyqtSignal("PyQt_PyObject")
+    highlightResultsRequested = pyqtSignal(object)
 
     def __init__(self, parent=None):
         super().__init__(parent)

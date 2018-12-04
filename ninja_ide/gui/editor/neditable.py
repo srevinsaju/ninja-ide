@@ -33,14 +33,14 @@ class NEditable(QObject):
     @fileClosing(PyQt_PyObject)
     @fileSaved(PyQt_PyObject)
     """
-    fileSaved = pyqtSignal('PyQt_PyObject')
-    fileLoaded = pyqtSignal(['PyQt_PyObject'], [str])
-    canBeRecovered = pyqtSignal('PyQt_PyObject')
-    fileRemoved = pyqtSignal('PyQt_PyObject')
-    fileChanged = pyqtSignal('PyQt_PyObject')
-    fileClosing = pyqtSignal('PyQt_PyObject')
-    askForSaveFileClosing = pyqtSignal('PyQt_PyObject')
-    checkersUpdated = pyqtSignal('PyQt_PyObject')
+    fileSaved = pyqtSignal(object)
+    fileLoaded = pyqtSignal([object], [str])
+    canBeRecovered = pyqtSignal(object)
+    fileRemoved = pyqtSignal(object)
+    fileChanged = pyqtSignal(object)
+    fileClosing = pyqtSignal(object)
+    askForSaveFileClosing = pyqtSignal(object)
+    checkersUpdated = pyqtSignal(object)
 
     def __init__(self, nfile=None):
         super(NEditable, self).__init__()
@@ -60,7 +60,7 @@ class NEditable(QObject):
 
         # Connect signals
         if self._nfile:
-            self._nfile.fileClosing['QString',
+            self._nfile.fileClosing[str,
                                     bool].connect(self._about_to_close_file)
             self._nfile.fileChanged.connect(
                 lambda: self.fileChanged.emit(self))

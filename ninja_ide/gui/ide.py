@@ -414,7 +414,7 @@ class IDE(QMainWindow):
         editable = self.__neditables.get(nfile)
         if editable is None:
             editable = neditable.NEditable(nfile)
-            editable.fileClosing['PyQt_PyObject'].connect(
+            editable.fileClosing[object].connect(
                 self._unload_neditable)
             self.__neditables[nfile] = editable
         return editable
@@ -671,9 +671,9 @@ class IDE(QMainWindow):
     #    qsettings = nsettings.NSettings(resources.SETTINGS_PATH, qobject,
     #                                    prefix="ns")
     #    if cls.__created:
-    #        qsettings.valueChanged['PyQt_PyObject',
-    #                               'QString',
-    #                               'PyQt_PyObject'].connect(
+    #        qsettings.valueChanged[object,
+    #                               str,
+    #                               object].connect(
     #                                   cls.__instance._settings_value_changed)
     #    return qsettings
 
@@ -682,9 +682,9 @@ class IDE(QMainWindow):
     #    qsettings = nsettings.NSettings(resources.DATA_SETTINGS_PATH,
     #                                    prefix="ds")
     #    if cls.__created:
-    #        qsettings.valueChanged['PyQt_PyObject',
-    #                               'QString',
-    #                               'PyQt_PyObject'].connect(
+    #        qsettings.valueChanged[object,
+    #                               str,
+    #                               object].connect(
     #                                   cls.__instance._settings_value_changed)
     #    return qsettings
 

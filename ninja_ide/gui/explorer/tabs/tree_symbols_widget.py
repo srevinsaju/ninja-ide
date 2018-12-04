@@ -43,8 +43,8 @@ from ninja_ide.tools import ui_tools
 class TreeSymbolsWidget(QDialog):
     """ Class of Dialog for Tree Symbols """
 
-    dockWidget = pyqtSignal('PyQt_PyObject')
-    undockWidget = pyqtSignal('PyQt_PyObject')
+    dockWidget = pyqtSignal(object)
+    undockWidget = pyqtSignal(object)
 
     def __init__(self, parent=None):
         super(TreeSymbolsWidget, self).__init__(parent)

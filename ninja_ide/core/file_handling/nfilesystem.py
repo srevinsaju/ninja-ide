@@ -31,8 +31,8 @@ logger = NinjaLogger('ninja_ide.core.file_handling.nfilesystem')
 
 class NVirtualFileSystem(QObject):
     # Signals
-    projectOpened = pyqtSignal('QString')
-    projectClosed = pyqtSignal('QString')
+    projectOpened = pyqtSignal(str)
+    projectClosed = pyqtSignal(str)
 
     def __init__(self, *args, **kwargs):
         self.__tree = {}
@@ -101,7 +101,7 @@ class NVirtualFileSystem(QObject):
             del self.__watchables[nfile_path]
 
     def __add_file(self, nfile):
-        nfile.fileClosing['QString', bool].connect(self.__closed_file)
+        nfile.fileClosing[str, bool].connect(self.__closed_file)
         # nfile.willMove.connect(lambda _, old, new: self.__closed_file(old))
         existing_paths = sorted(list(self.__projects.keys()), reverse=True)
         self.__tree[nfile.file_path] = nfile
@@ -123,9 +123,9 @@ class NVirtualFileSystem(QObject):
             nfile = self.__tree[nfile_path]
         else:
             nfile = NFile()
-            nfile.saveAsNewFile['PyQt_PyObject',
-                                'QString',
-                                'QString'].connect(self.__file_copied)
+            nfile.saveAsNewFile[object,
+                                str,
+                                str].connect(self.__file_copied)
         return nfile
 
     def __file_copied(self, nfile, old_path, new_path):

@@ -66,9 +66,9 @@ MAX_RECENT_PROJECTS = 10
 class ProjectTreeColumn(QDialog):
 
     # Signalsnproject =
-    dockWidget = pyqtSignal('PyQt_PyObject')
+    dockWidget = pyqtSignal(object)
     undockWidget = pyqtSignal()
-    changeTitle = pyqtSignal('PyQt_PyObject', 'QString')
+    changeTitle = pyqtSignal(object, str)
     updateLocator = pyqtSignal()
     activeProjectChanged = pyqtSignal()
 
@@ -266,7 +266,7 @@ class ProjectTreeColumn(QDialog):
             self._combo_project.setItemData(index, project)
             ptree = TreeProjectsWidget(project)
             self._projects_area.addWidget(ptree)
-            ptree.closeProject['PyQt_PyObject'].connect(self._close_project)
+            ptree.closeProject[object].connect(self._close_project)
             pmodel = project.model
             ptree.setModel(pmodel)
             pindex = pmodel.index(pmodel.rootPath())
@@ -458,7 +458,7 @@ class ProjectTreeColumn(QDialog):
 class TreeProjectsWidget(QTreeView):
 
     # Signals
-    closeProject = pyqtSignal('PyQt_PyObject')
+    closeProject = pyqtSignal(object)
     """
     runProject()
     setActiveProject(PyQt_PyObject)

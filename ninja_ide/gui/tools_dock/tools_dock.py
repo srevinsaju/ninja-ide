@@ -423,7 +423,7 @@ from ninja_ide.gui.theme import NTheme
 class _ToolsDock(ui_tools.StyledBar):
     """Former Miscellaneous, contains all the widgets in the bottom area."""
 
-    projectExecuted = pyqtSignal('QString')
+    projectExecuted = pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(_ToolsDock, self).__init__(parent)

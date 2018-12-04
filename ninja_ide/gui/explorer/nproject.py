@@ -20,7 +20,7 @@ class NProject(QObject):
     SIGNALS:
     @projectPropertiesUpdated()
     """
-    projectNameUpdated = pyqtSignal('QString')
+    projectNameUpdated = pyqtSignal(str)
 
     def __init__(self, path):
         super(NProject, self).__init__()

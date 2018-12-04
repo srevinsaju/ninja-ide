@@ -459,7 +459,7 @@ class OutputWidget(QPlainTextEdit):
 
     """Widget to handle the output of the running process"""
 
-    inputRequested = pyqtSignal("QString")
+    inputRequested = pyqtSignal(str)
 
     class Format:
         NORMAL = "NORMAL"

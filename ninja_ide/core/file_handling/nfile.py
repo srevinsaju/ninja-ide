@@ -66,14 +66,14 @@ class NFile(QObject):
     fileChanged = pyqtSignal()
     fileRemoved = pyqtSignal()
     fileReaded = pyqtSignal()
-    willAttachToExistingFile = pyqtSignal('PyQt_PyObject', 'QString')
-    gotAPath = pyqtSignal('PyQt_PyObject')
-    willSave = pyqtSignal('QString', 'QString')
-    willMove = pyqtSignal('PyQt_PyObject', 'QString', 'QString')
-    willOverWrite = pyqtSignal('PyQt_PyObject', 'QString', 'QString')
-    willCopyTo = pyqtSignal('PyQt_PyObject', 'QString', 'QString')
-    willDelete = pyqtSignal('PyQt_PyObject', 'PyQt_PyObject')
-    fileClosing = pyqtSignal('QString', bool)
+    willAttachToExistingFile = pyqtSignal(object, str)
+    gotAPath = pyqtSignal(object)
+    willSave = pyqtSignal(str, str)
+    willMove = pyqtSignal(object, str, str)
+    willOverWrite = pyqtSignal(object, str, str)
+    willCopyTo = pyqtSignal(object, str, str)
+    willDelete = pyqtSignal(object, object)
+    fileClosing = pyqtSignal(str, bool)
 
     def __init__(self, path=None):
         """

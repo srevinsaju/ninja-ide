@@ -90,8 +90,8 @@ situations thanks to its rich extensibility.""")))
         vbox.addLayout(hbox2)
 
         # FIXME: setOpenExternalLinks on labels
-        link_ninja.linkActivated['QString'].connect(self.link_activated)
-        link_source.linkActivated['QString'].connect(self.link_activated)
+        link_ninja.linkActivated[str].connect(self.link_activated)
+        link_source.linkActivated[str].connect(self.link_activated)
         btn_close.clicked.connect(self.close)
 
     def link_activated(self, link):

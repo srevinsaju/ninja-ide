@@ -42,11 +42,11 @@ class MainService(QObject):
     """
     # SIGNALS
     editorKeyPressEvent = pyqtSignal("QEvent")
-    beforeFileSaved = pyqtSignal("QString")
-    fileSaved = pyqtSignal("QString")
-    currentTabChanged = pyqtSignal("QString")
-    fileExecuted = pyqtSignal("QString")
-    fileOpened = pyqtSignal("QString")
+    beforeFileSaved = pyqtSignal(str)
+    fileSaved = pyqtSignal(str)
+    currentTabChanged = pyqtSignal(str)
+    fileExecuted = pyqtSignal(str)
+    fileOpened = pyqtSignal(str)
 
     def __init__(self):
         QObject.__init__(self)
@@ -363,8 +363,8 @@ class MenuAppService(QObject):
 
 class ExplorerService(QObject):
     # SIGNALS
-    projectOpened = pyqtSignal("QString")
-    projectExecuted = pyqtSignal("QString")
+    projectOpened = pyqtSignal(str)
+    projectExecuted = pyqtSignal(str)
 
     def __init__(self):
         QObject.__init__(self)

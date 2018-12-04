@@ -41,7 +41,7 @@ class SplitOrientation(QDialog):
 
         short_esc = QShortcut(QKeySequence(Qt.Key_Escape), self)
         short_esc.activated.connect(self.hide)
-        self._root.selected['QString'].connect(self._split_operation)
+        self._root.selected[str].connect(self._split_operation)
 
     def _split_operation(self, orientation):
         main_container = IDE.get_service("main_container")

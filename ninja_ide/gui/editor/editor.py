@@ -20,6 +20,7 @@ from PyQt5.QtWidgets import QToolTip
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtGui import QPaintEvent
+from PyQt5.QtGui import QKeyEvent
 from PyQt5.QtGui import QFontMetrics
 
 from PyQt5.QtCore import pyqtSignal
@@ -32,7 +33,15 @@ from ninja_ide.gui.editor import scrollbar
 from ninja_ide.gui.editor import indenter
 
 from ninja_ide.gui.editor.extra_selection import ExtraSelection
+from ninja_ide.gui.editor.features import FeatureManager
+from ninja_ide.gui.editor.features import CurrentLine
+from ninja_ide.gui.editor.features import AutocompleteBraces
+from ninja_ide.gui.editor.features import Ruler
+from ninja_ide.gui.editor.features import SymbolHighlighter
+from ninja_ide.gui.editor.features import Quotes
 
+from ninja_ide.gui.editor.side_area import SideWidgetManager
+from ninja_ide.gui.editor.side_area import TextChangeWidget
 
 _MAX_CHECKER_SELECTIONS = 150  # For good performance
 
@@ -42,6 +51,8 @@ class NEditor(CodeEditor):
     positionChanged = pyqtSignal(int, int)
     currentLineChanged = pyqtSignal(int)
     painted = pyqtSignal(QPaintEvent)
+    keyPressed = pyqtSignal(QKeyEvent)
+    postKeyPressed = pyqtSignal(QKeyEvent)
 
     def __init__(self, neditable=None):
         super().__init__()
@@ -54,11 +65,17 @@ class NEditor(CodeEditor):
 
         # Extra selection manager
         self._extra_selections = ExtraSelectionManager(self)
+        # Feature manager
+        self._features = FeatureManager(self)
 
-        from ninja_ide.gui.editor.features import current_line
-        self.ee = current_line.CurrentLine()
-        self.ee.register(self)
+        self._features.install(CurrentLine)
+        self._features.install(AutocompleteBraces)
+        self._features.install(Ruler)
+        self._features.install(SymbolHighlighter)
+        self._features.install(Quotes)
 
+        from ninja_ide.gui.editor.side_area import LineNumberWidget
+        self._side_widgets = SideWidgetManager(self)
         # Custom scrollbar
         self._scrollbar = scrollbar.NScrollBar(self)
         self.setVerticalScrollBar(self._scrollbar)
@@ -69,6 +86,9 @@ class NEditor(CodeEditor):
             else:
                 self._neditable.set_editor(self)
             self._neditable.checkersUpdated.connect(self._highlight_checkers)
+
+        self._side_widgets.add(LineNumberWidget)
+        self._side_widgets.add(TextChangeWidget)
 
         self.cursorPositionChanged.connect(self._on_cursor_position_changed)
         self.currentLineChanged.connect(self.viewport().update)
@@ -102,6 +122,14 @@ class NEditor(CodeEditor):
     @property
     def extra_selections(self):
         return self._extra_selections
+
+    @property
+    def features(self):
+        return self._features
+
+    @property
+    def side_widgets(self):
+        return self._side_widgets
 
     def _highlight_checkers(self, editable):
         """Highlight errors, warnings..."""
@@ -158,6 +186,8 @@ class NEditor(CodeEditor):
         if self.isReadOnly():
             return
         event.ignore()
+        # Emit a signal so that plugins can do their thing
+        self.keyPressed.emit(event)
 
         if event.matches(QKeySequence.InsertParagraphSeparator):
             cursor = self.textCursor()
@@ -171,6 +201,8 @@ class NEditor(CodeEditor):
                     event.accept()
         if not event.isAccepted():
             super().keyPressEvent(event)
+
+        self.postKeyPressed.emit(event)
 
     def __smart_backspace(self):
         accepted = False
@@ -214,6 +246,8 @@ class NEditor(CodeEditor):
     def resizeEvent(self, event):
         super().resizeEvent(event)
         self.adjust_scrollbar_ranges()
+        self._side_widgets.resize()
+        self._side_widgets.update_viewport()
 
     def paintEvent(self, event):
         super().paintEvent(event)
@@ -252,6 +286,9 @@ class NEditor(CodeEditor):
         self._scrollbar.set_visible_range(
             (self.viewport().rect().height() - offset) / line_spacing)
         self._scrollbar.set_range_offset(offset / line_spacing)
+
+    def link(self, clone):
+        pass
 
 
 class ExtraSelectionManager:

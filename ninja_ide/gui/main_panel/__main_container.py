@@ -95,11 +95,11 @@ class _MainContainer(QWidget):
 
 ###############################################################################
 
-    fileOpened = pyqtSignal('QString')
-    updateLocator = pyqtSignal('QString')
-    currentEditorChanged = pyqtSignal('QString')
-    beforeFileSaved = pyqtSignal('QString')
-    fileSaved = pyqtSignal('QString')
+    fileOpened = pyqtSignal(str)
+    updateLocator = pyqtSignal(str)
+    currentEditorChanged = pyqtSignal(str)
+    beforeFileSaved = pyqtSignal(str)
+    fileSaved = pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(_MainContainer, self).__init__(parent)
@@ -130,8 +130,8 @@ class _MainContainer(QWidget):
             1: self._navigate_bookmarks,
             2: self._navigate_breakpoints}
 
-        # self.locateFunction['QString',
-        #                    'QString',
+        # self.locateFunction[str,
+        #                    str,
         #                    bool].connect(self.locate_function)
 
         IDE.register_service('main_container', self)
@@ -190,7 +190,7 @@ class _MainContainer(QWidget):
         # self.selector.ready.connect(self._selector_ready)
         self.selector.animationCompleted.connect(
             self._selector_animation_completed)
-        # self.closeDialog['PyQt_PyObject'].connect(self.remove_widget)
+        # self.closeDialog[object].connect(self.remove_widget)
 
     def install(self):
         ide = IDE.get_service('ide')

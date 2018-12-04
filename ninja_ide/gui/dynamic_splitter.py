@@ -25,7 +25,7 @@ from ninja_ide.gui.main_panel import combo_editor
 
 class DynamicSplitter(QSplitter):
 
-    closeDynamicSplit = pyqtSignal("PyQt_PyObject", "PyQt_PyObject")
+    closeDynamicSplit = pyqtSignal(object, object)
     needUpdateSizes = pyqtSignal()
 
     def __init__(self, orientation=Qt.Horizontal):

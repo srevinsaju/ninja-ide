@@ -39,8 +39,8 @@ from ninja_ide.gui.explorer.explorer_container import ExplorerContainer
 
 class ErrorsWidget(QDialog):
 
-    dockWidget = pyqtSignal('PyQt_PyObject')
-    undockWidget = pyqtSignal('PyQt_PyObject')
+    dockWidget = pyqtSignal(object)
+    undockWidget = pyqtSignal(object)
 
     def __init__(self, parent=None):
         super().__init__(parent, Qt.WindowStaysOnTopHint)

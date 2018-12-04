@@ -84,7 +84,7 @@ class AddFileFolderWidget(QDialog):
         self._root.setBasePath(path)
         self.show()
 
-    @pyqtSlot('QString')
+    @pyqtSlot(str)
     def _create(self, path):
         """Open the item received"""
 

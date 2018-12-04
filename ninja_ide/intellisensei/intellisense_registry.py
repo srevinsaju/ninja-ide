@@ -59,7 +59,7 @@ class IntelliSenseWorker(QThread):
 
 class IntelliSense(QObject):
 
-    resultAvailable = pyqtSignal("PyQt_PyObject")
+    resultAvailable = pyqtSignal(object)
 
     services = ("completions", "calltips")
 

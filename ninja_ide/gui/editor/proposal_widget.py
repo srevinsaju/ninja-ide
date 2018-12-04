@@ -282,7 +282,7 @@ class ProposalWidget(QFrame):
     Proposal Widget for display completions and snippets
     """
 
-    proposalItemActivated = pyqtSignal("PyQt_PyObject")
+    proposalItemActivated = pyqtSignal(object)
 
     def __init__(self, parent):
         super().__init__(parent)

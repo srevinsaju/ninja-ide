@@ -61,7 +61,7 @@ from ninja_ide.gui.tools_dock.tools_dock import _ToolsDock
 class FindInFilesWorker(QObject):
 
     finished = pyqtSignal()
-    resultAvailable = pyqtSignal('PyQt_PyObject')
+    resultAvailable = pyqtSignal(object)
 
     def find_in_files(self, dir_name, filters, regexp, recursive):
         """Trigger the find in files thread and return the lines found"""
@@ -199,7 +199,7 @@ class FindInFilesWidget(QWidget):
             # Open the file and jump to line
             self._main_container.open_file(file_name, line=lineno)
 
-    @pyqtSlot('PyQt_PyObject')
+    @pyqtSlot(object)
     def _on_worker_finished(self, lines):
         self.__count += len(lines[-1])
         self._message_frame.show()
@@ -207,7 +207,7 @@ class FindInFilesWidget(QWidget):
             translations.TR_MATCHES_FOUND.format(self.__count))
         self._tree_results.add_result(lines)
 
-    @pyqtSlot('QString', bool, bool, bool)
+    @pyqtSlot(str, bool, bool, bool)
     def _on_search_requested(self, to_find, cs, regex, wo):
         self._clear_results()
         type_ = QRegExp.FixedString
@@ -400,7 +400,7 @@ class SearchResultModel(QAbstractItemModel):
 
 class FindInFilesActions(QWidget):
 
-    searchRequested = pyqtSignal('QString', bool, bool, bool)
+    searchRequested = pyqtSignal(str, bool, bool, bool)
 
     def __init__(self, parent=None):
         super().__init__(parent)

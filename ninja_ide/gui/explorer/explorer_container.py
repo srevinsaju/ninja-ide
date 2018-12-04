@@ -97,7 +97,7 @@ class ExplorerContainer(dynamic_splitter.DynamicSplitter):
         for obj in ExplorerContainer.__TABS:
             tabname, icon = ExplorerContainer.__TABS[obj]
             self.add_tab(tabname, obj, icon)
-            obj.dockWidget['PyQt_PyObject'].connect(self._dock_widget)
+            obj.dockWidget[object].connect(self._dock_widget)
             obj.undockWidget.connect(self._undock_widget)
             if hasattr(obj, "changeTitle"):
                 obj.changeTitle.connect(self._change_tab_title)

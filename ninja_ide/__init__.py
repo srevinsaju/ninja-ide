@@ -46,7 +46,7 @@ and more enjoyable.
 ###############################################################################
 
 # import sip
-# API_NAMES = ["QDate", "QDateTime", "QString", "QTime", "QUrl", "QTextStream",
+# API_NAMES = ["QDate", "QDateTime", str, "QTime", "QUrl", "QTextStream",
 #             "QVariant"]
 # API_VERSION = 2
 # for name in API_NAMES:

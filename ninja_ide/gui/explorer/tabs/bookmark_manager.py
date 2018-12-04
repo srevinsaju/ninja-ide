@@ -46,8 +46,8 @@ from ninja_ide.gui.main_panel.marks import Bookmark
 class BookmarkWidget(QWidget):
     """Bookmark Widget showing list of bookmarks in explorer container"""
 
-    dockWidget = pyqtSignal('PyQt_PyObject')
-    undockWidget = pyqtSignal('PyQt_PyObject')
+    dockWidget = pyqtSignal(object)
+    undockWidget = pyqtSignal(object)
     dataChanged = pyqtSignal()
 
     def __init__(self, parent=None):

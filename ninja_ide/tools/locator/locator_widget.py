@@ -99,8 +99,8 @@ class LocatorWidget(QDialog):
             '/': self._filter_tabs,
             ':': self._filter_lines
         }
-        self._root.textChanged['QString'].connect(self.set_prefix)
-        self._root.open['QString', int].connect(self._open_item)
+        self._root.textChanged[str].connect(self.set_prefix)
+        self._root.open[str, int].connect(self._open_item)
         self._root.fetchMore.connect(self._fetch_more)
 
     def reset_values(self):

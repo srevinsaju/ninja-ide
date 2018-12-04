@@ -60,8 +60,8 @@ class TrayIconUpdates(QSystemTrayIcon):
             self.thread = QThread()
             self.worker_updates = WorkerUpdates()
             self.worker_updates.moveToThread(self.thread)
-            self.worker_updates.versionReceived['QString',
-                                                'QString'].connect(
+            self.worker_updates.versionReceived[str,
+                                                str].connect(
                                                     self._show_messages)
             self.thread.started.connect(self.worker_updates.check_version)
             self.worker_updates.finished.connect(self.__on_worker_finished)
@@ -128,7 +128,7 @@ class TrayIconUpdates(QSystemTrayIcon):
 
 class WorkerUpdates(QObject):
     # Signals
-    versionReceived = pyqtSignal('QString', 'QString')
+    versionReceived = pyqtSignal(str, str)
     finished = pyqtSignal()
 
     def __init__(self):

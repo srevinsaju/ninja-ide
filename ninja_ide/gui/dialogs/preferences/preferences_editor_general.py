@@ -314,7 +314,7 @@ class EditorGeneral(QWidget):
             self._listScheme.addItem(item)
         items = self._listScheme.findItems(
             qsettings.value('scheme', defaultValue='',
-                            type='QString'), Qt.MatchExactly)
+                            type=str), Qt.MatchExactly)
         if items:
             self._listScheme.setCurrentItem(items[0])
         else:
@@ -563,7 +563,7 @@ Layout(self)
             self._listScheme.addItem(item)
         items = self._listScheme.findItems(
             qsettings.value('scheme', defaultValue='',
-                            type='QString'), Qt.MatchExactly)
+                            type=str), Qt.MatchExactly)
         if items:
             self._listScheme.setCurrentItem(items[0])
         else:

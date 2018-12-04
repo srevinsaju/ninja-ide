@@ -533,7 +533,7 @@ def load_settings():
     # TOOLBAR_AREA = qsettings.value('preferences/general/toolbarArea', 1,
     #                               type=int)
     # LANGUAGE = qsettings.value('preferences/interface/language', '',
-    #                           type='QString')
+    #                           type=str)
     # SHOW_START_PAGE = qsettings.value(
     #    'preferences/general/showStartPage', True, type=bool)
     # CONFIRM_EXIT = qsettings.value('preferences/general/confirmExit',
@@ -723,7 +723,7 @@ def load_settings():
     # NOTIFICATION_POSITION = qsettings.value(
     #    'interface/notification_position', 1, type=int)
     # NOTIFICATION_COLOR = qsettings.value(
-    #    'preferences/general/notification_color', "#222", type='QString')
+    #    'preferences/general/notification_color', "#222", type=str)
     LAST_CLEAN_LOCATOR = qsettings.value("ide/cleanLocator", None)
     from ninja_ide.extensions import handlers
     handlers.init_basic_handlers()

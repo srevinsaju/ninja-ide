@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
-
+from collections import OrderedDict
 from ninja_ide.tools.logger import NinjaLogger
 
 logger = NinjaLogger(__name__)
@@ -30,7 +30,7 @@ class SideWidgetManager:
     """Manages side widgets"""
 
     def __init__(self, neditor):
-        self.__widgets = {}
+        self.__widgets = OrderedDict()
         self._neditor = neditor
         self.__width = 0
 

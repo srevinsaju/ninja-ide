@@ -57,12 +57,12 @@ from ninja_ide.core.file_handling import file_manager
 
 class ComboEditor(QWidget):
     # Signals
-    closeSplit = pyqtSignal('PyQt_PyObject')
+    closeSplit = pyqtSignal(object)
     splitEditor = pyqtSignal(
-        'PyQt_PyObject', 'PyQt_PyObject', Qt.Orientation)
+        object, object, Qt.Orientation)
     allFilesClosed = pyqtSignal()
     about_to_close_combo_editor = pyqtSignal()
-    fileClosed = pyqtSignal("PyQt_PyObject")
+    fileClosed = pyqtSignal(object)
 
     def __init__(self, original=False):
         super(ComboEditor, self).__init__(None)
@@ -87,24 +87,24 @@ class ComboEditor(QWidget):
         self._main_container = IDE.get_service('main_container')
 
         if not self.__original:
-            self._main_container.fileOpened['QString'].connect(
+            self._main_container.fileOpened[str].connect(
                 self._file_opened_by_main)
 
         self.bar.combo_files.showComboSelector.connect(
             self._main_container.show_files_handler)
         self.bar.combo_files.hideComboSelector.connect(
             self._main_container.hide_files_handler)
-        self.bar.change_current['PyQt_PyObject',
+        self.bar.change_current[object,
                                 int].connect(self._set_current)
         self.bar.splitEditor[bool].connect(self.split_editor)
-        self.bar.runFile['QString'].connect(self._run_file)
+        self.bar.runFile[str].connect(self._run_file)
         self.bar.closeSplit.connect(lambda: self.closeSplit.emit(self))
-        self.bar.addToProject['QString'].connect(self._add_to_project)
-        self.bar.showFileInExplorer['QString'].connect(
+        self.bar.addToProject[str].connect(self._add_to_project)
+        self.bar.showFileInExplorer[str].connect(
             self._show_file_in_explorer)
         self.bar.goToSymbol[int].connect(self._go_to_symbol)
         self.bar.undockEditor.connect(self.undock_editor)
-        self.bar.reopenTab['QString'].connect(
+        self.bar.reopenTab[str].connect(
             lambda path: self._main_container.open_file(path))
         self.bar.closeImageViewer.connect(self._close_image)
         self.bar.code_navigator.previousPressed.connect(self._navigate_code)
@@ -280,7 +280,7 @@ class ComboEditor(QWidget):
             self._main_container.save_file(neditable.editor)
             neditable.nfile.close()
 
-    @pyqtSlot("PyQt_PyObject")
+    @pyqtSlot(object)
     def _recovery(self, neditable):
         print("lalalal")
 
@@ -452,15 +452,15 @@ class ActionBar(QFrame):
     @reopenTab(QString)
     @recentTabsModified()
     """
-    change_current = pyqtSignal('PyQt_PyObject', int)
+    change_current = pyqtSignal(object, int)
     splitEditor = pyqtSignal(bool)
-    runFile = pyqtSignal('QString')
+    runFile = pyqtSignal(str)
     closeSplit = pyqtSignal()
-    addToProject = pyqtSignal('QString')
-    showFileInExplorer = pyqtSignal('QString')
+    addToProject = pyqtSignal(str)
+    showFileInExplorer = pyqtSignal(str)
     goToSymbol = pyqtSignal(int)
     undockEditor = pyqtSignal()
-    reopenTab = pyqtSignal('QString')
+    reopenTab = pyqtSignal(str)
     closeImageViewer = pyqtSignal(int)
     needUpdateFocus = pyqtSignal()
 
