@@ -20,9 +20,9 @@ Render vertical rulers after a certain number of characters.
 Use multiple values for multiple rulers.
 """
 
-from PyQt5.QtGui import QPainter
-from PyQt5.QtGui import QPen
-from PyQt5.QtGui import QFontMetricsF
+from PySide2.QtGui import QPainter
+from PySide2.QtGui import QPen
+from PySide2.QtGui import QFontMetricsF
 
 from ninja_ide.gui.editor.features import Feature
 

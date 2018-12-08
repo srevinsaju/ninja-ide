@@ -3,12 +3,12 @@ import sys
 import os
 import re
 
-from PyQt5.QtGui import QColor
+from PySide2.QtGui import QColor
 
-from PyQt5.QtCore import QObject
-from PyQt5.QtCore import QTimer
-from PyQt5.QtCore import QDir
-from PyQt5.QtCore import QFileInfo
+from PySide2.QtCore import QObject
+from PySide2.QtCore import QTimer
+from PySide2.QtCore import QDir
+from PySide2.QtCore import QFileInfo
 
 from ninja_ide.core.settings import IS_WINDOWS
 

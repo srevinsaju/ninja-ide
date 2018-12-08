@@ -19,9 +19,10 @@ import sys
 import os
 import signal
 
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import QCoreApplication
+from PySide2.QtWidgets import QApplication
+from PySide2.QtGui import QPalette, QColor
+from PySide2.QtCore import Qt
+from PySide2.QtCore import QCoreApplication
 
 from ninja_ide.core import cliparser
 
@@ -59,11 +60,36 @@ def run_ninja():
     QCoreApplication.setAttribute(Qt.AA_EnableHighDpiScaling, settings.HDPI)
     if settings.CUSTOM_SCREEN_RESOLUTION:
         os.environ["QT_SCALE_FACTOR"] = settings.CUSTOM_SCREEN_RESOLUTION
-    from ninja_ide import ninja_style
-    app.setStyle(ninja_style.NinjaStyle(resources.load_theme()))
+    # from ninja_ide import ninja_style
+    theme = resources.load_theme()
+    palette = load_pallete(theme['palette'])
+    app.setPalette(palette)
+    # Stylesheet
+    stylesheet_fname = os.path.join(resources.NINJA_QSS, theme['stylesheet'])
+    with open(stylesheet_fname + '.qss') as fp:
+        qss = fp.read()
+    app.setStyleSheet(qss)
+    # app.setStyle(ninja_style.NinjaStyle(resources.load_theme()))
 
     from ninja_ide import gui
     # Start the UI
     gui.start_ide(app, filenames, projects_path, extra_plugins, linenos)
 
     sys.exit(app.exec_())
+
+
+def load_pallete(theme):
+    qpalette = QPalette()
+    for role, color in theme.items():
+        qcolor = QColor(color)
+        color_group = QPalette.All
+        if role.endswith("Disabled"):
+            role = role.split("Disabled")[0]
+            color_group = QPalette.Disabled
+        elif role.endswith("Inactive"):
+            role = role.split("Inactive")[0]
+            qcolor.setAlpha(90)
+            color_group = QPalette.Inactive
+        color_role = getattr(qpalette, role)
+        qpalette.setBrush(color_group, color_role, qcolor)
+    return qpalette

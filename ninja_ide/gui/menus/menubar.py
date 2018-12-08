@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtWidgets import (
+from PySide2.QtWidgets import (
     QAction,
     QMenu
 )
-from PyQt5.QtCore import QObject
+from PySide2.QtCore import QObject
 from collections import defaultdict
 
 from ninja_ide import translations

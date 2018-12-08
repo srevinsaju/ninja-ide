@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtCore import (
+from PySide2.QtCore import (
     QObject,
     QDir,
-    pyqtSignal
+    Signal
 )
 
 import os
@@ -20,7 +20,7 @@ class NProject(QObject):
     SIGNALS:
     @projectPropertiesUpdated()
     """
-    projectNameUpdated = pyqtSignal(str)
+    projectNameUpdated = Signal(str)
 
     def __init__(self, path):
         super(NProject, self).__init__()

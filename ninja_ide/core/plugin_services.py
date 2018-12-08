@@ -20,7 +20,7 @@ from __future__ import unicode_literals
 
 from PyQt4.QtCore import QObject
 #from PyQt4.QtCore import SIGNAL
-from PyQt4.QtCore import pyqtSignal
+from PyQt4.QtCore import Signal
 
 from ninja_ide.core import settings
 from ninja_ide.core.file_handling import file_manager
@@ -41,12 +41,12 @@ class MainService(QObject):
     Main Interact whith NINJA-IDE
     """
     # SIGNALS
-    editorKeyPressEvent = pyqtSignal("QEvent")
-    beforeFileSaved = pyqtSignal(str)
-    fileSaved = pyqtSignal(str)
-    currentTabChanged = pyqtSignal(str)
-    fileExecuted = pyqtSignal(str)
-    fileOpened = pyqtSignal(str)
+    editorKeyPressEvent = Signal("QEvent")
+    beforeFileSaved = Signal(str)
+    fileSaved = Signal(str)
+    currentTabChanged = Signal(str)
+    fileExecuted = Signal(str)
+    fileOpened = Signal(str)
 
     def __init__(self):
         QObject.__init__(self)
@@ -363,8 +363,8 @@ class MenuAppService(QObject):
 
 class ExplorerService(QObject):
     # SIGNALS
-    projectOpened = pyqtSignal(str)
-    projectExecuted = pyqtSignal(str)
+    projectOpened = Signal(str)
+    projectExecuted = Signal(str)
 
     def __init__(self):
         QObject.__init__(self)

@@ -16,8 +16,8 @@
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 import collections
 
-from PyQt5.QtCore import QObject
-from PyQt5.QtCore import pyqtSignal
+from PySide2.QtCore import QObject
+from PySide2.QtCore import Signal
 
 from ninja_ide.core.file_handling import file_manager
 from ninja_ide.gui.editor import checkers
@@ -33,14 +33,14 @@ class NEditable(QObject):
     @fileClosing(PyQt_PyObject)
     @fileSaved(PyQt_PyObject)
     """
-    fileSaved = pyqtSignal(object)
-    fileLoaded = pyqtSignal([object], [str])
-    canBeRecovered = pyqtSignal(object)
-    fileRemoved = pyqtSignal(object)
-    fileChanged = pyqtSignal(object)
-    fileClosing = pyqtSignal(object)
-    askForSaveFileClosing = pyqtSignal(object)
-    checkersUpdated = pyqtSignal(object)
+    fileSaved = Signal(object)
+    fileLoaded = Signal([object], [str])
+    canBeRecovered = Signal(object)
+    fileRemoved = Signal(object)
+    fileChanged = Signal(object)
+    fileClosing = Signal(object)
+    askForSaveFileClosing = Signal(object)
+    checkersUpdated = Signal(object)
 
     def __init__(self, nfile=None):
         super(NEditable, self).__init__()

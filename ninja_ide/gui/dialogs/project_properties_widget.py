@@ -22,23 +22,23 @@ import os
 import sys
 from getpass import getuser
 
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtWidgets import QAction
-from PyQt5.QtWidgets import QTabWidget
-from PyQt5.QtWidgets import QVBoxLayout
-from PyQt5.QtWidgets import QDialogButtonBox
-from PyQt5.QtWidgets import QDialog
-from PyQt5.QtWidgets import QGridLayout
-from PyQt5.QtWidgets import QLineEdit
-from PyQt5.QtWidgets import QLabel
-from PyQt5.QtWidgets import QCompleter
-from PyQt5.QtWidgets import QDirModel
-from PyQt5.QtWidgets import QPlainTextEdit
-from PyQt5.QtWidgets import QComboBox
-from PyQt5.QtWidgets import QFileDialog
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QSpinBox
-from PyQt5.QtCore import Qt
+from PySide2.QtWidgets import QWidget
+from PySide2.QtWidgets import QAction
+from PySide2.QtWidgets import QTabWidget
+from PySide2.QtWidgets import QVBoxLayout
+from PySide2.QtWidgets import QDialogButtonBox
+from PySide2.QtWidgets import QDialog
+from PySide2.QtWidgets import QGridLayout
+from PySide2.QtWidgets import QLineEdit
+from PySide2.QtWidgets import QLabel
+from PySide2.QtWidgets import QCompleter
+from PySide2.QtWidgets import QDirModel
+from PySide2.QtWidgets import QPlainTextEdit
+from PySide2.QtWidgets import QComboBox
+from PySide2.QtWidgets import QFileDialog
+from PySide2.QtWidgets import QMessageBox
+from PySide2.QtWidgets import QSpinBox
+from PySide2.QtCore import Qt
 
 from ninja_ide import translations
 from ninja_ide.core.file_handling import file_manager

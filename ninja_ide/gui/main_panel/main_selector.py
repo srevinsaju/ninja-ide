@@ -17,23 +17,23 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-from PyQt5.QtWidgets import (
+from PySide2.QtWidgets import (
     QWidget,
     QVBoxLayout
 )
-from PyQt5.QtQuickWidgets import QQuickWidget
-from PyQt5.QtCore import (
-    pyqtSignal,
+from PySide2.QtQuickWidgets import QQuickWidget
+from PySide2.QtCore import (
+    Signal,
     Qt
 )
 from ninja_ide.tools import ui_tools
 
 
 class MainSelector(QWidget):
-    changeCurrent = pyqtSignal(int)
-    ready = pyqtSignal()
-    animationCompleted = pyqtSignal()
-    removeWidget = pyqtSignal(int)
+    changeCurrent = Signal(int)
+    ready = Signal()
+    animationCompleted = Signal()
+    removeWidget = Signal(int)
 
     def __init__(self, parent=None):
         super(MainSelector, self).__init__(parent)

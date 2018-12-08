@@ -15,20 +15,20 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt5.QtWidgets import (
+from PySide2.QtWidgets import (
     QDialog,
     QWidget,
     QVBoxLayout,
     QHBoxLayout
 )
-from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import (
-    pyqtSignal,
+from PySide2.QtGui import QIcon
+from PySide2.QtCore import (
+    Signal,
     QModelIndex,
     QAbstractItemModel,
     Qt
 )
-from PyQt5.QtQuickWidgets import QQuickWidget
+from PySide2.QtQuickWidgets import QQuickWidget
 from ninja_ide.core import settings
 from ninja_ide import resources
 from ninja_ide.gui.ide import IDE
@@ -39,8 +39,8 @@ from ninja_ide.gui.explorer.explorer_container import ExplorerContainer
 
 class ErrorsWidget(QDialog):
 
-    dockWidget = pyqtSignal(object)
-    undockWidget = pyqtSignal(object)
+    dockWidget = Signal(object)
+    undockWidget = Signal(object)
 
     def __init__(self, parent=None):
         super().__init__(parent, Qt.WindowStaysOnTopHint)

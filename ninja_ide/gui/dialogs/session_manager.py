@@ -17,21 +17,21 @@
 
 import os
 
-from PyQt5.QtWidgets import QDialog
-from PyQt5.QtWidgets import QFrame
-from PyQt5.QtWidgets import QLayout
-from PyQt5.QtWidgets import QVBoxLayout
-from PyQt5.QtWidgets import QHBoxLayout
-from PyQt5.QtWidgets import QLabel
-from PyQt5.QtWidgets import QTreeWidget
-from PyQt5.QtWidgets import QTreeWidgetItem
-from PyQt5.QtWidgets import QPushButton
-from PyQt5.QtWidgets import QInputDialog
-from PyQt5.QtWidgets import QMessageBox
+from PySide2.QtWidgets import QDialog
+from PySide2.QtWidgets import QFrame
+from PySide2.QtWidgets import QLayout
+from PySide2.QtWidgets import QVBoxLayout
+from PySide2.QtWidgets import QHBoxLayout
+from PySide2.QtWidgets import QLabel
+from PySide2.QtWidgets import QTreeWidget
+from PySide2.QtWidgets import QTreeWidgetItem
+from PySide2.QtWidgets import QPushButton
+from PySide2.QtWidgets import QInputDialog
+from PySide2.QtWidgets import QMessageBox
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import QObject
-from PyQt5.QtCore import pyqtSignal
+from PySide2.QtCore import Qt
+from PySide2.QtCore import QObject
+from PySide2.QtCore import Signal
 
 from ninja_ide import translations
 from ninja_ide.core import settings
@@ -43,8 +43,8 @@ logger = NinjaLogger(__name__)
 
 class _SessionManager(QObject):
 
-    aboutToSaveSession = pyqtSignal()
-    sessionChanged = pyqtSignal()
+    aboutToSaveSession = Signal()
+    sessionChanged = Signal()
 
     def __init__(self, ninjaide):
         QObject.__init__(self)

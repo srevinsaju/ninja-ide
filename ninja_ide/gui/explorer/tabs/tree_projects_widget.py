@@ -17,31 +17,31 @@
 
 import os
 
-from PyQt5.QtWidgets import QTreeView
-from PyQt5.QtWidgets import QLabel
-from PyQt5.QtWidgets import QAbstractItemView
-from PyQt5.QtWidgets import QFrame
-from PyQt5.QtWidgets import QStackedLayout
-from PyQt5.QtWidgets import QDialog
-from PyQt5.QtWidgets import QComboBox
-from PyQt5.QtWidgets import QVBoxLayout
-from PyQt5.QtWidgets import QFileDialog
-from PyQt5.QtWidgets import QInputDialog
-from PyQt5.QtWidgets import QStyle
-from PyQt5.QtWidgets import QStyledItemDelegate
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QMenu
-from PyQt5.QtWidgets import QHeaderView
-from PyQt5.QtWidgets import QSizePolicy
+from PySide2.QtWidgets import QTreeView
+from PySide2.QtWidgets import QLabel
+from PySide2.QtWidgets import QAbstractItemView
+from PySide2.QtWidgets import QFrame
+from PySide2.QtWidgets import QStackedLayout
+from PySide2.QtWidgets import QDialog
+from PySide2.QtWidgets import QComboBox
+from PySide2.QtWidgets import QVBoxLayout
+from PySide2.QtWidgets import QFileDialog
+from PySide2.QtWidgets import QInputDialog
+from PySide2.QtWidgets import QStyle
+from PySide2.QtWidgets import QStyledItemDelegate
+from PySide2.QtWidgets import QMessageBox
+from PySide2.QtWidgets import QMenu
+from PySide2.QtWidgets import QHeaderView
+from PySide2.QtWidgets import QSizePolicy
 
-from PyQt5.QtGui import QIcon
-from PyQt5.QtGui import QPalette
-from PyQt5.QtGui import QCursor
+from PySide2.QtGui import QIcon
+from PySide2.QtGui import QPalette
+from PySide2.QtGui import QCursor
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtCore import QDateTime
-from PyQt5.QtCore import QModelIndex
+from PySide2.QtCore import Qt
+from PySide2.QtCore import Signal
+from PySide2.QtCore import QDateTime
+from PySide2.QtCore import QModelIndex
 
 from ninja_ide import translations
 from ninja_ide.core import settings
@@ -66,11 +66,11 @@ MAX_RECENT_PROJECTS = 10
 class ProjectTreeColumn(QDialog):
 
     # Signalsnproject =
-    dockWidget = pyqtSignal(object)
-    undockWidget = pyqtSignal()
-    changeTitle = pyqtSignal(object, str)
-    updateLocator = pyqtSignal()
-    activeProjectChanged = pyqtSignal()
+    dockWidget = Signal(object)
+    undockWidget = Signal()
+    changeTitle = Signal(object, str)
+    updateLocator = Signal()
+    activeProjectChanged = Signal()
 
     def __init__(self, parent=None):
         super(ProjectTreeColumn, self).__init__(parent)
@@ -458,7 +458,7 @@ class ProjectTreeColumn(QDialog):
 class TreeProjectsWidget(QTreeView):
 
     # Signals
-    closeProject = pyqtSignal(object)
+    closeProject = Signal(object)
     """
     runProject()
     setActiveProject(PyQt_PyObject)

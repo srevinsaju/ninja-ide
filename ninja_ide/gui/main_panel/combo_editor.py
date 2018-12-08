@@ -19,32 +19,32 @@
 
 import bisect
 
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtWidgets import QMenu
-from PyQt5.QtWidgets import QFrame
-from PyQt5.QtWidgets import QStyledItemDelegate
-from PyQt5.QtWidgets import QVBoxLayout
-from PyQt5.QtWidgets import QHBoxLayout
-from PyQt5.QtWidgets import QStackedLayout
-from PyQt5.QtWidgets import QStyle
-from PyQt5.QtWidgets import QLabel
-from PyQt5.QtWidgets import QComboBox
-from PyQt5.QtWidgets import QSizePolicy
-from PyQt5.QtWidgets import QPushButton
+from PySide2.QtWidgets import QApplication
+from PySide2.QtWidgets import QMessageBox
+from PySide2.QtWidgets import QWidget
+from PySide2.QtWidgets import QMenu
+from PySide2.QtWidgets import QFrame
+from PySide2.QtWidgets import QStyledItemDelegate
+from PySide2.QtWidgets import QVBoxLayout
+from PySide2.QtWidgets import QHBoxLayout
+from PySide2.QtWidgets import QStackedLayout
+from PySide2.QtWidgets import QStyle
+from PySide2.QtWidgets import QLabel
+from PySide2.QtWidgets import QComboBox
+from PySide2.QtWidgets import QSizePolicy
+from PySide2.QtWidgets import QPushButton
 
-from PyQt5.QtGui import QCursor
-from PyQt5.QtGui import QClipboard
-from PyQt5.QtGui import QColor
-from PyQt5.QtGui import QIcon
-from PyQt5.QtGui import QPalette
+from PySide2.QtGui import QCursor
+from PySide2.QtGui import QClipboard
+from PySide2.QtGui import QColor
+from PySide2.QtGui import QIcon
+from PySide2.QtGui import QPalette
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtCore import QModelIndex
-from PyQt5.QtCore import QAbstractItemModel
+from PySide2.QtCore import Qt
+from PySide2.QtCore import Signal
+from PySide2.QtCore import Slot
+from PySide2.QtCore import QModelIndex
+from PySide2.QtCore import QAbstractItemModel
 
 from ninja_ide import translations
 from ninja_ide.extensions import handlers
@@ -57,12 +57,12 @@ from ninja_ide.core.file_handling import file_manager
 
 class ComboEditor(QWidget):
     # Signals
-    closeSplit = pyqtSignal(object)
-    splitEditor = pyqtSignal(
+    closeSplit = Signal(object)
+    splitEditor = Signal(
         object, object, Qt.Orientation)
-    allFilesClosed = pyqtSignal()
-    about_to_close_combo_editor = pyqtSignal()
-    fileClosed = pyqtSignal(object)
+    allFilesClosed = Signal()
+    about_to_close_combo_editor = Signal()
+    fileClosed = Signal(object)
 
     def __init__(self, original=False):
         super(ComboEditor, self).__init__(None)
@@ -280,7 +280,7 @@ class ComboEditor(QWidget):
             self._main_container.save_file(neditable.editor)
             neditable.nfile.close()
 
-    @pyqtSlot(object)
+    @Slot(object)
     def _recovery(self, neditable):
         print("lalalal")
 
@@ -452,17 +452,17 @@ class ActionBar(QFrame):
     @reopenTab(QString)
     @recentTabsModified()
     """
-    change_current = pyqtSignal(object, int)
-    splitEditor = pyqtSignal(bool)
-    runFile = pyqtSignal(str)
-    closeSplit = pyqtSignal()
-    addToProject = pyqtSignal(str)
-    showFileInExplorer = pyqtSignal(str)
-    goToSymbol = pyqtSignal(int)
-    undockEditor = pyqtSignal()
-    reopenTab = pyqtSignal(str)
-    closeImageViewer = pyqtSignal(int)
-    needUpdateFocus = pyqtSignal()
+    change_current = Signal(object, int)
+    splitEditor = Signal(bool)
+    runFile = Signal(str)
+    closeSplit = Signal()
+    addToProject = Signal(str)
+    showFileInExplorer = Signal(str)
+    goToSymbol = Signal(int)
+    undockEditor = Signal()
+    reopenTab = Signal(str)
+    closeImageViewer = Signal(int)
+    needUpdateFocus = Signal()
 
     def __init__(self, main_combo=False):
         super(ActionBar, self).__init__()
@@ -710,7 +710,7 @@ class ActionBar(QFrame):
     def set_current_by_index(self, index):
         self.combo_files.setCurrentIndex(index)
 
-    @pyqtSlot()
+    @Slot()
     def about_to_close_file(self, index=None):
         """Close the NFile or ImageViewer object."""
 
@@ -790,8 +790,8 @@ class ActionBar(QFrame):
 
 
 class ComboFiles(QComboBox):
-    showComboSelector = pyqtSignal()
-    hideComboSelector = pyqtSignal()
+    showComboSelector = Signal()
+    hideComboSelector = Signal()
 
     def focusInEvent(self, event):
         combo_editor = self.parentWidget().parent()
@@ -808,8 +808,8 @@ class ComboFiles(QComboBox):
 
 class ImageViewerControls(QWidget):
 
-    fitToScreen = pyqtSignal()
-    retoreSize = pyqtSignal()
+    fitToScreen = Signal()
+    retoreSize = Signal()
 
     def __init__(self):
         super().__init__()
@@ -837,8 +837,8 @@ class ImageViewerControls(QWidget):
 
 class CodeNavigator(QWidget):
 
-    nextPressed = pyqtSignal(int, bool)  # Operation, forward
-    previousPressed = pyqtSignal(int, bool)
+    nextPressed = Signal(int, bool)  # Operation, forward
+    previousPressed = Signal(int, bool)
 
     def __init__(self):
         super(CodeNavigator, self).__init__()
@@ -892,11 +892,11 @@ class CodeNavigator(QWidget):
     def show_menu_navigation(self):
         self.menuNavigate.exec_(QCursor.pos())
 
-    @pyqtSlot()
+    @Slot()
     def _on_previous_pressed(self):
         self.previousPressed.emit(self.operation, False)
 
-    @pyqtSlot()
+    @Slot()
     def _on_next_pressed(self):
         self.previousPressed.emit(self.operation, True)
 
@@ -927,10 +927,10 @@ class CodeNavigator(QWidget):
 
 class InfoBar(QFrame):
 
-    # reloadClicked = pyqtSignal()
-    # cancelClicked = pyqtSignal()
-    # recoverClicked = pyqtSignal()
-    # discardClicked = pyqtSignal()
+    # reloadClicked = Signal()
+    # cancelClicked = Signal()
+    # recoverClicked = Signal()
+    # discardClicked = Signal()
 
     def __init__(self, parent=None):
         super().__init__(parent)

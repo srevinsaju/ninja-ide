@@ -15,18 +15,18 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt5.QtWidgets import QGraphicsView
-from PyQt5.QtWidgets import QGraphicsScene
-from PyQt5.QtWidgets import QMenu
-from PyQt5.QtWidgets import QGraphicsPixmapItem
+from PySide2.QtWidgets import QGraphicsView
+from PySide2.QtWidgets import QGraphicsScene
+from PySide2.QtWidgets import QMenu
+from PySide2.QtWidgets import QGraphicsPixmapItem
 
-from PyQt5.QtGui import QPainter
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtGui import QColor
-from PyQt5.QtGui import QBrush
+from PySide2.QtGui import QPainter
+from PySide2.QtGui import QPixmap
+from PySide2.QtGui import QColor
+from PySide2.QtGui import QBrush
 
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtCore import Qt
+from PySide2.QtCore import Signal
+from PySide2.QtCore import Qt
 
 from ninja_ide import translations
 from ninja_ide.core.file_handling import file_manager
@@ -34,8 +34,8 @@ from ninja_ide.core.file_handling import file_manager
 
 class ImageViewer(QGraphicsView):
 
-    scaleFactorChanged = pyqtSignal(float)
-    imageSizeChanged = pyqtSignal("QSize")
+    scaleFactorChanged = Signal(float)
+    imageSizeChanged = Signal("QSize")
 
     SCALE_FACTOR = 1.2
 

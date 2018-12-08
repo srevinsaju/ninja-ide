@@ -17,21 +17,21 @@
 import re
 import sre_constants
 
-from PyQt5.QtWidgets import QToolTip
+from PySide2.QtWidgets import QToolTip
 
-from PyQt5.QtGui import QTextCursor
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtGui import QPaintEvent
-from PyQt5.QtGui import QPainter
-from PyQt5.QtGui import QKeyEvent
-from PyQt5.QtGui import QFontMetrics
-from PyQt5.QtGui import QColor
+from PySide2.QtGui import QTextCursor
+from PySide2.QtGui import QKeySequence
+from PySide2.QtGui import QPaintEvent
+from PySide2.QtGui import QPainter
+from PySide2.QtGui import QKeyEvent
+from PySide2.QtGui import QFontMetrics
+from PySide2.QtGui import QColor
 
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtCore import QEvent
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import QPoint
-from PyQt5.QtCore import QTimer
+from PySide2.QtCore import Signal
+from PySide2.QtCore import QEvent
+from PySide2.QtCore import Qt
+from PySide2.QtCore import QPoint
+from PySide2.QtCore import QTimer
 
 from ninja_ide import resources
 # from ninja_ide.tools import utils
@@ -57,11 +57,11 @@ _MAX_CHECKER_SELECTIONS = 150  # For good performance
 
 class NEditor(CodeEditor):
 
-    positionChanged = pyqtSignal(int, int)
-    currentLineChanged = pyqtSignal(int)
-    painted = pyqtSignal(QPaintEvent)
-    keyPressed = pyqtSignal(QKeyEvent)
-    postKeyPressed = pyqtSignal(QKeyEvent)
+    positionChanged = Signal(int, int)
+    currentLineChanged = Signal(int)
+    painted = Signal(QPaintEvent)
+    keyPressed = Signal(QKeyEvent)
+    postKeyPressed = Signal(QKeyEvent)
 
     def __init__(self, neditable=None):
         super().__init__()
@@ -344,6 +344,7 @@ class NEditor(CodeEditor):
         painter.setBrush(color)
 
         for rect, width in self._get_search_results(self._search_expression):
+            print("LL")
             painter.drawRoundedRect(
                 rect.left(), rect.top(),
                 width, rect.height(), 2, 2

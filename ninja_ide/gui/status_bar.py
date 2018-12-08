@@ -15,21 +15,21 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt5.QtWidgets import QLabel
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtWidgets import QVBoxLayout
-from PyQt5.QtWidgets import QHBoxLayout
-from PyQt5.QtWidgets import QLineEdit
-from PyQt5.QtWidgets import QPushButton
-from PyQt5.QtWidgets import QShortcut
-# from PyQt5.QtWidgets import QCheckBox
+from PySide2.QtWidgets import QLabel
+from PySide2.QtWidgets import QWidget
+from PySide2.QtWidgets import QVBoxLayout
+from PySide2.QtWidgets import QHBoxLayout
+from PySide2.QtWidgets import QLineEdit
+from PySide2.QtWidgets import QPushButton
+from PySide2.QtWidgets import QShortcut
+# from PySide2.QtWidgets import QCheckBox
 
-from PyQt5.QtGui import QKeySequence
+from PySide2.QtGui import QKeySequence
 
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtCore import QEvent
-from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtCore import Qt
+from PySide2.QtCore import Signal
+from PySide2.QtCore import QEvent
+from PySide2.QtCore import Slot
+from PySide2.QtCore import Qt
 
 from ninja_ide import translations
 from ninja_ide.core import settings
@@ -127,7 +127,7 @@ class _StatusBar(QWidget):
 class SearchWidget(QWidget):
     """Search widget component, search for text inside the editor"""
 
-    highlightResultsRequested = pyqtSignal(object)
+    highlightResultsRequested = Signal(object)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -205,7 +205,7 @@ class SearchWidget(QWidget):
             else:
                 editor.clear_found_results()
 
-    @pyqtSlot()
+    @Slot()
     def find(self, backward=False, forward=False, rehighlight=True):
         """Collect flags and execute search in the editor"""
         main_container = IDE.get_service("main_container")

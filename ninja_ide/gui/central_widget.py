@@ -15,14 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt5.QtWidgets import (
+from PySide2.QtWidgets import (
     QWidget,
     QHBoxLayout,
     QAction,
     QVBoxLayout,
 )
 
-from PyQt5.QtCore import Qt
+from PySide2.QtCore import Qt
 
 from ninja_ide.gui import actions
 from ninja_ide.gui import dynamic_splitter
@@ -170,7 +170,7 @@ class CentralWidget(QWidget):
         width_size = qsettings.value(
             "window/central/base_splitter_size", None)
         lateral_visible = qsettings.value(
-            "window/central/lateral_visible", True, type=bool)
+            "window/central/lateral_visible", True)
         if height_size is None:
             self._splitter_inside.setSizes([(self.height() / 3) * 2,
                                            self.height() / 3])

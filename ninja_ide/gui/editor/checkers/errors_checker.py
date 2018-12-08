@@ -18,9 +18,9 @@
 import _ast
 from collections import defaultdict
 
-from PyQt5.QtCore import (
+from PySide2.QtCore import (
     QThread,
-    pyqtSignal,
+    Signal,
     QTimer
 )
 from ninja_ide.gui.editor.checkers import (
@@ -41,7 +41,7 @@ logger = NinjaLogger(__file__)
 
 class ErrorsChecker(QThread):
 
-    checkerCompleted = pyqtSignal()
+    checkerCompleted = Signal()
 
     def __init__(self, neditor):
         super().__init__()

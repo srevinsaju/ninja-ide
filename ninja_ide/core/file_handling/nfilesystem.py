@@ -17,11 +17,11 @@
 
 import os
 
-from PyQt5.QtWidgets import QFileSystemModel
+from PySide2.QtWidgets import QFileSystemModel
 
-from PyQt5.QtCore import QObject
-from PyQt5.QtCore import QDir
-from PyQt5.QtCore import pyqtSignal
+from PySide2.QtCore import QObject
+from PySide2.QtCore import QDir
+from PySide2.QtCore import Signal
 
 from ninja_ide.core.file_handling.nfile import NFile
 from ninja_ide.tools.logger import NinjaLogger
@@ -31,8 +31,8 @@ logger = NinjaLogger('ninja_ide.core.file_handling.nfilesystem')
 
 class NVirtualFileSystem(QObject):
     # Signals
-    projectOpened = pyqtSignal(str)
-    projectClosed = pyqtSignal(str)
+    projectOpened = Signal(str)
+    projectClosed = Signal(str)
 
     def __init__(self, *args, **kwargs):
         self.__tree = {}

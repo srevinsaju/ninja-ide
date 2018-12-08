@@ -15,18 +15,18 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt5.QtWidgets import QSplitter
+from PySide2.QtWidgets import QSplitter
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import pyqtSignal
+from PySide2.QtCore import Qt
+from PySide2.QtCore import Signal
 
 from ninja_ide.gui.main_panel import combo_editor
 
 
 class DynamicSplitter(QSplitter):
 
-    closeDynamicSplit = pyqtSignal(object, object)
-    needUpdateSizes = pyqtSignal()
+    closeDynamicSplit = Signal(object, object)
+    needUpdateSizes = Signal()
 
     def __init__(self, orientation=Qt.Horizontal):
         super().__init__(orientation)

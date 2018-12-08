@@ -17,13 +17,13 @@
 
 import re
 
-from PyQt5.QtWidgets import QDialog
-from PyQt5.QtWidgets import QVBoxLayout
-from PyQt5.QtWidgets import QShortcut
+from PySide2.QtWidgets import QDialog
+from PySide2.QtWidgets import QVBoxLayout
+from PySide2.QtWidgets import QShortcut
 
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtCore import Qt
-from PyQt5.QtQuickWidgets import QQuickWidget
+from PySide2.QtGui import QKeySequence
+from PySide2.QtCore import Qt
+from PySide2.QtQuickWidgets import QQuickWidget
 
 # from ninja_ide.utils import
 from ninja_ide import resources

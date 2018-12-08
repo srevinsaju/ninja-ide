@@ -15,14 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtWidgets import QMenu
+from PySide2.QtWidgets import QWidget
+from PySide2.QtWidgets import QMenu
 
-from PyQt5.QtGui import QColor
-from PyQt5.QtGui import QPainter
+from PySide2.QtGui import QColor
+from PySide2.QtGui import QPainter
 
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtCore import QPoint
+from PySide2.QtCore import Signal
+from PySide2.QtCore import QPoint
 
 from ninja_ide.gui.editor.features import Feature
 
@@ -31,7 +31,7 @@ from ninja_ide import resources
 
 class SideWidget(Feature, QWidget):
 
-    sidebarContextMenuRequested = pyqtSignal(int, QMenu)
+    sidebarContextMenuRequested = Signal(int, QMenu)
 
     def __init__(self):
         Feature.__init__(self)

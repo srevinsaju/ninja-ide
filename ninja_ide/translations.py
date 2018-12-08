@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5 import QtCore
+from PySide2 import QtCore
 
 
 tr = QtCore.QCoreApplication.translate

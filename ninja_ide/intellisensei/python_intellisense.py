@@ -37,7 +37,7 @@ class PythonProvider(intellisense_registry.Provider):
 
     def load(self):
         jedi.settings.case_insensitive_completion = False
-        for module in ("PyQt4", "PyQt5", "numpy"):
+        for module in ("PyQt4", "PySide2", "numpy"):
             jedi.preload_module(module)
 
     def __get_script(self):

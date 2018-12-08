@@ -16,13 +16,13 @@
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
 import difflib
-from PyQt5.QtGui import QPainter
-from PyQt5.QtGui import QFontMetricsF
-from PyQt5.QtGui import QColor
+from PySide2.QtGui import QPainter
+from PySide2.QtGui import QFontMetricsF
+from PySide2.QtGui import QColor
 
-from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtCore import QSize
-from PyQt5.QtCore import QTimer
+from PySide2.QtCore import Slot
+from PySide2.QtCore import QSize
+from PySide2.QtCore import QTimer
 
 from ninja_ide.gui.editor.side_area import SideWidget
 from ninja_ide import resources
@@ -89,13 +89,13 @@ class TextChangeWidget(SideWidget):
         self._editor.updateRequest.connect(self.update)
         self._editor.neditable.fileSaved.connect(self.__on_file_saved)
 
-    @pyqtSlot()
+    @Slot()
     def __on_file_saved(self):
         self.__saved = True
         self.__last_saved_text = self._editor.text
         self.__saved_markers += list(self.__unsaved_markers)
 
-    @pyqtSlot()
+    @Slot()
     def __on_text_changed(self):
         if self.__saved:
             self.__saved = False

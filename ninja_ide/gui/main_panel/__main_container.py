@@ -21,19 +21,19 @@ import os
 import re
 import webbrowser
 
-from PyQt5 import uic
-from PyQt5.QtWidgets import (
+from PySide2 import uic
+from PySide2.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QStackedLayout,
     QMessageBox,
     QFileDialog
 )
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtCore import (
+from PySide2.QtGui import QPixmap
+from PySide2.QtCore import (
     Qt,
     QDir,
-    pyqtSignal
+    Signal
 )
 
 from ninja_ide import resources
@@ -95,11 +95,11 @@ class _MainContainer(QWidget):
 
 ###############################################################################
 
-    fileOpened = pyqtSignal(str)
-    updateLocator = pyqtSignal(str)
-    currentEditorChanged = pyqtSignal(str)
-    beforeFileSaved = pyqtSignal(str)
-    fileSaved = pyqtSignal(str)
+    fileOpened = Signal(str)
+    updateLocator = Signal(str)
+    currentEditorChanged = Signal(str)
+    beforeFileSaved = Signal(str)
+    fileSaved = Signal(str)
 
     def __init__(self, parent=None):
         super(_MainContainer, self).__init__(parent)

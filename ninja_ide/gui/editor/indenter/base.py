@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
-from PyQt5.QtGui import QTextCursor
+from PySide2.QtGui import QTextCursor
 from ninja_ide.core import settings
 
 

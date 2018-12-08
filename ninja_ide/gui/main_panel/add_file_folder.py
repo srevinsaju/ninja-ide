@@ -17,17 +17,17 @@
 
 import os
 
-from PyQt5.QtWidgets import (
+from PySide2.QtWidgets import (
     QDialog,
     QShortcut,
     QVBoxLayout
 )
 
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtQuickWidgets import QQuickWidget
-from PyQt5.QtCore import (
+from PySide2.QtGui import QKeySequence
+from PySide2.QtQuickWidgets import QQuickWidget
+from PySide2.QtCore import (
     Qt,
-    pyqtSlot
+    Slot
 )
 
 from ninja_ide import resources
@@ -84,7 +84,7 @@ class AddFileFolderWidget(QDialog):
         self._root.setBasePath(path)
         self.show()
 
-    @pyqtSlot(str)
+    @Slot(str)
     def _create(self, path):
         """Open the item received"""
 

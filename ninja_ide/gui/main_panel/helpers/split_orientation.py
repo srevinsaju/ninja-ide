@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
 
-from PyQt5.QtWidgets import (
+from PySide2.QtWidgets import (
     QDialog,
     QVBoxLayout,
     QWidget,
     QShortcut
 )
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtQuickWidgets import QQuickWidget
-from PyQt5.QtCore import Qt
+from PySide2.QtGui import QKeySequence
+from PySide2.QtQuickWidgets import QQuickWidget
+from PySide2.QtCore import Qt
 
 from ninja_ide import resources
 from ninja_ide.gui.ide import IDE

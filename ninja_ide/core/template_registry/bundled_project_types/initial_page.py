@@ -20,7 +20,7 @@ This page is common in all projects
 """
 import sys
 import os
-from PyQt5.QtWidgets import (
+from PySide2.QtWidgets import (
     QWizardPage,
     QVBoxLayout,
     QComboBox,

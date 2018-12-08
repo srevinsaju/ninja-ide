@@ -17,23 +17,23 @@
 
 from collections import defaultdict
 
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtWidgets import QVBoxLayout
-from PyQt5.QtWidgets import QMenu
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QFormLayout
-from PyQt5.QtWidgets import QDialog
-from PyQt5.QtWidgets import QLineEdit
-from PyQt5.QtWidgets import QDialogButtonBox
+from PySide2.QtWidgets import QWidget
+from PySide2.QtWidgets import QVBoxLayout
+from PySide2.QtWidgets import QMenu
+from PySide2.QtWidgets import QMessageBox
+from PySide2.QtWidgets import QFormLayout
+from PySide2.QtWidgets import QDialog
+from PySide2.QtWidgets import QLineEdit
+from PySide2.QtWidgets import QDialogButtonBox
 
-from PyQt5.QtQuickWidgets import QQuickWidget
+from PySide2.QtQuickWidgets import QQuickWidget
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import QPoint
-from PyQt5.QtCore import QVariant
-from PyQt5.QtCore import QAbstractListModel
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtCore import QModelIndex
+from PySide2.QtCore import Qt
+from PySide2.QtCore import QPoint
+# from PySide2.QtCore import QVariant
+from PySide2.QtCore import QAbstractListModel
+from PySide2.QtCore import Signal
+from PySide2.QtCore import QModelIndex
 
 from ninja_ide import resources
 from ninja_ide import translations
@@ -46,9 +46,9 @@ from ninja_ide.gui.main_panel.marks import Bookmark
 class BookmarkWidget(QWidget):
     """Bookmark Widget showing list of bookmarks in explorer container"""
 
-    dockWidget = pyqtSignal(object)
-    undockWidget = pyqtSignal(object)
-    dataChanged = pyqtSignal()
+    dockWidget = Signal(object)
+    undockWidget = Signal(object)
+    dataChanged = Signal()
 
     def __init__(self, parent=None):
         super().__init__(parent, Qt.WindowStaysOnTopHint)
@@ -237,7 +237,7 @@ class BookmarkManager(QAbstractListModel):
 
     def data(self, index, role):
         if not index.isValid() or index.row() < 0 or index.row() >= len(self):
-            return QVariant()
+            return None
         mark = self.__bookmarks_list[index.row()]
         if role == self.FilenameRole:
             return mark.filename

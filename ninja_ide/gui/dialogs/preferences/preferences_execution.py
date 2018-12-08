@@ -17,7 +17,7 @@
 
 import os
 import sys
-from PyQt5.QtWidgets import (
+from PySide2.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QHBoxLayout,
@@ -36,9 +36,9 @@ from PyQt5.QtWidgets import (
     QCompleter,
     QComboBox
 )
-from PyQt5.QtCore import (
+from PySide2.QtCore import (
     QDir,
-    pyqtSlot
+    Slot
 )
 from ninja_ide.gui.ide import IDE
 from ninja_ide.gui.dialogs.preferences import preferences
@@ -153,7 +153,7 @@ class GeneralExecution(QWidget):
         self._preferences.savePreferences.connect(self.save)
         btn_choose_path.clicked.connect(self._load_python_path)
 
-    @pyqtSlot()
+    @Slot()
     def _load_python_path(self):
         """Ask the user for a Python Path"""
         path = QFileDialog.getOpenFileName(

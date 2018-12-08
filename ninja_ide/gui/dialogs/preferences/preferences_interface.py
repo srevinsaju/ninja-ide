@@ -21,21 +21,21 @@ from __future__ import unicode_literals
 
 import os
 
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtWidgets import QVBoxLayout
-from PyQt5.QtWidgets import QHBoxLayout
-from PyQt5.QtWidgets import QGroupBox
-from PyQt5.QtWidgets import QCheckBox
-from PyQt5.QtWidgets import QComboBox
-from PyQt5.QtWidgets import QLineEdit
-from PyQt5.QtWidgets import QStyle
-from PyQt5.QtWidgets import QToolBar
-from PyQt5.QtWidgets import QLabel
-from PyQt5.QtWidgets import QSizePolicy
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QPushButton
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import QSize
+from PySide2.QtWidgets import QWidget
+from PySide2.QtWidgets import QVBoxLayout
+from PySide2.QtWidgets import QHBoxLayout
+from PySide2.QtWidgets import QGroupBox
+from PySide2.QtWidgets import QCheckBox
+from PySide2.QtWidgets import QComboBox
+from PySide2.QtWidgets import QLineEdit
+from PySide2.QtWidgets import QStyle
+from PySide2.QtWidgets import QToolBar
+from PySide2.QtWidgets import QLabel
+from PySide2.QtWidgets import QSizePolicy
+from PySide2.QtGui import QIcon
+from PySide2.QtWidgets import QPushButton
+from PySide2.QtCore import Qt
+from PySide2.QtCore import QSize
 
 from ninja_ide import resources
 from ninja_ide import translations

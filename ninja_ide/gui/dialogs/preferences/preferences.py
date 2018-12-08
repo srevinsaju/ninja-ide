@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt5.QtWidgets import (
+from PySide2.QtWidgets import (
     QDialog,
     QWidget,
     QVBoxLayout,
@@ -31,10 +31,10 @@ from PyQt5.QtWidgets import (
     QStackedLayout,
     QDialogButtonBox
 )
-from PyQt5.QtCore import (
+from PySide2.QtCore import (
     Qt,
-    pyqtSignal,
-    pyqtSlot
+    Signal,
+    Slot
 )
 from ninja_ide import translations
 
@@ -50,7 +50,7 @@ class Preferences(QDialog):
     configuration = {}
     weight = 0
     # Signals
-    savePreferences = pyqtSignal()
+    savePreferences = Signal()
 
     def __init__(self, parent=None):
         super().__init__(parent, Qt.Dialog)
@@ -99,7 +99,7 @@ class Preferences(QDialog):
 
         self.load_ui()
 
-    @pyqtSlot()
+    @Slot()
     def _save_preferences(self):
         self.savePreferences.emit()
         self.close()

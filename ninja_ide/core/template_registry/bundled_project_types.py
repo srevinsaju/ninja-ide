@@ -116,7 +116,7 @@ class PythonProject(BaseProjectType):
 
     @classmethod
     def wizard_pages(csl):
-        from PyQt5.QtWidgets import (
+        from PySide2.QtWidgets import (
             QWizardPage, QVBoxLayout, QLineEdit, QGridLayout, QLabel,
 
         )
@@ -152,7 +152,7 @@ class PyQtProject(BaseProjectType):
 
     @classmethod
     def wizard_pages(cls):
-        from PyQt5.QtWidgets import QWizardPage
+        from PySide2.QtWidgets import QWizardPage
         p = QWizardPage()
         p.setTitle("PPPPPP")
         p.setSubTitle("Pyqslaldsald ")

@@ -15,11 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtWidgets import QVBoxLayout
+from PySide2.QtWidgets import QWidget
+from PySide2.QtWidgets import QVBoxLayout
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtQuickWidgets import QQuickWidget
+from PySide2.QtCore import Qt
+from PySide2.QtQuickWidgets import QQuickWidget
 
 from ninja_ide.core import settings
 from ninja_ide.tools import ui_tools

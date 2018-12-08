@@ -1,6 +1,6 @@
 import pytest
 
-from PyQt5.QtWidgets import QPlainTextEdit
+from PySide2.QtWidgets import QPlainTextEdit
 
 from ninja_ide.gui.editor.indenter import base
 

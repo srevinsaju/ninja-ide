@@ -20,10 +20,10 @@ import re
 import subprocess
 import json
 
-from PyQt5.QtCore import QObject
-from PyQt5.QtCore import QTimer
-from PyQt5.QtCore import QThread
-from PyQt5.QtCore import pyqtSignal
+from PySide2.QtCore import QObject
+from PySide2.QtCore import QTimer
+from PySide2.QtCore import QThread
+from PySide2.QtCore import Signal
 
 from ninja_ide.tools.logger import NinjaLogger
 from ninja_ide.tools import utils
@@ -42,8 +42,8 @@ _VENV_PATHS = [".virtualenvs"]
 
 class InterpreterService(QObject):
 
-    foundInterpreters = pyqtSignal(list)
-    currentInterpreterChanged = pyqtSignal()
+    foundInterpreters = Signal(list)
+    currentInterpreterChanged = Signal()
 
     def __init__(self):
         QObject.__init__(self)
@@ -152,7 +152,7 @@ class Interpreter(object):
 
 class _IntepreterLocator(QObject):
 
-    finished = pyqtSignal(list)
+    finished = Signal(list)
 
     def __init__(self):
         QObject.__init__(self)

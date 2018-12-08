@@ -17,12 +17,12 @@
 
 import re
 
-from PyQt5.QtGui import QSyntaxHighlighter
-from PyQt5.QtGui import QColor
-from PyQt5.QtGui import QTextCharFormat
-from PyQt5.QtGui import QFont
-from PyQt5.QtGui import QBrush
-from PyQt5.QtGui import QTextFormat
+from PySide2.QtGui import QSyntaxHighlighter
+from PySide2.QtGui import QColor
+from PySide2.QtGui import QTextCharFormat
+from PySide2.QtGui import QFont
+from PySide2.QtGui import QBrush
+from PySide2.QtGui import QTextFormat
 
 from ninja_ide.core import settings
 from ninja_ide import resources

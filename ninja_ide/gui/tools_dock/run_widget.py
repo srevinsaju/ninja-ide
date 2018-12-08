@@ -17,26 +17,26 @@
 
 import re
 
-from PyQt5.QtWidgets import QPlainTextEdit
-from PyQt5.QtWidgets import QTabWidget
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtWidgets import QVBoxLayout
-from PyQt5.QtWidgets import QMenu
+from PySide2.QtWidgets import QPlainTextEdit
+from PySide2.QtWidgets import QTabWidget
+from PySide2.QtWidgets import QWidget
+from PySide2.QtWidgets import QVBoxLayout
+from PySide2.QtWidgets import QMenu
 
 
-from PyQt5.QtGui import QColor
-from PyQt5.QtGui import QTextCharFormat
-from PyQt5.QtGui import QTextCursor
-from PyQt5.QtGui import QTextBlockFormat
+from PySide2.QtGui import QColor
+from PySide2.QtGui import QTextCharFormat
+from PySide2.QtGui import QTextCursor
+from PySide2.QtGui import QTextBlockFormat
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import QFile
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtCore import QObject
-from PyQt5.QtCore import QProcess
-from PyQt5.QtCore import QProcessEnvironment
-from PyQt5.QtCore import QTime
-from PyQt5.QtCore import QElapsedTimer
+from PySide2.QtCore import Qt
+from PySide2.QtCore import QFile
+from PySide2.QtCore import Signal
+from PySide2.QtCore import QObject
+from PySide2.QtCore import QProcess
+from PySide2.QtCore import QProcessEnvironment
+from PySide2.QtCore import QTime
+from PySide2.QtCore import QElapsedTimer
 
 from ninja_ide import translations
 from ninja_ide import resources
@@ -251,9 +251,9 @@ class Program(QObject):
 
 class RunWidget(QWidget):
 
-    allTabsClosed = pyqtSignal()
-    projectExecuted = pyqtSignal(str)
-    fileExecuted = pyqtSignal(str)
+    allTabsClosed = Signal()
+    projectExecuted = Signal(str)
+    fileExecuted = Signal(str)
 
     def __init__(self):
         QWidget.__init__(self)
@@ -459,7 +459,7 @@ class OutputWidget(QPlainTextEdit):
 
     """Widget to handle the output of the running process"""
 
-    inputRequested = pyqtSignal(str)
+    inputRequested = Signal(str)
 
     class Format:
         NORMAL = "NORMAL"

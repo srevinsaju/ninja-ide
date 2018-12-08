@@ -17,11 +17,11 @@
 
 from collections import defaultdict
 
-from PyQt5.QtCore import (
+from PySide2.QtCore import (
     QThread,
     QTimer,
     # Qt,
-    pyqtSignal
+    Signal
 )
 from ninja_ide import resources
 from ninja_ide import translations
@@ -41,7 +41,7 @@ from ninja_ide.gui.editor import helpers
 
 
 class NotImporterChecker(QThread):
-    checkerCompleted = pyqtSignal()
+    checkerCompleted = Signal()
 
     def __init__(self, editor):
         super(NotImporterChecker, self).__init__()

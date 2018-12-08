@@ -17,9 +17,9 @@
 
 from collections import defaultdict
 
-from PyQt5.QtCore import QThread
-from PyQt5.QtCore import QTimer
-from PyQt5.QtCore import pyqtSignal
+from PySide2.QtCore import QThread
+from PySide2.QtCore import QTimer
+from PySide2.QtCore import Signal
 
 from ninja_ide import resources
 from ninja_ide import translations
@@ -36,7 +36,7 @@ logger = NinjaLogger(__name__)
 
 
 class Pep8Checker(QThread):
-    checkerCompleted = pyqtSignal()
+    checkerCompleted = Signal()
 
     def __init__(self, editor):
         super(Pep8Checker, self).__init__()

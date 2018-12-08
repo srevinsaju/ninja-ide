@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt5.QtWidgets import (
+from PySide2.QtWidgets import (
     QDialog,
     QTreeWidget,
     QVBoxLayout,
@@ -24,13 +24,13 @@ from PyQt5.QtWidgets import (
     QHeaderView,
     QMenu
 )
-from PyQt5.QtGui import (
+from PySide2.QtGui import (
     QIcon,
     QCursor
 )
-from PyQt5.QtCore import (
+from PySide2.QtCore import (
     Qt,
-    pyqtSignal
+    Signal
 )
 
 from ninja_ide import translations
@@ -43,8 +43,8 @@ from ninja_ide.tools import ui_tools
 class TreeSymbolsWidget(QDialog):
     """ Class of Dialog for Tree Symbols """
 
-    dockWidget = pyqtSignal(object)
-    undockWidget = pyqtSignal(object)
+    dockWidget = Signal(object)
+    undockWidget = Signal(object)
 
     def __init__(self, parent=None):
         super(TreeSymbolsWidget, self).__init__(parent)
@@ -52,7 +52,7 @@ class TreeSymbolsWidget(QDialog):
         vbox.setContentsMargins(0, 0, 0, 0)
         vbox.setSpacing(0)
         self.tree = QTreeWidget()
-        self.tree.setFrameShape(0)
+        self.tree.setFrameShape(self.tree.NoFrame)
         vbox.addWidget(self.tree)
         self.tree.header().setHidden(True)
         self.tree.setSelectionMode(self.tree.SingleSelection)

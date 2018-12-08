@@ -1,6 +1,6 @@
-from PyQt5.QtGui import QIcon
+from PySide2.QtGui import QIcon
 
-from PyQt5.QtCore import Qt
+from PySide2.QtCore import Qt
 
 from ninja_ide.core.file_handling import file_manager
 from ninja_ide.tools import ui_tools

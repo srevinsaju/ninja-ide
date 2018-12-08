@@ -17,13 +17,13 @@
 
 import sys
 
-from PyQt5.QtWidgets import QSplashScreen
+from PySide2.QtWidgets import QSplashScreen
 
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtGui import QIcon
+from PySide2.QtGui import QPixmap
+from PySide2.QtGui import QIcon
 
-from PyQt5.QtCore import QCoreApplication
-from PyQt5.QtCore import Qt
+from PySide2.QtCore import QCoreApplication
+from PySide2.QtCore import Qt
 
 from ninja_ide import resources
 from ninja_ide.core import ipc
@@ -154,7 +154,7 @@ def start_ide(app, filenames, projects_path, extra_plugins, linenos):
     # Loading Session Files
     _add_splash("Loading Files and Projects...")
     # First check if we need to load last session files
-    if qsettings.value('general/loadFiles', True, type=bool):
+    if qsettings.value('general/loadFiles', True):
         files = data_qsettings.value('lastSession/openedFiles')
         projects = data_qsettings.value('lastSession/projects')
         current_file = data_qsettings.value('lastSession/currentFile')
@@ -191,7 +191,7 @@ def start_ide(app, filenames, projects_path, extra_plugins, linenos):
 
 def load_fonts():
     import os
-    from PyQt5.QtGui import QFontDatabase
+    from PySide2.QtGui import QFontDatabase
 
     fonts = [f for f in os.listdir(resources.FONTS)
              if f.endswith(".ttf")]

@@ -18,12 +18,12 @@
 import os
 import shutil
 
-from PyQt5.QtCore import QObject
-from PyQt5.QtCore import QFile
-from PyQt5.QtCore import QFileSystemWatcher
-from PyQt5.QtCore import QIODevice
-from PyQt5.QtCore import QTextStream
-from PyQt5.QtCore import pyqtSignal
+from PySide2.QtCore import QObject
+from PySide2.QtCore import QFile
+from PySide2.QtCore import QFileSystemWatcher
+from PySide2.QtCore import QIODevice
+from PySide2.QtCore import QTextStream
+from PySide2.QtCore import Signal
 
 from ninja_ide import translations
 # FIXME: Obtain these form a getter
@@ -63,17 +63,17 @@ class NFile(QObject):
     @gotAPath(PyQt_PyObject)
     @willAttachToExistingFile(PyQt_PyObject, QString)
     """
-    fileChanged = pyqtSignal()
-    fileRemoved = pyqtSignal()
-    fileReaded = pyqtSignal()
-    willAttachToExistingFile = pyqtSignal(object, str)
-    gotAPath = pyqtSignal(object)
-    willSave = pyqtSignal(str, str)
-    willMove = pyqtSignal(object, str, str)
-    willOverWrite = pyqtSignal(object, str, str)
-    willCopyTo = pyqtSignal(object, str, str)
-    willDelete = pyqtSignal(object, object)
-    fileClosing = pyqtSignal(str, bool)
+    fileChanged = Signal()
+    fileRemoved = Signal()
+    fileReaded = Signal()
+    willAttachToExistingFile = Signal(object, str)
+    gotAPath = Signal(object)
+    willSave = Signal(str, str)
+    willMove = Signal(object, str, str)
+    willOverWrite = Signal(object, str, str)
+    willCopyTo = Signal(object, str, str)
+    willDelete = Signal(object, object)
+    fileClosing = Signal(str, bool)
 
     def __init__(self, path=None):
         """

@@ -19,17 +19,17 @@ from urllib.request import urlopen
 import webbrowser
 from distutils import version
 
-from PyQt5.QtWidgets import (
+from PySide2.QtWidgets import (
     QSystemTrayIcon,
     QAction,
     QMenu,
     QMessageBox
 )
-from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import (
+from PySide2.QtGui import QIcon
+from PySide2.QtCore import (
     QObject,
     QThread,
-    pyqtSignal
+    Signal
 )
 
 import ninja_ide
@@ -44,7 +44,7 @@ class TrayIconUpdates(QSystemTrayIcon):
     """ Tray Icon to show Updates of new versions """
 
     # Signals
-    closeTrayIcon = pyqtSignal()
+    closeTrayIcon = Signal()
 
     def __init__(self, parent):
         super(TrayIconUpdates, self).__init__(parent)
@@ -128,8 +128,8 @@ class TrayIconUpdates(QSystemTrayIcon):
 
 class WorkerUpdates(QObject):
     # Signals
-    versionReceived = pyqtSignal(str, str)
-    finished = pyqtSignal()
+    versionReceived = Signal(str, str)
+    finished = Signal()
 
     def __init__(self):
         QObject.__init__(self)

@@ -19,15 +19,15 @@
 Base editor
 """
 
-from PyQt5.QtWidgets import QPlainTextEdit
+from PySide2.QtWidgets import QPlainTextEdit
 
-from PyQt5.QtGui import QTextBlockUserData
-from PyQt5.QtGui import QTextDocument
-from PyQt5.QtGui import QTextCursor
-from PyQt5.QtGui import QColor
+from PySide2.QtGui import QTextBlockUserData
+from PySide2.QtGui import QTextDocument
+from PySide2.QtGui import QTextCursor
+from PySide2.QtGui import QColor
 
-from PyQt5.QtCore import QPoint
-from PyQt5.QtCore import pyqtSignal
+from PySide2.QtCore import QPoint
+from PySide2.QtCore import Signal
 
 from ninja_ide import resources
 from ninja_ide.core import settings
@@ -275,7 +275,7 @@ class BlockUserData(QTextBlockUserData):
 
 class CodeEditor(BaseTextEditor):
 
-    zoomChanged = pyqtSignal(int)
+    zoomChanged = Signal(int)
 
     def __init__(self):
         super().__init__()

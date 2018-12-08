@@ -18,19 +18,19 @@
 # import os
 import collections
 
-from PyQt5.QtWidgets import QMainWindow
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QToolTip
+from PySide2.QtWidgets import QMainWindow
+from PySide2.QtWidgets import QMessageBox
+from PySide2.QtWidgets import QToolTip
 
-from PyQt5.QtGui import QFont
+from PySide2.QtGui import QFont
 
-from PyQt5.QtCore import QSettings
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import QPointF
-from PyQt5.QtCore import QSizeF
-from PyQt5.QtCore import pyqtSignal
+from PySide2.QtCore import QSettings
+from PySide2.QtCore import Qt
+from PySide2.QtCore import QPointF
+from PySide2.QtCore import QSizeF
+from PySide2.QtCore import Signal
 
-from PyQt5.QtNetwork import QLocalServer
+from PySide2.QtNetwork import QLocalServer
 
 from ninja_ide import resources
 from ninja_ide import translations
@@ -86,8 +86,8 @@ class IDE(QMainWindow):
 ###############################################################################
 # SIGNALS
 ###############################################################################
-    goingDown = pyqtSignal()
-    filesAndProjectsLoaded = pyqtSignal()
+    goingDown = Signal()
+    filesAndProjectsLoaded = Signal()
 
     __IDESERVICES = {}
     __IDECONNECTIONS = {}
@@ -817,7 +817,7 @@ class IDE(QMainWindow):
     def load_window_geometry(self):
         """Load from QSettings the window size of Ninja IDE"""
         qsettings = QSettings(resources.SETTINGS_PATH, QSettings.IniFormat)
-        if qsettings.value("window/maximized", True, type=bool):
+        if qsettings.value("window/maximized", True):
             self.setWindowState(Qt.WindowMaximized)
         else:
             self.resize(qsettings.value("window/size", QSizeF(800, 600)))

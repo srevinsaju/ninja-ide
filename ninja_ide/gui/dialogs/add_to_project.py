@@ -16,16 +16,16 @@
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 from __future__ import absolute_import
 
-from PyQt5.QtWidgets import QDialog
-from PyQt5.QtWidgets import QListWidget
-from PyQt5.QtWidgets import QTreeView
-from PyQt5.QtWidgets import QVBoxLayout
-from PyQt5.QtWidgets import QHBoxLayout
-from PyQt5.QtWidgets import QPushButton
-from PyQt5.QtWidgets import QAbstractItemView
-from PyQt5.QtWidgets import QFileSystemModel
-from PyQt5.QtWidgets import QHeaderView
-from PyQt5.QtCore import QDir
+from PySide2.QtWidgets import QDialog
+from PySide2.QtWidgets import QListWidget
+from PySide2.QtWidgets import QTreeView
+from PySide2.QtWidgets import QVBoxLayout
+from PySide2.QtWidgets import QHBoxLayout
+from PySide2.QtWidgets import QPushButton
+from PySide2.QtWidgets import QAbstractItemView
+from PySide2.QtWidgets import QFileSystemModel
+from PySide2.QtWidgets import QHeaderView
+from PySide2.QtCore import QDir
 
 from ninja_ide import translations
 

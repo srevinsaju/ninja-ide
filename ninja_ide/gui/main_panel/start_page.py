@@ -15,14 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt5.QtWidgets import (
+from PySide2.QtWidgets import (
     QWidget,
     QVBoxLayout
 )
-from PyQt5.QtQuickWidgets import QQuickWidget
-from PyQt5.QtCore import (
-    pyqtSignal,
-    pyqtSlot,
+from PySide2.QtQuickWidgets import QQuickWidget
+from PySide2.QtCore import (
+    Signal,
+    Slot,
     QUrl
 )
 
@@ -33,8 +33,8 @@ from ninja_ide import resources
 
 class StartPage(QWidget):
     # Signals
-    openPreferences = pyqtSignal()
-    newFile = pyqtSignal()
+    openPreferences = Signal()
+    newFile = Signal()
 
     def __init__(self, parent=None):
         super(StartPage, self).__init__(parent)
@@ -58,7 +58,7 @@ class StartPage(QWidget):
         self.root.newFile.connect(lambda: self.newFile.emit())
         self.load_items()
 
-    @pyqtSlot(str)
+    @Slot(str)
     def _open_project(self, path):
         projects_explorer = IDE.get_service("projects_explorer")
         projects_explorer.open_project_folder(path)

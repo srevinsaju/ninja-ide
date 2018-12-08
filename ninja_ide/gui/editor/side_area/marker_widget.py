@@ -18,13 +18,13 @@
 import bisect
 from collections import defaultdict
 
-from PyQt5.QtWidgets import QToolTip
+from PySide2.QtWidgets import QToolTip
 
-from PyQt5.QtGui import QFontMetrics
-from PyQt5.QtGui import QPainter
+from PySide2.QtGui import QFontMetrics
+from PySide2.QtGui import QPainter
 
-from PyQt5.QtCore import QSize
-from PyQt5.QtCore import QRect
+from PySide2.QtCore import QSize
+from PySide2.QtCore import QRect
 
 from ninja_ide.gui.ide import IDE
 from ninja_ide.gui.editor import side_area

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtWidgets import QStyle
+from PySide2.QtWidgets import QStyle
 
 from ninja_ide import translations
 

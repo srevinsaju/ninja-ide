@@ -18,12 +18,12 @@
 # import os
 # import hashlib
 
-# from PyQt5.QtCore import QObject
-# from PyQt5.QtCore import QFile
-# from PyQt5.QtCore import QTextStream
-# from PyQt5.QtCore import QIODevice
-# from PyQt5.QtCore import QTimer
-# from PyQt5.QtCore import pyqtSlot
+# from PySide2.QtCore import QObject
+# from PySide2.QtCore import QFile
+# from PySide2.QtCore import QTextStream
+# from PySide2.QtCore import QIODevice
+# from PySide2.QtCore import QTimer
+# from PySide2.QtCore import Slot
 
 # from ninja_ide.core import settings
 # from ninja_ide.gui.ide import IDE
@@ -65,13 +65,13 @@
 #         self._neditable.fileSaved.connect(self._on_file_saved)
 #         self._neditable.fileClosing.connect(self._on_file_closing)
 
-#     @pyqtSlot()
+#     @Slot()
 #     def _on_file_closing(self):
 #         if not self._neditable.new_document:
 #             self.__remove()
 #         self.deleteLater()
 
-#     @pyqtSlot()
+#     @Slot()
 #     def _autosave(self):
 #         if self._neditable.editor.is_modified:
 #             flags = QIODevice.WriteOnly
@@ -101,12 +101,12 @@
 #             exists = True
 #         return exists
 
-#     @pyqtSlot()
+#     @Slot()
 #     def _on_ide_going_down(self):
 #         if not self._neditable.new_document:
 #             self._autosave()
 
-#     @pyqtSlot()
+#     @Slot()
 #     def _on_file_saved(self):
 #         self.__remove()
 
@@ -120,7 +120,7 @@
 #     def dirty(self):
 #         return self.__dirty
 
-#     @pyqtSlot()
+#     @Slot()
 #     def _on_file_loaded(self):
 #         if self._neditable.new_document:
 #             return
@@ -133,7 +133,7 @@
 #             self._neditable.document.setModified(True)
 #         self._neditable.editor.textChanged.connect(self._on_text_changed)
 
-#     @pyqtSlot()
+#     @Slot()
 #     def _on_text_changed(self):
 #         if not self._neditable.editor.is_modified or not settings.AUTOSAVE:
 #             return

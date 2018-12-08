@@ -17,16 +17,16 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-from PyQt5.QtCore import (
+from PySide2.QtCore import (
     QSettings,
-    pyqtSignal
+    Signal
 )
 
 
 class NSettings(QSettings):
     """Extend QSettings to emit a signal when a value change."""
 
-    valueChanged = pyqtSignal(str, object)
+    valueChanged = Signal(str, object)
 
     def __init__(self, path, fformat=QSettings.IniFormat):
         super().__init__(path, fformat)
@@ -43,7 +43,7 @@ class NSettings(QSettings):
     @signals:
     valueChanged(QString, PyQt_PyObject)
     """
-    valueChanged = pyqtSignal(object, str, object)
+    valueChanged = Signal(object, str, object)
 
     def __init__(self, path, obj=None, fformat=QSettings.IniFormat, prefix=''):
         super(NSettings, self).__init__(path, fformat)

@@ -20,8 +20,8 @@ from unittest.mock import Mock
 
 from ninja_ide.gui.editor import editor
 
-from PyQt5.QtGui import QTextDocument
-from PyQt5.QtCore import Qt
+from PySide2.QtGui import QTextDocument
+from PySide2.QtCore import Qt
 
 
 @pytest.fixture

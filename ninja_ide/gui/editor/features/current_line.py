@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt5.QtGui import QPainter
-from PyQt5.QtGui import QFontMetricsF
+from PySide2.QtGui import QPainter
+from PySide2.QtGui import QFontMetricsF
 
 from ninja_ide.gui.editor.features import Feature
 from ninja_ide.gui.editor.extra_selection import ExtraSelection

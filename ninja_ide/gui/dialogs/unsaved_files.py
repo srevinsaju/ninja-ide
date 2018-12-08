@@ -15,14 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt5.QtWidgets import QDialog
-from PyQt5.QtWidgets import QVBoxLayout
-from PyQt5.QtWidgets import QListWidget
-from PyQt5.QtWidgets import QListWidgetItem
-from PyQt5.QtWidgets import QDialogButtonBox
-from PyQt5.QtWidgets import QLabel
+from PySide2.QtWidgets import QDialog
+from PySide2.QtWidgets import QVBoxLayout
+from PySide2.QtWidgets import QListWidget
+from PySide2.QtWidgets import QListWidgetItem
+from PySide2.QtWidgets import QDialogButtonBox
+from PySide2.QtWidgets import QLabel
 
-from PyQt5.QtCore import Qt
+from PySide2.QtCore import Qt
 
 from ninja_ide import translations
 from ninja_ide.tools.logger import NinjaLogger
