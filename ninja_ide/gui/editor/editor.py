@@ -14,19 +14,27 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
+import re
+import sre_constants
 
 from PyQt5.QtWidgets import QToolTip
 
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtGui import QPaintEvent
+from PyQt5.QtGui import QPainter
 from PyQt5.QtGui import QKeyEvent
 from PyQt5.QtGui import QFontMetrics
+from PyQt5.QtGui import QColor
 
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtCore import QEvent
 from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QPoint
+from PyQt5.QtCore import QTimer
 
+from ninja_ide import resources
+# from ninja_ide.tools import utils
 from ninja_ide.gui.editor.base import CodeEditor
 from ninja_ide.gui.editor import highlighter
 from ninja_ide.gui.editor import scrollbar
@@ -40,6 +48,7 @@ from ninja_ide.gui.editor.features import Ruler
 from ninja_ide.gui.editor.features import SymbolHighlighter
 from ninja_ide.gui.editor.features import Quotes
 
+from ninja_ide.gui.editor.side_area import LineNumberWidget
 from ninja_ide.gui.editor.side_area import SideWidgetManager
 from ninja_ide.gui.editor.side_area import TextChangeWidget
 
@@ -62,19 +71,23 @@ class NEditor(CodeEditor):
         self._last_line_position = 0
         self._highlighter = None
         self._indenter = indenter.load_indenter(self, neditable.language())
+        # For highlight search results
+        self._highlight_results_timer = QTimer(self)
+        self._highlight_results_timer.setSingleShot(True)
+        self._highlight_results_timer.timeout.connect(self.viewport().update)
+        self._search_expression = None
 
         # Extra selection manager
         self._extra_selections = ExtraSelectionManager(self)
         # Feature manager
         self._features = FeatureManager(self)
-
+        # Install features
         self._features.install(CurrentLine)
         self._features.install(AutocompleteBraces)
         self._features.install(Ruler)
         self._features.install(SymbolHighlighter)
         self._features.install(Quotes)
-
-        from ninja_ide.gui.editor.side_area import LineNumberWidget
+        # Side widgets manager
         self._side_widgets = SideWidgetManager(self)
         # Custom scrollbar
         self._scrollbar = scrollbar.NScrollBar(self)
@@ -86,7 +99,7 @@ class NEditor(CodeEditor):
             else:
                 self._neditable.set_editor(self)
             self._neditable.checkersUpdated.connect(self._highlight_checkers)
-
+        # Install side widgets
         self._side_widgets.add(LineNumberWidget)
         self._side_widgets.add(TextChangeWidget)
 
@@ -134,6 +147,7 @@ class NEditor(CodeEditor):
     def _highlight_checkers(self, editable):
         """Highlight errors, warnings..."""
         self._extra_selections.remove('checkers')
+        self._scrollbar.remove_marker('checkers')
         checkers = editable.sorted_checkers
         selections = []
         append = selections.append  # Reduce name look-ups for better speed
@@ -143,6 +157,7 @@ class NEditor(CodeEditor):
             lines.sort()
             for line in lines[:_MAX_CHECKER_SELECTIONS]:
                 cursor = self.textCursor()
+                self._scrollbar.add_marker('checkers', line, color)
                 ms = checker.checks[line]
                 for (col_start, col_end), _, _ in ms:
                     selection = ExtraSelection(
@@ -251,7 +266,9 @@ class NEditor(CodeEditor):
 
     def paintEvent(self, event):
         super().paintEvent(event)
+        # Emit a singal so that plugins can do their thing
         self.painted.emit(event)
+        self._paint_search_results()
 
     def viewportEvent(self, event):
         if event.type() == QEvent.ToolTip:
@@ -288,7 +305,104 @@ class NEditor(CodeEditor):
         self._scrollbar.set_range_offset(offset / line_spacing)
 
     def link(self, clone):
-        pass
+        clone._scrollbar.link(self._scrollbar)
+
+    def highlight_search_results(self, text, cs=False, wo=False):
+        if self._search_expression == text:
+            return
+        self._search_expression = text
+        self._highlight_results_timer.start(50)
+
+    def _get_search_results(self, target):
+        cursor = self.cursorForPosition(QPoint(0, 0))
+        doc = self.document()
+        for _ in range(200):
+            cursor = doc.find(
+                self._search_expression, cursor)
+            if cursor is None or cursor.isNull():
+                # No more matches found
+                break
+            end_rect = self.cursorRect(cursor)
+            if end_rect.bottom() > self.height():
+                # Don't highlight the rest of not visible document
+                break
+            cursor.setPosition(min(cursor.position(), cursor.anchor()))
+            start_rect = self.cursorRect(cursor)
+            width = end_rect.left() - start_rect.left()
+            yield start_rect, width
+            cursor.movePosition(cursor.EndOfWord)
+
+    def clear_search_results(self):
+        self._search_expression = None
+        self.viewport().update()
+
+    def _paint_search_results(self):
+        painter = QPainter(self.viewport())
+        color = QColor(resources.COLOR_SCHEME.get('editor.search.result'))
+        painter.setPen(color)
+        color.setAlpha(50)
+        painter.setBrush(color)
+
+        for rect, width in self._get_search_results(self._search_expression):
+            painter.drawRoundedRect(
+                rect.left(), rect.top(),
+                width, rect.height(), 2, 2
+            )
+    # def highlight_found_results(self, text, cs=False, wo=False):
+    #     """Highlight all found results from find/replace widget"""
+
+    #     if self._search_expression == text:
+    #         return 0, 0
+    #     self._search_expression = text
+    #     self._highlight_results_timer.start(100)
+        # if self._search_expression == text:
+        #     return
+        # self._search_expression = text
+        # self._highlight_results_timer.start(100)
+        # index, results = self._get_find_index_results(text, cs=cs, wo=wo)
+        # selections = []
+        # append = selections.append
+        # color = resources.COLOR_SCHEME.get("editor.search.result")
+        # for start, end in results:
+        #     selection = ExtraSelection(
+        #         self.textCursor(), start_pos=start, end_pos=end)
+        #     selection.set_background(color)
+        #     selection.set_foreground(utils.get_inverted_color(color))
+        #     append(selection)
+        #     line = selection.cursor.blockNumber()
+        #     self._scrollbar.add_marker("find", line, color)
+        # self._extra_selections["find"] = selections
+
+        # return index, len(results)
+        # return 0, 0
+
+    def _get_find_index_results(self, expr, cs, wo):
+
+        text = self.text
+        current_index = 0
+
+        if not cs:
+            text = text.lower()
+            expr = expr.lower()
+
+        expr = re.escape(expr)
+        if wo:
+            expr = r"\b" + re.escape(expr) + r"\b"
+
+        def find_all_iter(string, sub):
+            try:
+                reobj = re.compile(sub)
+            except sre_constants.error:
+                return
+            for match in reobj.finditer(string):
+                yield match.span()
+
+        matches = list(find_all_iter(text, expr))
+
+        if len(matches) > 0:
+            position = self.textCursor().position()
+            current_index = sum(1 for _ in re.finditer(expr, text[:position]))
+        return current_index, matches
 
 
 class ExtraSelectionManager:

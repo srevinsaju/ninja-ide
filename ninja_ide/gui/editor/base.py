@@ -396,9 +396,7 @@ class CodeEditor(BaseTextEditor):
             self.setTextCursor(found)
 
         elif wrap_around:
-            if not backward and not forward:
-                cursor.movePosition(QTextCursor.Start)
-            elif forward:
+            if not (backward and forward) or forward:
                 cursor.movePosition(QTextCursor.Start)
             else:
                 cursor.movePosition(QTextCursor.End)

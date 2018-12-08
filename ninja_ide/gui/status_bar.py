@@ -94,8 +94,9 @@ class _StatusBar(QWidget):
         main_container = IDE.get_service("main_container")
         editor = main_container.get_current_editor()
         if editor is not None:
-            editor.extra_selections.remove("find")
-            editor.scrollbar().remove_marker("find")
+            pass
+            # editor.extra_selections.remove("find")
+            # editor.scrollbar.remove_marker("find")
 
     def show_search(self):
         """Show the status bar with search widget"""
@@ -178,7 +179,7 @@ class SearchWidget(QWidget):
     def search_text(self):
         """Return the text entered by the user"""
 
-        return self._line_search.text()
+        return self._line_search.text().strip()
 
     @property
     def search_flags(self):
@@ -212,24 +213,29 @@ class SearchWidget(QWidget):
         if editor is None:
             return
         cs, wo, highlight = self.search_flags
-        index, matches = 0, 0
+        # index, matches = 0, 0
         found = editor.find_match(self.search_text, cs, wo, backward, forward)
         if found:
-            if rehighlight:
-                editor.clear_found_results()
-                index, matches = editor.highlight_found_results(
-                    self.search_text, cs, wo)
+            editor.highlight_search_results(self.search_text, cs, wo)
         else:
-            editor.clear_found_results()
-        if matches == 0 and found:
-            index, matches = editor._get_find_index_results(
-                self.search_text, cs, wo)
-            matches = len(matches)
-            if index == 1:
-                ide = IDE.get_service("ide")
-                ide.show_message(translations.TR_SEARCH_FROM_TOP)
-        self._line_search.counter.update_count(
-            index, matches, len(self.search_text) > 0)
+            editor.clear_search_results()
+        # FIXME: counter
+        # if found:
+        #     if rehighlight:
+        #         editor.clear_found_results()
+        #         index, matches = editor.highlight_found_results(
+        #             self.search_text, cs, wo)
+        # else:
+        #     editor.clear_found_results()
+        # if matches == 0 and found:
+        #     index, matches = editor._get_find_index_results(
+        #         self.search_text, cs, wo)
+        #     matches = len(matches)
+        #     if index == 1:
+        #         ide = IDE.get_service("ide")
+        #         ide.show_message(translations.TR_SEARCH_FROM_TOP)
+        # self._line_search.counter.update_count(
+        #     index, matches, len(self.search_text) > 0)
 
 
 class ReplaceWidget(QWidget):

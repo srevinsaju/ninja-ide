@@ -53,6 +53,7 @@ class CentralWidget(QWidget):
 
         # Toolbar
         self._toolbar = ntoolbar.NToolBar(self)
+        self._toolbar.hide()
         main_container.addWidget(self._toolbar)
 
         # Create Splitters to divide the UI 3 regions
