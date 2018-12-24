@@ -21,8 +21,8 @@ import signal
 
 from PySide2.QtWidgets import QApplication
 from PySide2.QtGui import QPalette, QColor
-from PySide2.QtCore import Qt
-from PySide2.QtCore import QCoreApplication
+# from PySide2.QtCore import Qt
+# from PySide2.QtCore import QCoreApplication
 
 from ninja_ide.core import cliparser
 
@@ -49,17 +49,17 @@ def run_ninja():
     # Qt modules to avoid warnings
     app = QApplication(sys.argv)
     from ninja_ide import resources
-    from ninja_ide.core import settings
+    # from ninja_ide.core import settings
     resources.create_home_dir_structure()
     # Load Logger
     from ninja_ide.tools.logger import NinjaLogger
     NinjaLogger.argparse(log_level, log_file)
 
     # Load Settings
-    settings.load_settings()
-    QCoreApplication.setAttribute(Qt.AA_EnableHighDpiScaling, settings.HDPI)
-    if settings.CUSTOM_SCREEN_RESOLUTION:
-        os.environ["QT_SCALE_FACTOR"] = settings.CUSTOM_SCREEN_RESOLUTION
+    # settings.load_settings()
+    # QCoreApplication.setAttribute(Qt.AA_EnableHighDpiScaling, settings.HDPI)
+    # if settings.CUSTOM_SCREEN_RESOLUTION:
+    #     os.environ["QT_SCALE_FACTOR"] = settings.CUSTOM_SCREEN_RESOLUTION
     # from ninja_ide import ninja_style
     theme = resources.load_theme()
     palette = load_pallete(theme['palette'])

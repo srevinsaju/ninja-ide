@@ -202,7 +202,7 @@ QFrame#actionbar {
     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
         stop: 0 #717375, stop: 1.0 #232526);
     color: gray;
-    border: 0px solid darkgray;
+    border: 0px solid gray;
     min-height: 1.5em;
 }
 
@@ -374,4 +374,54 @@ QGroupBox::indicator:indeterminate:pressed {
 QCheckBox::indicator:indeterminate:disabled,
 QGroupBox::indicator:indeterminate:disabled {
     image:url(:img/checkbox-indeterminate-disabled);
+}
+
+QTabBar {
+    background-color: #333;
+    border: none;
+}
+QTabBar::close-button {
+}
+QTabBar::tab {
+    color: #bbb;
+    padding: 4px 8px;
+    border: 1px solid #222;
+    background: #252525;
+    border-radius: 1px;
+}
+QTabBar::tab:right {
+    padding: 8px 6px;
+    border-top: 1px solid #111;
+}
+
+QTabBar::tab:right {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-right: 1px solid transparent;
+    margin: 0 0 2px 2px;
+}
+
+QTabBar::tab:selected {
+    color: #FFA500;
+}
+QTabBar::tab:right:selected,
+QTabBar::tab:right:hover {
+    border-left-color: #FFA500;
+}
+
+
+QTabBar::tab:hover,
+QTabBar::tab:focus {
+    color: #fff;
+}
+
+QTabBar::tab:right:first:selected {
+    margin-top: 0;
+}
+QTabBar::tab:right:last:selected {
+    margin-bottom: 0;
+}
+
+QTabBar::tab:only-one {
+    margin: 0; /* if there is only one tab, we don't want overlapping margins */
 }

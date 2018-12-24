@@ -24,11 +24,11 @@ from PySide2.QtGui import QFontMetricsF
 from PySide2.QtCore import Qt
 from PySide2.QtCore import QSize
 
-from ninja_ide.gui.editor.side_area import SideWidget
+from ninja_ide.gui.editor.side_area import SideBarWidget
 from ninja_ide import resources
 
 
-class LineNumberWidget(SideWidget):
+class LineNumberWidget(SideBarWidget):
     """
     Line number area Widget
     """
@@ -44,8 +44,10 @@ class LineNumberWidget(SideWidget):
             self._editor.side_widgets.update_viewport)
 
     def initialize(self):
-        self._color_unselected = QColor(
-            resources.COLOR_SCHEME.get('editor.sidebar.foreground'))
+        self.color.background = resources.COLOR_SCHEME.get('editor.line_number.background')
+        self.color.foreground = resources.COLOR_SCHEME.get('editor.line_number.foreground')
+        # self._color_unselected = QColor(
+        #     resources.COLOR_SCHEME.get('editor.sidebar.foreground'))
         self._color_selected = QColor(
             resources.COLOR_SCHEME.get("editor.line"))
 
@@ -60,7 +62,7 @@ class LineNumberWidget(SideWidget):
         font = self._editor.document().defaultFont()
         font_bold = self._editor.document().defaultFont()
         font_bold.setBold(True)
-        pen = QPen(self._color_unselected)
+        pen = QPen(self.color.foreground)
         painter.setPen(pen)
         painter.setFont(font)
         sel_start, sel_end = self._editor.selection_range()

@@ -20,6 +20,7 @@ from PySide2.QtWidgets import QStyleOptionViewItem
 from PySide2.QtWidgets import QStyle
 
 from PySide2.QtGui import QPainter
+from PySide2.QtGui import QPalette
 from PySide2.QtGui import QTextBlock
 from PySide2.QtGui import QColor
 
@@ -29,7 +30,7 @@ from PySide2.QtCore import Qt
 from PySide2.QtCore import QTimer
 
 from ninja_ide import resources
-from ninja_ide.gui.editor import side_area
+from ninja_ide.gui.editor.side_area import SideBarWidget
 from ninja_ide.tools.utils import get_inverted_color
 
 
@@ -105,7 +106,7 @@ IMPLEMENTATIONS = {
 }
 
 
-class CodeFoldingWidget(side_area.SideWidget):
+class CodeFoldingWidget(SideBarWidget):
     """Code folding widget"""
 
     def __init__(self):
@@ -118,8 +119,9 @@ class CodeFoldingWidget(side_area.SideWidget):
         self.__timer.setSingleShot(True)
         self.__timer.setInterval(100)
         self.__timer.timeout.connect(self.update)
+        self.color.background = resources.COLOR_SCHEME.get('editor.fold.background')
         reverse_color = get_inverted_color(
-            resources.COLOR_SCHEME.get("editor.background"))
+            resources.COLOR_SCHEME.get("editor.fold.foreground"))
         self.__line_fold_color = QColor(reverse_color)
 
     def register(self, neditor):
@@ -132,14 +134,14 @@ class CodeFoldingWidget(side_area.SideWidget):
         neditor.painted.connect(self.__draw_collapsed_line)
 
     def __draw_collapsed_line(self):
-        viewport = self._neditor.viewport()
+        viewport = self._editor.viewport()
         painter = QPainter(viewport)
-        painter.setPen(self.__line_fold_color)
-        for top, _, block in self._neditor.visible_blocks:
+        painter.setPen(self.color.foreground)
+        for top, _, block in self._editor.visible_blocks:
             if not block.next().isVisible():
                 layout = block.layout()
                 line = layout.lineAt(layout.lineCount() - 1)
-                offset = self._neditor.contentOffset()
+                offset = self._editor.contentOffset()
                 line_rect = line.naturalTextRect().translated(offset.x(), top)
                 bottom = line_rect.bottom()
                 painter.drawLine(
@@ -148,8 +150,8 @@ class CodeFoldingWidget(side_area.SideWidget):
     def __block_under_mouse(self, event):
         """Returns QTextBlock under mouse"""
         posy = event.pos().y()
-        height = self._neditor.fontMetrics().height()
-        for top, _, block in self._neditor.visible_blocks:
+        height = self._editor.fontMetrics().height()
+        for top, _, block in self._editor.visible_blocks:
             if posy >= top and posy <= top + height:
                 return block
 
@@ -158,7 +160,7 @@ class CodeFoldingWidget(side_area.SideWidget):
             self.user_data(block).get("folded")
 
     def sizeHint(self):
-        fm = self._neditor.fontMetrics()
+        fm = self._editor.fontMetrics()
         return QSize(fm.height(), fm.height())
 
     def leaveEvent(self, event):
@@ -192,16 +194,18 @@ class CodeFoldingWidget(side_area.SideWidget):
     def paintEvent(self, event):
         super().paintEvent(event)
         painter = QPainter(self)
-        for top, _, block in self._neditor.visible_blocks:
+        for top, _, block in self._editor.visible_blocks:
             if not self.is_foldable_block(block):
                 continue
-            branch_rect = QRect(0, top, self.sizeHint().width(),
+            branch_rect = QRect(0, top + 3, self.sizeHint().width(),
                                 self.sizeHint().height())
             opt = QStyleOptionViewItem()
             opt.rect = branch_rect
             opt.state = (QStyle.State_Active |
                          QStyle.State_Item |
                          QStyle.State_Children)
+            opt.palette.setColor(
+                QPalette.WindowText, opt.palette.dark().color())
             folded = self.user_data(block).get("folded", default=False)
             if not folded:
                 opt.state |= QStyle.State_Open
@@ -210,7 +214,7 @@ class CodeFoldingWidget(side_area.SideWidget):
                                        painter, self)
             # Draw folded region background
             if block == self.__mouse_over and not self.__timer.isActive():
-                fm_height = self._neditor.fontMetrics().height()
+                fm_height = self._editor.fontMetrics().height()
                 rect_height = 0
                 color = self.palette().highlight().color()
                 color.setAlpha(100)
@@ -224,28 +228,28 @@ class CodeFoldingWidget(side_area.SideWidget):
     def fold(self, block):
         if not self.code_folding.is_foldable(block):
             return
-        line, _ = self._neditor.cursor_position
+        line, _ = self._editor.cursor_position
         contains_cursor = False
         for _block in self.code_folding.foldable_blocks(block):
             if _block.blockNumber() == line:
                 contains_cursor = True
             _block.setVisible(False)
         self.user_data(block)["folded"] = True
-        self._neditor.document().markContentsDirty(
+        self._editor.document().markContentsDirty(
             block.position(), _block.position())
         # If the cursor is inside a block to be hidden,
         # let's move the cursor to the end of the start block
         if contains_cursor:
-            cursor = self._neditor.textCursor()
+            cursor = self._editor.textCursor()
             cursor.setPosition(block.position())
             cursor.movePosition(cursor.EndOfBlock)
-            self._neditor.setTextCursor(cursor)
-        self._neditor.repaint()
+            self._editor.setTextCursor(cursor)
+        self._editor.repaint()
 
     def unfold(self, block):
         for _block in self.code_folding.foldable_blocks(block):
             _block.setVisible(True)
         self.user_data(block)["folded"] = False
-        self._neditor.document().markContentsDirty(
+        self._editor.document().markContentsDirty(
             block.position(), _block.position())
-        self._neditor.repaint()
+        self._editor.repaint()

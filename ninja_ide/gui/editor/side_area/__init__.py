@@ -18,7 +18,6 @@
 from PySide2.QtWidgets import QWidget
 from PySide2.QtWidgets import QMenu
 
-from PySide2.QtGui import QColor
 from PySide2.QtGui import QPainter
 
 from PySide2.QtCore import Signal
@@ -26,10 +25,8 @@ from PySide2.QtCore import QPoint
 
 from ninja_ide.gui.editor.features import Feature
 
-from ninja_ide import resources
 
-
-class SideWidget(Feature, QWidget):
+class SideBarWidget(Feature, QWidget):
 
     sidebarContextMenuRequested = Signal(int, QMenu)
 
@@ -58,10 +55,8 @@ class SideWidget(Feature, QWidget):
 
     def paintEvent(self, event):
         if self.isVisible():
-            background_color = QColor(
-                resources.COLOR_SCHEME.get("editor.sidebar.background"))
             painter = QPainter(self)
-            painter.fillRect(event.rect(), background_color)
+            painter.fillRect(event.rect(), self.color.background)
 
     def setVisible(self, value):
         """Show/Hide the widget"""
@@ -72,10 +67,12 @@ class SideWidget(Feature, QWidget):
 from ninja_ide.gui.editor.side_area.manager import SideWidgetManager  # noqa
 from ninja_ide.gui.editor.side_area.line_number_widget import LineNumberWidget  # noqa
 from ninja_ide.gui.editor.side_area.text_change_widget import TextChangeWidget  # noqa
+from ninja_ide.gui.editor.side_area.code_folding import CodeFoldingWidget  # noqa
 
 __all__ = [
-    'SideWidget',
+    'SideBarWidget',
     'SideWidgetManager',
     'LineNumberWidget',
-    'TextChangeWidget'
+    'TextChangeWidget',
+    'CodeFoldingWidget'
 ]

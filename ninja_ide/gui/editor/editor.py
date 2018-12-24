@@ -41,16 +41,8 @@ from ninja_ide.gui.editor import scrollbar
 from ninja_ide.gui.editor import indenter
 
 from ninja_ide.gui.editor.extra_selection import ExtraSelection
-from ninja_ide.gui.editor.features import FeatureManager
-from ninja_ide.gui.editor.features import CurrentLine
-from ninja_ide.gui.editor.features import AutocompleteBraces
-from ninja_ide.gui.editor.features import Ruler
-from ninja_ide.gui.editor.features import SymbolHighlighter
-from ninja_ide.gui.editor.features import Quotes
-
-from ninja_ide.gui.editor.side_area import LineNumberWidget
-from ninja_ide.gui.editor.side_area import SideWidgetManager
-from ninja_ide.gui.editor.side_area import TextChangeWidget
+from ninja_ide.gui.editor import features
+from ninja_ide.gui.editor import side_area
 
 _MAX_CHECKER_SELECTIONS = 150  # For good performance
 
@@ -66,6 +58,7 @@ class NEditor(CodeEditor):
     def __init__(self, neditable=None):
         super().__init__()
         self.setMouseTracking(True)
+        self.setCursorWidth(2)
         self._neditable = neditable
         self.__encoding = None
         self._last_line_position = 0
@@ -80,15 +73,16 @@ class NEditor(CodeEditor):
         # Extra selection manager
         self._extra_selections = ExtraSelectionManager(self)
         # Feature manager
-        self._features = FeatureManager(self)
+        self._features = features.FeatureManager(self)
         # Install features
-        self._features.install(CurrentLine)
-        self._features.install(AutocompleteBraces)
-        self._features.install(Ruler)
-        self._features.install(SymbolHighlighter)
-        self._features.install(Quotes)
+        self._features.install(features.CurrentLine)
+        self._features.install(features.AutocompleteBraces)
+        self._features.install(features.Ruler)
+        self._features.install(features.SymbolHighlighter)
+        self._features.install(features.Quotes)
+
         # Side widgets manager
-        self._side_widgets = SideWidgetManager(self)
+        self._side_widgets = side_area.SideWidgetManager(self)
         # Custom scrollbar
         self._scrollbar = scrollbar.NScrollBar(self)
         self.setVerticalScrollBar(self._scrollbar)
@@ -100,8 +94,9 @@ class NEditor(CodeEditor):
                 self._neditable.set_editor(self)
             self._neditable.checkersUpdated.connect(self._highlight_checkers)
         # Install side widgets
-        self._side_widgets.add(LineNumberWidget)
-        self._side_widgets.add(TextChangeWidget)
+        self._side_widgets.add(side_area.TextChangeWidget)
+        self._side_widgets.add(side_area.LineNumberWidget)
+        self._side_widgets.add(side_area.CodeFoldingWidget)
 
         self.cursorPositionChanged.connect(self._on_cursor_position_changed)
         self.currentLineChanged.connect(self.viewport().update)

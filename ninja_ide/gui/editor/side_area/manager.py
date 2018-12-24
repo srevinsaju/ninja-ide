@@ -19,7 +19,7 @@ from ninja_ide.tools.logger import NinjaLogger
 
 logger = NinjaLogger(__name__)
 
-# FIXME: width property
+# TODO: support for widgets area (LEFT and RIGHT for now)
 
 
 class UnknownSideWidgetError(Exception):
@@ -69,17 +69,17 @@ class SideWidgetManager:
         return iter(self.__widgets.values())
 
     def __len__(self):
-        return len(self.__widgets.values())
+        return len(self.__widgets)
 
     def update_viewport(self):
         """Recalculates geometry for all the side widgets"""
 
-        total_width = 0
+        width = 0
         for widget in self:
             if not widget.isVisible():
                 continue
-            total_width += widget.sizeHint().width()
-        self._neditor.setViewportMargins(total_width, 0, 0, 0)
+            width += widget.sizeHint().width()
+        self._neditor.setViewportMargins(width, 0, 0, 0)
 
     def resize(self):
         """Resize all side widgets"""

@@ -178,10 +178,10 @@ class FindInFilesWidget(QWidget):
         self._main_container = IDE.get_service("main_container")
         # Search worker
         self._search_worker = FindInFilesWorker()
-        search_thread = QThread()
-        self._search_worker.moveToThread(search_thread)
-        self._search_worker.resultAvailable.connect(self._on_worker_finished)
-        search_thread.finished.connect(search_thread.deleteLater)
+        # search_thread = QThread()
+        # self._search_worker.moveToThread(search_thread)
+        # self._search_worker.resultAvailable.connect(self._on_worker_finished)
+        # search_thread.finished.connect(search_thread.deleteLater)
 
         self._actions.searchRequested.connect(self._on_search_requested)
         self._tree_results.activated.connect(self._go_to)

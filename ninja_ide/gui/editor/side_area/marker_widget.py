@@ -31,10 +31,10 @@ from ninja_ide.gui.editor import side_area
 from ninja_ide.gui.main_panel.marks import Bookmark
 
 
-class MarkerWidget(side_area.SideWidget):
+class MarkerWidget(side_area.SideBarWidget):
 
     def __init__(self):
-        side_area.SideWidget.__init__(self)
+        side_area.SideBarWidget.__init__(self)
         self.setMouseTracking(True)
         self.__bookmarks = defaultdict(list)
         self.__line_hovered = -1

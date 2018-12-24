@@ -24,11 +24,11 @@ from PySide2.QtCore import Slot
 from PySide2.QtCore import QSize
 from PySide2.QtCore import QTimer
 
-from ninja_ide.gui.editor.side_area import SideWidget
+from ninja_ide.gui.editor.side_area import SideBarWidget
 from ninja_ide import resources
 
 
-class TextChangeWidget(SideWidget):
+class TextChangeWidget(SideBarWidget):
 
     @property
     def unsaved_color(self):
@@ -61,7 +61,7 @@ class TextChangeWidget(SideWidget):
             self._timer.setInterval(self.__delay)
 
     def __init__(self):
-        SideWidget.__init__(self)
+        SideBarWidget.__init__(self)
         # Delay Timer
         self._timer = QTimer(self)
         self._timer.setInterval(self.__delay)
