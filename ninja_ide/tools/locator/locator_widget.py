@@ -61,7 +61,7 @@ class LocatorWidget(QDialog):
         vbox.setSpacing(0)
         vbox.addWidget(view)
 
-        self.locate_symbols = locator.LocateSymbolsThread()
+        self.locate_symbols = locator.LocateSymbolsThread(self)
         self.locate_symbols.finished.connect(self._cleanup)
         # FIXME: invalid signal
         # self.locate_symbols.terminated.connect(self._cleanup)

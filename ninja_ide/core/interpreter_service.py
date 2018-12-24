@@ -63,6 +63,7 @@ class InterpreterService(QObject):
         QTimer.singleShot(1000, self._thread.start)
 
     def _on_finished(self, list_of_interpreters):
+        self._thread.quit()
         for interpreter in list_of_interpreters:
             self.__interpreters[interpreter.exec_path] = interpreter
         self.foundInterpreters.emit(self.get_interpreters())

@@ -159,8 +159,8 @@ class ResultItem(object):
 
 class LocateSymbolsThread(QThread):
 
-    def __init__(self):
-        super(LocateSymbolsThread, self).__init__()
+    def __init__(self, parent=None):
+        super(LocateSymbolsThread, self).__init__(parent)
         self.results = []
         self._cancel = False
         self.locations = []
