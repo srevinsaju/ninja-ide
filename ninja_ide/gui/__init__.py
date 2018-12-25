@@ -157,6 +157,8 @@ def start_ide(app, filenames, projects_path, extra_plugins, linenos):
     if qsettings.value('general/loadFiles', True):
         files = data_qsettings.value('lastSession/openedFiles')
         projects = data_qsettings.value('lastSession/projects')
+        if isinstance(projects, str):
+            projects = [projects]
         current_file = data_qsettings.value('lastSession/currentFile')
         if files is None:
             files = []

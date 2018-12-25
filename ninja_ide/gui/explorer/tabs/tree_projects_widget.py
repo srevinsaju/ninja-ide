@@ -508,7 +508,7 @@ class TreeProjectsWidget(QTreeView):
 
     def __init__(self, project, state_index=list()):
         super(TreeProjectsWidget, self).__init__()
-        self.setFrameShape(0)
+        self.setFrameShape(QFrame.NoFrame)
         self.project = project
         self._added_to_console = False
         self.__format_tree()
