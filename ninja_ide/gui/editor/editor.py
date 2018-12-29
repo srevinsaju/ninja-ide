@@ -257,13 +257,16 @@ class NEditor(CodeEditor):
         super().resizeEvent(event)
         self.adjust_scrollbar_ranges()
         self._side_widgets.resize()
-        self._side_widgets.update_viewport()
 
     def paintEvent(self, event):
         super().paintEvent(event)
         # Emit a singal so that plugins can do their thing
         self.painted.emit(event)
         self._paint_search_results()
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self._side_widgets.update_viewport()
 
     def viewportEvent(self, event):
         if event.type() == QEvent.ToolTip:
@@ -311,7 +314,7 @@ class NEditor(CodeEditor):
     def _get_search_results(self, target):
         cursor = self.cursorForPosition(QPoint(0, 0))
         doc = self.document()
-        for _ in range(200):
+        for _ in range(200):  # FIXME:
             cursor = doc.find(
                 self._search_expression, cursor)
             if cursor is None or cursor.isNull():
@@ -339,7 +342,6 @@ class NEditor(CodeEditor):
         painter.setBrush(color)
 
         for rect, width in self._get_search_results(self._search_expression):
-            print("LL")
             painter.drawRoundedRect(
                 rect.left(), rect.top(),
                 width, rect.height(), 2, 2

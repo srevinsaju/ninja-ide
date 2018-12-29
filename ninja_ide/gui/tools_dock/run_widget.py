@@ -28,6 +28,7 @@ from PySide2.QtGui import QColor
 from PySide2.QtGui import QTextCharFormat
 from PySide2.QtGui import QTextCursor
 from PySide2.QtGui import QTextBlockFormat
+from PySide2.QtGui import QTextOption
 
 from PySide2.QtCore import Qt
 from PySide2.QtCore import QFile
@@ -470,9 +471,9 @@ class OutputWidget(QPlainTextEdit):
     def __init__(self, parent):
         super(OutputWidget, self).__init__(parent)
         self._parent = parent
-        self.setWordWrapMode(0)
+        self.setWordWrapMode(QTextOption.NoWrap)
         self.setMouseTracking(True)
-        self.setFrameShape(0)
+        self.setFrameShape(QPlainTextEdit.NoFrame)
         self.setUndoRedoEnabled(False)
         # Traceback pattern
         self.patLink = re.compile(r'(\s)*File "(.*?)", line \d.+')
