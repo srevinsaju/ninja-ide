@@ -1,16 +1,16 @@
-# Ninja-IDE Is Not Just Another IDE
-[![Build Status](https://travis-ci.org/ninja-ide/ninja-ide.svg?branch=master)](https://travis-ci.org/ninja-ide/ninja-ide)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
-
- [Ninja-IDE](http://ninja-ide.org) is a cross-platform integrated development environment (IDE) that allows developers to create applications for any purpose making the task of writing software easier and more enjoyable. It's also a secret ninja agency but this doesn't matter right now.
-
 <p align="center">
   <img alt="Ninja-IDE logo" src="http://ninjaide.webfactional.com/static/common/img/ninja-big.png">
 </p>
 
+# Ninja-IDE Is Not Just Another IDE [![Build Status](https://travis-ci.org/ninja-ide/ninja-ide.svg?branch=master)](https://travis-ci.org/ninja-ide/ninja-ide) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
 
-## Important
-Currently version 3.0 is being developed, therefore this branch is unstable. [This set of issues](https://github.com/ninja-ide/ninja-ide/issues?q=is%3Aopen+is%3Aissue+milestone%3A%22Version+3.0+-+Beta%22) lists the tasks we must complete to get to a beta version.
+ [Ninja-IDE](http://ninja-ide.org) is a cross-platform integrated development environment (IDE) that allows developers to create applications for any purpose making the task of writing software easier and more enjoyable. It's also a secret ninja agency but this doesn't matter right now.
+
+<p align="center">
+  <img alt="Ninja-IDE Screenshot" src="https://raw.githubusercontent.com/centaurialpha/centaurialpha.github.io/master/ninja.png">
+</p>
+
+---
 
 ## Requirements
 On any system you want **Ninja-IDE**, you'll need to have this dependencies installed:
@@ -34,6 +34,7 @@ Piece of cake, huh?
 -   [Mailing List](http://groups.google.com/group/ninja-ide/topics "Ninja Google Groups") at Google Groups
 -   [@ninja\_ide](https://twitter.com/ninja_ide "@ninja_ide") at Twitter
 -   [Ninja-IDE](https://discord.gg/4s4SxCa) at Discord
+-   [NINJA-IDE](https://ninja-ide.slack.com) at Slack
 
 ## Feedback
 - File a bug in [GitHub issues](https://github.com/ninja-ide/ninja-ide/issues).
