@@ -11,13 +11,9 @@ install:
 
 jobs:
   include:
-    - python: 3.5
-    - python: 3.6
     - stage: "Lint"
       script: flake8 ninja_ide
-    - stage: "Tests"
-      script: python run_test.py
 
 before_script: rm --recursive --force --verbose *.py[cod]
 
-script: echo "STARTING..."
+script: python run_test.py
