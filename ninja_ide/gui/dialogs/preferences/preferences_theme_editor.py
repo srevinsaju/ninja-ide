@@ -73,16 +73,17 @@ class ThemeEditor(QDialog):
         self.btn_apply = QPushButton(self.tr("Apply Style Sheet"))
         hbox2 = QHBoxLayout()
         hbox2.addSpacerItem(QSpacerItem(10, 0, QSizePolicy.Expanding,
-                            QSizePolicy.Fixed))
+                                        QSizePolicy.Fixed))
         hbox2.addWidget(self.btn_apply)
         hbox2.addSpacerItem(QSpacerItem(10, 0, QSizePolicy.Expanding,
-                            QSizePolicy.Fixed))
+                                        QSizePolicy.Fixed))
 
         vbox.addWidget(self.edit_qss)
         vbox.addLayout(hbox)
         vbox.addLayout(hbox2)
 
-        self.connect(self.btn_apply, SIGNAL("clicked()"), self.apply_stylesheet)
+        self.connect(self.btn_apply, SIGNAL(
+            "clicked()"), self.apply_stylesheet)
         self.connect(self.btn_save, SIGNAL("clicked()"), self.save_stylesheet)
 
     def apply_stylesheet(self):

@@ -17,12 +17,8 @@
 
 from PySide2.QtWidgets import (
     QDialog,
-    QWidget,
     QVBoxLayout,
     QHBoxLayout,
-    QPushButton,
-    QSpacerItem,
-    QSizePolicy,
     QTreeWidget,
     QScrollArea,
     QTreeWidgetItem,
@@ -175,6 +171,7 @@ class Preferences(QDialog):
             }
             config['subsections'] = subconfig
             Preferences.configuration[section] = config
+
 
 """
 from __future__ import absolute_import

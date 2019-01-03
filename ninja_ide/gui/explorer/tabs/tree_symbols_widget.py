@@ -37,7 +37,6 @@ from ninja_ide import translations
 from ninja_ide.core import settings
 from ninja_ide.gui.ide import IDE
 from ninja_ide.gui.explorer.explorer_container import ExplorerContainer
-from ninja_ide.tools import ui_tools
 
 
 class TreeSymbolsWidget(QDialog):
@@ -102,14 +101,14 @@ class TreeSymbolsWidget(QDialog):
             return
 
         menu = QMenu(self)
-        f_all = menu.addAction(translations.TR_FOLD_ALL)
-        u_all = menu.addAction(translations.TR_UNFOLD_ALL)
-        menu.addSeparator()
-        u_class = menu.addAction(translations.TR_UNFOLD_CLASSES)
-        u_class_method = menu.addAction(
-            translations.TR_UNFOLD_CLASSES_AND_METHODS)
-        u_class_attr = menu.addAction(
-            translations.TR_UNFOLD_CLASSES_AND_ATTRIBUTES)
+        # f_all = menu.addAction(translations.TR_FOLD_ALL)
+        # u_all = menu.addAction(translations.TR_UNFOLD_ALL)
+        # menu.addSeparator()
+        # u_class = menu.addAction(translations.TR_UNFOLD_CLASSES)
+        # u_class_method = menu.addAction(
+        #     translations.TR_UNFOLD_CLASSES_AND_METHODS)
+        # u_class_attr = menu.addAction(
+        #     translations.TR_UNFOLD_CLASSES_AND_ATTRIBUTES)
         menu.addSeparator()
         # save_state = menu.addAction(self.tr("Save State"))
 

@@ -22,7 +22,6 @@ from PySide2.QtWidgets import QStyleOption
 from PySide2.QtWidgets import QStyle
 
 from PySide2.QtGui import QPainter
-from PySide2.QtGui import QColor
 
 from ninja_ide.tools import ui_tools
 from ninja_ide.gui.ide import IDE

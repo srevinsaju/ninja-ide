@@ -160,7 +160,7 @@ class NFile(QObject):
             signal_handler = SignalFlowControl()
             self.willAttachToExistingFile.emit(signal_handler, new_path)
             if signal_handler.stopped():
-                    return
+                return
         self._file_path = new_path
         self.gotAPath.emit(self)
         return self._file_path

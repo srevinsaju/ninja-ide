@@ -778,7 +778,7 @@ class IDE(QMainWindow):
         # 'lastSession/currentFile', current_file)
         recent_files = main_container.last_opened_files
         data_settings.setValue("lastSession/recentFiles", recent_files)
-        #     "lastSession/recentFiles", list(main_container.last_opened_files))
+        #     "lastSession/recentFiles", list(main_container.last_opened_files)
         #    data_qsettings.setValue('lastSession/recentFiles',
         #                            settings.LAST_OPENED_FILES)
         # qsettings.setValue('preferences/editor/bookmarks',

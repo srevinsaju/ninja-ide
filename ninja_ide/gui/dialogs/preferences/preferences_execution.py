@@ -15,8 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-import os
-import sys
 from PySide2.QtWidgets import (
     QWidget,
     QVBoxLayout,
@@ -27,19 +25,10 @@ from PySide2.QtWidgets import (
     QGroupBox,
     QLabel,
     QCheckBox,
-    QLineEdit,
-    QCompleter,
-    QRadioButton,
-    QButtonGroup,
     QPushButton,
-    QDirModel,
-    QCompleter,
     QComboBox
 )
-from PySide2.QtCore import (
-    QDir,
-    Slot
-)
+from PySide2.QtCore import Slot
 from ninja_ide.gui.ide import IDE
 from ninja_ide.gui.dialogs.preferences import preferences
 from ninja_ide import translations
@@ -121,7 +110,7 @@ class GeneralExecution(QWidget):
         box.addWidget(group_python_path)
         box.addWidget(group_python_opt)
         box.addItem(QSpacerItem(0, 0,
-                    QSizePolicy.Expanding, QSizePolicy.Expanding))
+                                QSizePolicy.Expanding, QSizePolicy.Expanding))
 
         # Settings
         self._combo_python_path.setCurrentText(settings.PYTHON_EXEC)

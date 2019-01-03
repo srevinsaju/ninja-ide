@@ -15,6 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 import os
+from PySide2.QtWidgets import (
+    QWizardPage, QLineEdit, QGridLayout, QLabel,
+)
 
 from ninja_ide.core.template_registry.ntemplate_registry import BaseProjectType
 
@@ -116,10 +119,6 @@ class PythonProject(BaseProjectType):
 
     @classmethod
     def wizard_pages(csl):
-        from PySide2.QtWidgets import (
-            QWizardPage, QVBoxLayout, QLineEdit, QGridLayout, QLabel,
-
-        )
         p = QWizardPage()
         vbox = QGridLayout(p)
         vbox.addWidget(QLabel("Location:"), 0, 0)

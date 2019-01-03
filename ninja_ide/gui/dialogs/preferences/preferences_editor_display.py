@@ -19,7 +19,6 @@ from PySide2.QtWidgets import (
     QVBoxLayout,
     QHBoxLayout,
     QSpinBox,
-    QLabel,
     QGroupBox,
     QCheckBox,
     QComboBox
@@ -189,7 +188,7 @@ class EditorDisplay(QWidget):
 
         # editor = main_container.get_current_editor()
         # if editor is not None:
-            # FIXME: improve
+        # FIXME: improve
         #    editor.show_whitespaces = settings.SHOW_TABS_AND_SPACES
         #    editor.set_current_line_highlighter(
         #        settings.HIGHLIGHT_CURRENT_LINE)

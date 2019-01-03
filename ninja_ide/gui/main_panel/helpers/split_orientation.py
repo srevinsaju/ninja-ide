@@ -4,7 +4,6 @@
 from PySide2.QtWidgets import (
     QDialog,
     QVBoxLayout,
-    QWidget,
     QShortcut
 )
 from PySide2.QtGui import QKeySequence

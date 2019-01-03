@@ -23,9 +23,9 @@ import datetime
 from PySide2.QtGui import QFont
 from PySide2.QtGui import QImageReader
 from PySide2.QtCore import QMimeDatabase
-from PySide2.QtCore import QSettings
-from PySide2.QtCore import QDir
-from PySide2.QtCore import QFileInfo
+# from PySide2.QtCore import QSettings
+# from PySide2.QtCore import QDir
+# from PySide2.QtCore import QFileInfo
 
 from ninja_ide import resources
 # from ninja_ide.dependencies import pycodestyle
@@ -59,29 +59,30 @@ FONT.setPointSize(12)
 FONT_ANTIALIASING = True
 
 
-def detect_python_path():
-    if (IS_WINDOWS and PYTHON_EXEC_CONFIGURED_BY_USER) or not IS_WINDOWS:
-        return []
+# TODO
+# def detect_python_path():
+#     if (IS_WINDOWS and PYTHON_EXEC_CONFIGURED_BY_USER) or not IS_WINDOWS:
+#         return []
 
-    suggested = []
-    dirs = []
-    try:
-        drives = [QDir.toNativeSeparators(d.absolutePath())
-                  for d in QDir.drives()]
+#     suggested = []
+#     dirs = []
+#     try:
+#         drives = [QDir.toNativeSeparators(d.absolutePath())
+#                   for d in QDir.drives()]
 
-        for drive in drives:
-            info = QFileInfo(drive)
-            if info.isReadable():
-                dirs += [os.path.join(drive, folder)
-                         for folder in os.listdir(drive)]
-        for folder in dirs:
-            file_path = os.path.join(folder, "python.exe")
-            if ("python" in folder.lower()) and os.path.exists(file_path):
-                suggested.append(file_path)
-    except:
-        print("Detection couldnt be executed")
-    finally:
-        return suggested
+#         for drive in drives:
+#             info = QFileInfo(drive)
+#             if info.isReadable():
+#                 dirs += [os.path.join(drive, folder)
+#                          for folder in os.listdir(drive)]
+#         for folder in dirs:
+#             file_path = os.path.join(folder, "python.exe")
+#             if ("python" in folder.lower()) and os.path.exists(file_path):
+#                 suggested.append(file_path)
+#     except:
+#         print("Detection couldnt be executed")
+#     finally:
+#         return suggested
 
 ###############################################################################
 # IDE
@@ -449,9 +450,9 @@ def clean_locator_db(qsettings):
 
 
 def load_settings():
-    qsettings = QSettings(resources.SETTINGS_PATH, QSettings.IniFormat)
-    data_qsettings = QSettings(resources.DATA_SETTINGS_PATH,
-                               QSettings.IniFormat)
+    # qsettings = QSettings(resources.SETTINGS_PATH, QSettings.IniFormat)
+    # data_qsettings = QSettings(resources.DATA_SETTINGS_PATH,
+    #                            QSettings.IniFormat)
     # Globals
     # global TOOLBAR_AREA
     # global LANGUAGE
@@ -571,9 +572,9 @@ def load_settings():
     #    SESSIONS[key] = (files, projects)
     # TODO
     # toolbar_items = [item for item in list(qsettings.value(
-        # 'preferences/interface/toolbar', []))]
+    # 'preferences/interface/toolbar', []))]
     # if toolbar_items:
-        # TOOLBAR_ITEMS = toolbar_items
+    # TOOLBAR_ITEMS = toolbar_items
     # EXECUTION OPTIONS
     # EXECUTION_OPTIONS = qsettings.value(
     #     'execution/executionOptions', defaultValue='', type=str)

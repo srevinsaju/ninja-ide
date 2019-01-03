@@ -34,7 +34,8 @@ class WebRender(QWidget):
         vbox, temporary_directory = QVBoxLayout(self), mkdtemp()
         # Web Frame
         self.webFrame = QWebView()  # QWebView = QWebFrame + QWebSettings
-        self.webFrame.setStyleSheet("QWebView{ background:#fff }")  # no dark bg
+        self.webFrame.setStyleSheet(
+            "QWebView{ background:#fff }")  # no dark bg
         settings = self.webFrame.settings()  # QWebSettings instance
         settings.setDefaultTextEncoding("utf-8")
         settings.setIconDatabasePath(temporary_directory)

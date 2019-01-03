@@ -70,7 +70,8 @@ class ErrorsChecker(QThread):
                 text = "[Error]: %s"
                 # Compile into an AST and handle syntax errors
                 try:
-                    tree = compile(source, self._path, "exec", _ast.PyCF_ONLY_AST)
+                    tree = compile(source, self._path,
+                                   "exec", _ast.PyCF_ONLY_AST)
                 except SyntaxError as reason:
                     if reason.text is None:
                         logger.error("Syntax error")
@@ -78,7 +79,8 @@ class ErrorsChecker(QThread):
                         text = text % reason.args[0]
                         range_ = helpers.get_range(
                             self._neditor, reason.lineno - 1, reason.offset)
-                        self.checks[reason.lineno - 1].append((range_, text, ""))
+                        self.checks[reason.lineno -
+                                    1].append((range_, text, ""))
                 else:
                     # Okay, now check it
                     lint_checker = checker.Checker(tree, self._path)

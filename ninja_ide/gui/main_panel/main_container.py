@@ -578,6 +578,7 @@ class _MainContainer(QWidget):
             editor_widget.setFocus()
 
     def _editor_settings_changed(self, key, value):
+        # TODO: arreglar
         key = key.split("/")[-1]
         editor_widget = self.get_current_editor()
         if editor_widget is not None:
@@ -592,13 +593,14 @@ class _MainContainer(QWidget):
     def toggle_tabs_and_spaces(self):
         """Toggle Show/Hide Tabs and Spaces"""
 
-        settings.SHOW_TABS_AND_SPACES = not settings.SHOW_TABS_AND_SPACES
-        qsettings = IDE.ninja_settings()
-        qsettings.setValue('preferences/editor/showTabsAndSpaces',
-                           settings.SHOW_TABS_AND_SPACES)
+        # settings.SHOW_TABS_AND_SPACES = not settings.SHOW_TABS_AND_SPACES
+        # qsettings = IDE.ninja_settings()
+        # qsettings.setValue('preferences/editor/showTabsAndSpaces',
+        #                    settings.SHOW_TABS_AND_SPACES)
         neditor = self.get_current_editor()
         if neditor is not None:
-            neditor.show_whitespaces = settings.SHOW_TABS_AND_SPACES
+            neditor.toggle_tabs_and_spaces()
+            # neditor.show_whitespaces = settings.SHOW_TABS_AND_SPACES
 
     def __navigate_with_keyboard(self, forward):
         """Navigate between the positions in the jump history stack."""

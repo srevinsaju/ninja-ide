@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-import time
 import abc
 from collections import namedtuple
 from collections import Callable

@@ -147,7 +147,7 @@ class EditorConfiguration(QWidget):
             self._enable_check_inline)
         vvbox.addWidget(self._checkStyleOnLine)
         vvbox.addItem(QSpacerItem(0, 0,
-                      QSizePolicy.Expanding, QSizePolicy.Expanding))
+                                  QSizePolicy.Expanding, QSizePolicy.Expanding))
         vboxg4.addLayout(vvbox)
         # Container for tree widget and buttons
         widget = QWidget()
@@ -175,7 +175,7 @@ class EditorConfiguration(QWidget):
         btn_remove.clicked.connect(self._remove_code_pep8)
         box.addWidget(btn_remove)
         box.addItem(QSpacerItem(0, 0,
-                    QSizePolicy.Fixed, QSizePolicy.Expanding))
+                                QSizePolicy.Fixed, QSizePolicy.Expanding))
         hhbox.addLayout(box)
         vboxg4.addWidget(widget)
         formFeatures.addWidget(group4)
@@ -225,7 +225,7 @@ class EditorConfiguration(QWidget):
         # pack all the groups
         vbox.addWidget(container_widget_with_all_preferences)
         vbox.addItem(QSpacerItem(0, 10, QSizePolicy.Expanding,
-                     QSizePolicy.Expanding))
+                                 QSizePolicy.Expanding))
 
         self._preferences.savePreferences.connect(self.save)
 

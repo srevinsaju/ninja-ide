@@ -28,7 +28,6 @@ from PySide2.QtWidgets import QVBoxLayout
 from PySide2.QtWidgets import QFileDialog
 from PySide2.QtWidgets import QInputDialog
 from PySide2.QtWidgets import QStyle
-from PySide2.QtWidgets import QStyledItemDelegate
 from PySide2.QtWidgets import QMessageBox
 from PySide2.QtWidgets import QMenu
 from PySide2.QtWidgets import QHeaderView
@@ -232,7 +231,8 @@ class ProjectTreeColumn(QDialog):
                 _add_to_project.path_selected, name)
             ide_srv = IDE.get_service("ide")
             old_file = ide_srv.get_or_create_nfile(path)
-            new_file = old_file.save(editorWidget.text(), new_path)
+            # FIXME
+            new_file = old_file.save(editorWidget.text(), new_path)  # noqa
             # FIXME: Make this file replace the original in the open tab
         else:
             pass
@@ -515,7 +515,6 @@ class TreeProjectsWidget(QTreeView):
 
         self.setStyleSheet("QTreeView{ show-decoration-selected: 1;}")
 
-
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self._menu_context_tree)
 
@@ -616,10 +615,11 @@ class TreeProjectsWidget(QTreeView):
         #             self._move_file)
 
         # Allow to edit Qt UI files with the appropiate program
-        if lang == 'ui':
-            action_edit_ui_file = menu.addAction(translations.TR_EDIT_UI_FILE)
-            self.connect(action_edit_ui_file, SIGNAL("triggered()"),
-                         self._edit_ui_file)
+        # FIXME
+        # if lang == 'ui':
+        #     action_edit_ui_file = menu.addAction(translations.TR_EDIT_UI_FILE)
+        #     self.connect(action_edit_ui_file, SIGNAL("triggered()"),
+        #                  self._edit_ui_file)
 
         # Menu for files
         for m in self.extra_menus_by_scope['file']:

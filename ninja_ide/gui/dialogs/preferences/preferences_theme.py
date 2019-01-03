@@ -55,7 +55,7 @@ class Theme(QWidget):
         hbox = QHBoxLayout()
         hbox.addWidget(self.btn_delete)
         hbox.addSpacerItem(QSpacerItem(10, 0, QSizePolicy.Expanding,
-                           QSizePolicy.Fixed))
+                                       QSizePolicy.Fixed))
         hbox.addWidget(self.btn_preview)
         hbox.addWidget(self.btn_create)
         vbox.addLayout(hbox)

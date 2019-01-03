@@ -31,15 +31,11 @@ from PySide2.QtWidgets import (
     QGridLayout,
     QComboBox,
     QMessageBox,
-    QStyle
 )
-from PySide2.QtCore import (
-    Qt,
-    Signal
-)
+from PySide2.QtCore import Qt
+
 from ninja_ide.gui.dialogs.preferences import preferences
 from ninja_ide import translations
-from ninja_ide.tools import ui_tools
 from ninja_ide.core import settings
 from ninja_ide.gui.ide import IDE
 

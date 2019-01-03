@@ -1007,7 +1007,7 @@ def compound_statements(logical_line):
     counts = dict((char, 0) for char in '{}[]()')
     while -1 < found < last_char:
         update_counts(line[prev_found:found], counts)
-        if ((counts['{'] <= counts['}'] and   # {'a': 1} (dict)
+        if ((counts['{'] <= counts['}']   # {'a': 1} (dict) and
              counts['['] <= counts[']'] and   # [1:2] (slice)
              counts['('] <= counts[')'])):    # (annotation)
             lambda_kw = LAMBDA_REGEX.search(line, 0, found)
@@ -1112,7 +1112,7 @@ def break_around_binary_operator(logical_line, tokens):
             if (is_binary_operator(token_type, text) and line_break and
                     not unary_context and
                     not is_binary_operator(previous_token_type,
-                                           previous_text)):
+                                               previous_text)):
                 yield start, "W503 line break before binary operator"
             unary_context = text in '([{,;'
             line_break = False

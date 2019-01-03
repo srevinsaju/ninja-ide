@@ -139,7 +139,7 @@ def start_ide(app, filenames, projects_path, extra_plugins, linenos):
     # from ninja_ide.gui.dialogs.preferences import preferences_editor_intellisense  # noqa
     from ninja_ide.intellisensei import intellisense_registry  # noqa
     from ninja_ide.intellisensei import python_intellisense  # noqa
-    # from ninja_ide.gui.dialogs.preferences import preferences_editor_completion
+    # from ninja_ide.gui.dialogs.preferences import preferences_editor_completion  # noqa
     # from ninja_ide.gui.dialogs.preferences import preferences_plugins
     # from ninja_ide.gui.dialogs.preferences import preferences_theme
     from ninja_ide.gui.editor.checkers import errors_lists  # noqa

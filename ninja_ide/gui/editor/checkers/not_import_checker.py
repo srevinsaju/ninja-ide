@@ -96,7 +96,7 @@ class NotImporterChecker(QThread):
                                 v)
                     else:
                         message = '[NOTIMP] {}: Dont exist'.format(
-                                values['mod_name'])
+                            values['mod_name'])
                     range_ = helpers.get_range(
                         self._editor, values['lineno'] - 1)
                     self.checks[values['lineno'] - 1].append(

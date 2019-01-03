@@ -230,7 +230,7 @@ class LocatorWidget(QDialog):
                 self.tempLocations = [x for x in self.tempLocations
                                       if x.type == filterOptions[index] and
                                       x.comparison.lower().find(
-                                        filterOptions[index + 1].lower()) > -1]
+                                          filterOptions[index + 1].lower()) > -1]
         return index + 2
 
     def _filter_this_file(self, filterOptions, index):

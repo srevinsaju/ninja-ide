@@ -406,14 +406,14 @@ class LocateSymbolsThread(QThread):
             line_number = clazzes[claz]['lineno'] - 1
             members = clazzes[claz]['members']
             results.append(ResultItem(symbol_type=FILTERS['classes'],
-                           name=claz, path=file_path,
-                           lineno=line_number))
+                                      name=claz, path=file_path,
+                                      lineno=line_number))
             if 'attributes' in members:
                 for attr in members['attributes']:
                     line_number = members['attributes'][attr] - 1
                     results.append(ResultItem(symbol_type=FILTERS['attribs'],
-                                   name=attr, path=file_path,
-                                   lineno=line_number))
+                                              name=attr, path=file_path,
+                                              lineno=line_number))
             if 'functions' in members:
                 for func in members['functions']:
                     line_number = members['functions'][func]['lineno'] - 1
@@ -431,8 +431,8 @@ class LocateSymbolsThread(QThread):
         for attr in attributes:
             line_number = attributes[attr] - 1
             results.append(ResultItem(symbol_type=FILTERS['attribs'],
-                           name=attr, path=file_path,
-                           lineno=line_number))
+                                      name=attr, path=file_path,
+                                      lineno=line_number))
 
     def __parse_functions(self, symbols, results, file_path):
         functions = symbols['functions']

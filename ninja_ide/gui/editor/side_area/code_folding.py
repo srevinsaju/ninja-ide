@@ -119,7 +119,8 @@ class CodeFoldingWidget(SideBarWidget):
         self.__timer.setSingleShot(True)
         self.__timer.setInterval(100)
         self.__timer.timeout.connect(self.update)
-        self.color.background = resources.COLOR_SCHEME.get('editor.fold.background')
+        self.color.background = resources.COLOR_SCHEME.get(
+            'editor.fold.background')
         reverse_color = get_inverted_color(
             resources.COLOR_SCHEME.get("editor.fold.foreground"))
         self.__line_fold_color = QColor(reverse_color)

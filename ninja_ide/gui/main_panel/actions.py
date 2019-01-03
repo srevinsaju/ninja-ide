@@ -1,23 +1,21 @@
 # -*- coding: utf-8 -*-
 
-from PySide2.QtWidgets import QStyle
-
 from ninja_ide import translations
 
-#{
-#"shortcut": "Change-Tab",
-#"action": {'text': string,
-               #'image': [string for ninja, Int for qt, None for nothing],
-               #'section': string,
-               #'weight': int},
-#"connect": "function_name"
-#}
+# {
+# "shortcut": "Change-Tab",
+# "action": {'text': string,
+# 'image': [string for ninja, Int for qt, None for nothing],
+# 'section': string,
+# 'weight': int},
+# "connect": "function_name"
+# }
 
 
-#FIXME: add open recent projects
-#FIXME: add organize import
-#FIXME: add remove unused imports
-#FIXME: add extract method
+# FIXME: add open recent projects
+# FIXME: add organize import
+# FIXME: add remove unused imports
+# FIXME: add extract method
 
 """
 Actions included here are those that are associated with the main

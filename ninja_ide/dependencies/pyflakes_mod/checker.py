@@ -1,3 +1,4 @@
+from ninja_ide.dependencies.pyflakes_mod import messages
 """
 Main module.
 
@@ -30,8 +31,6 @@ except ImportError:     # Python 2.5
         # Patch the missing attribute 'decorator_list'
         ast.ClassDef.decorator_list = ()
         ast.FunctionDef.decorator_list = property(lambda s: s.decorators)
-
-from ninja_ide.dependencies.pyflakes_mod import messages
 
 
 if PY2:
@@ -183,13 +182,14 @@ class VariableKey(object):
 
     @ivar item: The variable AST object.
     """
+
     def __init__(self, item):
         self.name = item.id
 
     def __eq__(self, compare):
         return (
-            compare.__class__ == self.__class__
-            and compare.name == self.name
+            compare.__class__ == self.__class__ and
+            compare.name == self.name
         )
 
     def __hash__(self):
@@ -422,9 +422,9 @@ class FunctionScope(Scope):
         Return a generator for the assignments which have not been used.
         """
         for name, binding in self.items():
-            if (not binding.used and name not in self.globals
-                    and not self.usesLocals
-                    and isinstance(binding, Assignment)):
+            if (not binding.used and name not in self.globals and
+                    not self.usesLocals and
+                    isinstance(binding, Assignment)):
                 yield name, binding
 
 
@@ -513,14 +513,16 @@ class Checker(object):
         `callable` is called, the scope at the time this is called will be
         restored, however it will contain any new bindings added to it.
         """
-        self._deferredFunctions.append((callable, self.scopeStack[:], self.offset))
+        self._deferredFunctions.append(
+            (callable, self.scopeStack[:], self.offset))
 
     def deferAssignment(self, callable):
         """
         Schedule an assignment handler to be called just after deferred
         function handlers.
         """
-        self._deferredAssignments.append((callable, self.scopeStack[:], self.offset))
+        self._deferredAssignments.append(
+            (callable, self.scopeStack[:], self.offset))
 
     def runDeferred(self, deferred):
         """
@@ -532,8 +534,8 @@ class Checker(object):
             handler()
 
     def _in_doctest(self):
-        return (len(self.scopeStack) >= 2 and
-                isinstance(self.scopeStack[1], DoctestScope))
+        return (len(self.scopeStack) >= 2
+                and isinstance(self.scopeStack[1], DoctestScope))
 
     @property
     def futuresAllowed(self):
@@ -620,8 +622,8 @@ class Checker(object):
                 return node
 
     def getCommonAncestor(self, lnode, rnode, stop):
-        if stop in (lnode, rnode) or not (hasattr(lnode, 'parent') and
-                                          hasattr(rnode, 'parent')):
+        if stop in (lnode, rnode) or not (hasattr(lnode, 'parent')
+                                          and hasattr(rnode, 'parent')):
             return None
         if lnode is rnode:
             return lnode
@@ -670,8 +672,8 @@ class Checker(object):
                             node, value.name, existing.source)
 
             elif scope is self.scope:
-                if (isinstance(parent_stmt, ast.comprehension) and
-                        not isinstance(self.getParent(existing.source),
+                if (isinstance(parent_stmt, ast.comprehension)
+                        and not isinstance(self.getParent(existing.source),
                                        (ast.For, ast.comprehension))):
                     self.report(messages.RedefinedInListComp,
                                 node, value.name, existing.source)
@@ -772,8 +774,8 @@ class Checker(object):
 
         parent_stmt = self.getParent(node)
         if isinstance(parent_stmt, (ast.For, ast.comprehension)) or (
-                parent_stmt != node.parent and
-                not self.isLiteralTupleUnpacking(parent_stmt)):
+                parent_stmt != node.parent
+                and not self.isLiteralTupleUnpacking(parent_stmt)):
             binding = Binding(name, node)
         elif name == '__all__' and isinstance(self.scope, ModuleScope):
             binding = ExportBinding(name, node.parent, self.scope)
@@ -827,8 +829,8 @@ class Checker(object):
         Determine if the given node is a docstring, as long as it is at the
         correct place in the node tree.
         """
-        return isinstance(node, ast.Str) or (isinstance(node, ast.Expr) and
-                                             isinstance(node.value, ast.Str))
+        return isinstance(node, ast.Str) or (isinstance(node, ast.Expr)
+                                             and isinstance(node.value, ast.Str))
 
     def getDocstring(self, node):
         if isinstance(node, ast.Expr):
@@ -852,8 +854,8 @@ class Checker(object):
             node.col_offset += self.offset[1]
         if self.traceTree:
             print('  ' * self.nodeDepth + node.__class__.__name__)
-        if self.futuresAllowed and not (isinstance(node, ast.ImportFrom) or
-                                        self.isDocstring(node)):
+        if self.futuresAllowed and not (isinstance(node, ast.ImportFrom)
+                                        or self.isDocstring(node)):
             self.futuresAllowed = False
         self.nodeDepth += 1
         node.depth = self.nodeDepth
@@ -879,8 +881,8 @@ class Checker(object):
                 # of the function and the docstring.
                 node_lineno = node.lineno
                 if hasattr(node, 'args'):
-                    node_lineno = max([node_lineno] +
-                                      [arg.lineno for arg in node.args.args])
+                    node_lineno = max([node_lineno]
+                                      + [arg.lineno for arg in node.args.args])
             else:
                 (docstring, node_lineno) = self.getDocstring(node.body[0])
             examples = docstring and self._getDoctestExamples(docstring)
@@ -901,7 +903,8 @@ class Checker(object):
             self.builtIns.add('_')
         for example in examples:
             try:
-                tree = compile(example.source, "<doctest>", "exec", ast.PyCF_ONLY_AST)
+                tree = compile(example.source, "<doctest>",
+                               "exec", ast.PyCF_ONLY_AST)
             except SyntaxError:
                 e = sys.exc_info()[1]
                 if PYPY:
@@ -1011,8 +1014,8 @@ class Checker(object):
                 # become a globally defined name.  See test_unused_global.
                 self.messages = [
                     m for m in self.messages if not
-                    isinstance(m, messages.UndefinedName) or
-                    m.message_args[0] != node_name]
+                    isinstance(m, messages.UndefinedName)
+                    or m.message_args[0] != node_name]
 
                 # Bind name to global scope if it doesn't exist already.
                 global_scope.setdefault(node_name, node_value)
@@ -1040,8 +1043,8 @@ class Checker(object):
         # Locate the name in locals / function / globals scopes.
         if isinstance(node.ctx, (ast.Load, ast.AugLoad)):
             self.handleNodeLoad(node)
-            if (node.id == 'locals' and isinstance(self.scope, FunctionScope)
-                    and isinstance(node.parent, ast.Call)):
+            if (node.id == 'locals' and isinstance(self.scope, FunctionScope) and
+                    isinstance(node.parent, ast.Call)):
                 # we are doing locals() call in current scope
                 self.scope.usesLocals = True
         elif isinstance(node.ctx, (ast.Store, ast.AugStore)):
@@ -1051,7 +1054,8 @@ class Checker(object):
         else:
             # must be a Param context -- this only happens for names in function
             # arguments, but these aren't dispatched through here
-            raise RuntimeError("Got impossible expression context: %r" % (node.ctx,))
+            raise RuntimeError(
+                "Got impossible expression context: %r" % (node.ctx,))
 
     def CONTINUE(self, node):
         # Walk the tree up until we see a loop (OK), a function or class
@@ -1084,9 +1088,9 @@ class Checker(object):
             return
 
         if (
-            node.value and
-            hasattr(self.scope, 'returnValue') and
-            not self.scope.returnValue
+            node.value
+            and hasattr(self.scope, 'returnValue')
+            and not self.scope.returnValue
         ):
             self.scope.returnValue = node.value
         self.handleNode(node.value, node)
@@ -1108,9 +1112,9 @@ class Checker(object):
         self.addBinding(node, FunctionDefinition(node.name, node))
         # doctest does not process doctest within a doctest,
         # or in nested functions.
-        if (self.withDoctest and
-                not self._in_doctest() and
-                not isinstance(self.scope, FunctionScope)):
+        if (self.withDoctest
+                and not self._in_doctest()
+                and not isinstance(self.scope, FunctionScope)):
             self.deferFunction(lambda: self.handleDoctests(node))
 
     ASYNCFUNCTIONDEF = FUNCTIONDEF
@@ -1212,9 +1216,9 @@ class Checker(object):
         self.pushScope(ClassScope)
         # doctest does not process doctest within a doctest
         # classes within classes are processed.
-        if (self.withDoctest and
-                not self._in_doctest() and
-                not isinstance(self.scope, FunctionScope)):
+        if (self.withDoctest
+                and not self._in_doctest()
+                and not isinstance(self.scope, FunctionScope)):
             self.deferFunction(lambda: self.handleDoctests(node))
         for stmt in node.body:
             self.handleNode(stmt, node)
@@ -1246,7 +1250,8 @@ class Checker(object):
                     has_starred = True
                     star_loc = i
             if star_loc >= 1 << 8 or len(node.elts) - star_loc - 1 >= 1 << 24:
-                self.report(messages.TooManyExpressionsInStarredAssignment, node)
+                self.report(
+                    messages.TooManyExpressionsInStarredAssignment, node)
         self.handleChildren(node)
 
     LIST = TUPLE

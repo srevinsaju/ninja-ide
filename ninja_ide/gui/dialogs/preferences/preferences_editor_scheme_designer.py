@@ -61,7 +61,8 @@ class EditorSchemeDesigner(QDialog):
         # all layouts and groupboxes
         group0 = QGroupBox(translations.TR_PROJECT_NAME)  # scheme filename
         group1 = QGroupBox(translations.TR_PROJECT_PROPERTIES)  # properties
-        group2 = QGroupBox(translations.TR_PREVIEW)       # quick preview thingy
+        # quick preview thingy
+        group2 = QGroupBox(translations.TR_PREVIEW)
         group0_hbox, group1_vbox = QHBoxLayout(group0), QVBoxLayout(group1)
         this_dialog_vbox, group2_vbox = QVBoxLayout(self), QVBoxLayout(group2)
         self._grid, scrollArea, frame = QGridLayout(), QScrollArea(), QFrame()
@@ -78,7 +79,8 @@ class EditorSchemeDesigner(QDialog):
         group2_vbox.addWidget(self.preview_label2)
 
         # rows titles
-        self._grid.addWidget(QLabel("<b>" + translations.TR_PROJECT_NAME), 0, 0)
+        self._grid.addWidget(
+            QLabel("<b>" + translations.TR_PROJECT_NAME), 0, 0)
         self._grid.addWidget(QLabel("<b>" + translations.TR_CODE), 0, 1)
         self._grid.addWidget(
             QLabel("<b>" + translations.TR_EDITOR_SCHEME_PICK_COLOR), 0, 2)
@@ -212,7 +214,8 @@ class EditorSchemeDesigner(QDialog):
         if file_manager.file_exists(fileName):
             answer = QMessageBox.question(
                 self, translations.TR_PREFERENCES_EDITOR_SCHEME_DESIGNER,
-                translations.TR_WANT_OVERWRITE_FILE + ": {0}?".format(fileName),
+                translations.TR_WANT_OVERWRITE_FILE +
+                ": {0}?".format(fileName),
                 QMessageBox.Yes, QMessageBox.No)
 
         if answer in (QMessageBox.Yes, True):

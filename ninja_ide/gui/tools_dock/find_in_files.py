@@ -28,9 +28,7 @@ from PySide2.QtWidgets import (
     QCheckBox,
     QLabel,
     QGridLayout,
-    QToolButton,
     QSizePolicy,
-    QPushButton,
     QTreeView,
     QFrame,
     QStyle,
@@ -47,12 +45,10 @@ from PySide2.QtCore import (
     QRegExp,
     Qt,
     QRect,
-    QThread,
     QModelIndex
 )
 from PySide2.QtGui import QPalette, QColor
 from ninja_ide.gui.ide import IDE
-from ninja_ide.tools import ui_tools
 from ninja_ide.core import settings
 from ninja_ide import translations
 from ninja_ide.gui.tools_dock.tools_dock import _ToolsDock
@@ -308,7 +304,8 @@ class SearchResultDelegate(QItemDelegate):
         if is_selected:
             brush = option.palette.brush(color_group, QPalette.Highlight)
         else:
-            brush = option.palette.color(color_group, QPalette.Base).darker(111)
+            brush = option.palette.color(
+                color_group, QPalette.Base).darker(111)
         painter.fillRect(lineno_rect, brush)
         opt = option
         opt.font = settings.FONT  # FIXME: performance

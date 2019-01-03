@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
-
+# flake8: noqa
 from urllib.request import urlopen
 import webbrowser
 from distutils import version
@@ -101,8 +101,8 @@ class TrayIconUpdates(QSystemTrayIcon):
                                              "\nAvailable: ") +
                                      self.ide_version +
                                      self.tr("\n\nCheck the Update Menu in "
-                                             "the NINJA-IDE "
-                                             "System Tray icon to Download!"),
+                                               "the NINJA-IDE "
+                                               "System Tray icon to Download!"),
                                      QSystemTrayIcon.Information, 10000)
                 else:
                     button = QMessageBox.information(

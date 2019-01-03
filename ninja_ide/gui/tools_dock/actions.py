@@ -2,11 +2,11 @@
 
 from ninja_ide import translations
 
-#{
-#"shortcut": "Change-Tab",
-#"action": ("text", "Image [string for ninja, Int for qt, None for nothing]"),
-#"connect": "function_name"
-#}
+# {
+# "shortcut": "Change-Tab",
+# "action": ("text", "Image [string for ninja, Int for qt, None for nothing]"),
+# "connect": "function_name"
+# }
 
 ACTIONS = (
     # {

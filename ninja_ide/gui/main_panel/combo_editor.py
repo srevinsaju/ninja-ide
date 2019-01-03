@@ -153,7 +153,7 @@ class ComboEditor(QWidget):
             else:
                 # editor = neditable.editor.clone()
                 editor = self._main_container.create_editor_from_editable(
-                   neditable)
+                    neditable)
                 neditable.editor.link(editor)
 
             current_index = self.stacked.currentIndex()
@@ -172,7 +172,8 @@ class ComboEditor(QWidget):
             neditable.fileSaved.connect(self._update_symbols)
             # editor.editorFocusObtained.connect(self._editor_with_focus)
             editor.modificationChanged.connect(self._editor_modified)
-            editor.positionChanged[int, int].connect(self._update_cursor_position)
+            editor.positionChanged[int, int].connect(
+                self._update_cursor_position)
             editor.currentLineChanged[int].connect(self._set_current_symbol)
             # if neditable._swap_file.dirty:
             #     self._editor_modified(True, sender=editor)
@@ -193,10 +194,10 @@ class ComboEditor(QWidget):
     def show_combo_set_language(self):
         self.bar.set_language_combo.showPopup()
 
-    def unlink_editors(self):
-        for index in range(self.stacked.count()):
-            widget = self.stacked.widget(index)
-            # widget.setDocument(QsciDocument())
+    # def unlink_editors(self):
+    #     for index in range(self.stacked.count()):
+    #         widget = self.stacked.widget(index)
+    #          widget.setDocument(QsciDocument())
 
     def clone(self):
         combo = ComboEditor()
@@ -623,15 +624,15 @@ class ActionBar(QFrame):
         action_close = menu.addAction(translations.TR_CLOSE_FILE)
         action_close_all = menu.addAction(translations.TR_CLOSE_ALL_FILES)
         action_close_all_not_this = menu.addAction(
-           translations.TR_CLOSE_OTHER_FILES)
+            translations.TR_CLOSE_OTHER_FILES)
         menu.addSeparator()
         # actionSplitH = menu.addAction(translations.TR_SPLIT_VERTICALLY)
         # actionSplitV = menu.addAction(translations.TR_SPLIT_HORIZONTALLY)
         # menu.addSeparator()
         action_copy_path = menu.addAction(
-           translations.TR_COPY_FILE_PATH_TO_CLIPBOARD)
+            translations.TR_COPY_FILE_PATH_TO_CLIPBOARD)
         action_show_file_in_explorer = menu.addAction(
-           translations.TR_SHOW_FILE_IN_EXPLORER)
+            translations.TR_SHOW_FILE_IN_EXPLORER)
         action_reopen = menu.addAction(translations.TR_REOPEN_FILE)
         action_undock = menu.addAction(translations.TR_UNDOCK_EDITOR)
 

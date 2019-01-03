@@ -31,7 +31,7 @@ from ninja_ide.gui.editor.checkers import (
     register_checker,
     remove_checker,
 )
-from ninja_ide.gui.editor.checkers import migration_lists  # lint:ok
+from ninja_ide.gui.editor.checkers import migration_lists  # noqa
 
 
 class MigrationTo3(QThread):
@@ -88,7 +88,7 @@ class MigrationTo3(QThread):
                 if parsing_adds:
                     # Add in migration
                     removes = '\n'.join([liner
-                                        for _, liner in lines_to_remove])
+                                         for _, liner in lines_to_remove])
                     adds = '\n'.join(lines_to_add)
                     message = self.tr(
                         'The actual code looks like this:\n%s\n\n'

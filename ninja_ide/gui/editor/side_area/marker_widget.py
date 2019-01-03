@@ -58,8 +58,8 @@ class MarkerWidget(side_area.SideBarWidget):
                 "bookmarks", b.lineno, "#8080ff")
 
     def _show_menu(self, line, menu):
-        set_breakpoint_action = menu.addAction(
-            "Set Breakpoint at: {}".format(line + 1))
+        # set_breakpoint_action = menu.addAction(
+        #     "Set Breakpoint at: {}".format(line + 1))
         toggle_bookmark_action = menu.addAction("Toggle Bookmark")
         toggle_bookmark_action.triggered.connect(
             lambda: self._toggle_bookmark(line))

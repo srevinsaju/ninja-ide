@@ -169,7 +169,8 @@ class _MenuBar(QObject):
         recent_fmenu.setEnabled(bool(recent_files))
         if recent_files:
             recent_fmenu.addSeparator()
-            clear_action = recent_fmenu.addAction(translations.TR_CLEAR_THIS_LIST)
+            clear_action = recent_fmenu.addAction(
+                translations.TR_CLEAR_THIS_LIST)
             clear_action.triggered.connect(
                 main_container.clear_last_opened_files)
 

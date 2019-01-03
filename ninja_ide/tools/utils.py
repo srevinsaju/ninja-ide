@@ -3,8 +3,6 @@ import sys
 import os
 import re
 
-from PySide2.QtGui import QColor
-
 from PySide2.QtCore import QObject
 from PySide2.QtCore import QTimer
 from PySide2.QtCore import QDir

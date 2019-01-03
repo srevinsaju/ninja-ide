@@ -87,7 +87,8 @@ class FromImportDialog(QDialog):
         self._asImport.setPlaceholderText("object_name")
         self._lineComment = QLineEdit(self)
         self._lineComment.setPlaceholderText("lint:ok")
-        self._lineComment.setCompleter(QCompleter(LIST_OF_PY_CHECKERS_COMMENTS))
+        self._lineComment.setCompleter(
+            QCompleter(LIST_OF_PY_CHECKERS_COMMENTS))
         hbox.addWidget(self._lineImport, 0, 3)
         hbox.addWidget(QLabel('as'), 0, 4)
         hbox.addWidget(self._asImport, 0, 5)

@@ -44,8 +44,10 @@ class LineNumberWidget(SideBarWidget):
             self._editor.side_widgets.update_viewport)
 
     def initialize(self):
-        self.color.background = resources.COLOR_SCHEME.get('editor.line_number.background')
-        self.color.foreground = resources.COLOR_SCHEME.get('editor.line_number.foreground')
+        self.color.background = resources.COLOR_SCHEME.get(
+            'editor.line_number.background')
+        self.color.foreground = resources.COLOR_SCHEME.get(
+            'editor.line_number.foreground')
         # self._color_unselected = QColor(
         #     resources.COLOR_SCHEME.get('editor.sidebar.foreground'))
         self._color_selected = QColor(

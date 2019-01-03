@@ -352,7 +352,7 @@ def show_containing_folder(path):
         program = "explorer.exe"
         param.append("/select,")
         param.append(QtCore.QDir.toNativeSeparators(
-                    file_info.canonicalFilePath()))
+            file_info.canonicalFilePath()))
     elif settings.IS_MAC_OS:
         program = "open"
         param.append("-R")

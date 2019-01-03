@@ -20,6 +20,7 @@ import sre_constants
 from PySide2.QtWidgets import QToolTip
 
 from PySide2.QtGui import QTextCursor
+from PySide2.QtGui import QTextOption
 from PySide2.QtGui import QKeySequence
 from PySide2.QtGui import QPaintEvent
 from PySide2.QtGui import QPainter
@@ -100,6 +101,15 @@ class NEditor(CodeEditor):
 
         self.cursorPositionChanged.connect(self._on_cursor_position_changed)
         self.currentLineChanged.connect(self.viewport().update)
+
+    def toggle_tabs_and_spaces(self):
+        # if self._display_settings.show_tabs_and_spaces
+        # FIXME
+        show_tabs_and_spaces = True
+        option = self.document().defaultTextOption()
+        if show_tabs_and_spaces:
+            option.setFlags(option.flags() | QTextOption.ShowTabsAndSpaces)
+        self.document().setDefaultTextOption(option)
 
     @property
     def nfile(self):
@@ -209,6 +219,12 @@ class NEditor(CodeEditor):
             if not event.isAccepted():
                 if self.__smart_backspace():
                     event.accept()
+        elif event.key() == Qt.Key_Tab:
+            if self.has_selection():
+                self._indenter.indent_selection()
+            else:
+                self._indenter.indent()
+            event.accept()
         if not event.isAccepted():
             super().keyPressEvent(event)
 

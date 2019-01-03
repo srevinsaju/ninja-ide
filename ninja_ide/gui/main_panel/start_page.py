@@ -141,7 +141,6 @@ class StartPage(QWidget):
     """
 
     def __open_drop_files(self, files: str):
-
         """Open dragged files to Start Page"""
         files = files.split(',')  # FIXME: it's ok?
         main_container = IDE.get_service("main_container")
