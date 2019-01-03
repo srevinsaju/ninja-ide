@@ -6,14 +6,15 @@ before_install:
 
 install:
   - pip install pip --upgrade
-  - pip install pytest pytest-qt flake8
-  - pip install PySide2
+  - pip install PySide2 pytest pytest-qt flake8
 
 jobs:
   include:
-    - stage: "Lint"
+    - stage: lint
       script: flake8 ninja_ide
+    - stage: tests
+      script: python run_test.py
 
-before_script: rm --recursive --force --verbose *.py[cod]
+# before_script: rm --recursive --force --verbose *.py[cod]
 
-script: python run_test.py
+# script: python run_test.py
