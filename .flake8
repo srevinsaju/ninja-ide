@@ -1,4 +1,4 @@
 [flake8]
 exclude = __pycache__, jedi, parso, analyzer, dependencies, __main_container.py, preferences
 max-line-length = 90
-ignore = E402
+ignore = E402, W504

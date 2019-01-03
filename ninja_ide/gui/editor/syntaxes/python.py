@@ -1,5 +1,5 @@
 import builtins
-
+# flake8: noqa
 # FIXME: match complex number
 
 kwlist = ['and', 'as', 'assert', 'break', 'await', 'continue', 'del', 'def',

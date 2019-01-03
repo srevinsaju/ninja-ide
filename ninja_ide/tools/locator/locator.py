@@ -23,7 +23,7 @@ import sqlite3
 import pickle
 try:
     import Queue
-except:
+except ImportError:
     import queue as Queue  # lint:ok
 
 from PySide2.QtWidgets import QMessageBox
@@ -373,7 +373,7 @@ class LocateSymbolsThread(QThread):
                 results = pickle.loads(data[2])
                 mapping_symbols[file_path] += results
                 return
-            except:
+            except Exception:
                 print("ResultItem couldn't be loaded, let's analyze it again'")
         # obtain a symbols handler for this file extension
         lang = settings.LANGUAGE_MAP.get(file_ext)
