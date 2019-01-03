@@ -129,7 +129,7 @@ def file_exists(path, fileName=''):
 
 def _search_coding_line(txt):
     """Search a pattern like this: # -*- coding: utf-8 -*-."""
-    coding_pattern = "coding[:=]\s*([-\w.]+)"
+    coding_pattern = r"coding[:=]\s*([-\w.]+)"
     pat_coding = re.search(coding_pattern, txt)
     if pat_coding and pat_coding.groups()[0] != 'None':
         return pat_coding.groups()[0]

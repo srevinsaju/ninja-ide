@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
-
+# flake8: noqa
 import os
 import math
 import collections
@@ -498,8 +498,8 @@ def load_table(table, headers, data, checkFirstColumn=True):
             if index == 0 and checkFirstColumn:
                 item.setData(Qt.UserRole, row)
                 item.setCheckState(Qt.Unchecked)
-                item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled |
-                              Qt.ItemIsUserCheckable)
+                item.setFlags(
+                    Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
             else:
                 item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
 

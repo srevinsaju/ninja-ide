@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
-
+# flake8: noqa
 import re
 
 from PySide2.QtWidgets import QDialog

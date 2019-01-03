@@ -14,7 +14,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
-
+# flake8: noqa
+# FIXME:
 from __future__ import absolute_import
 
 import os

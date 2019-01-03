@@ -56,6 +56,6 @@ def send_data(socket, filenames, projects_path, linenos):
         socket.close()
         if result >= 0:
             data_sended = True
-    except:
+    except Exception:
         data_sended = False
     return data_sended

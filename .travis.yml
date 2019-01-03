@@ -10,6 +10,8 @@ install:
 
 jobs:
   include:
+    - python: 3.5
+    - python: 3.6
     - stage: lint
       script: flake8 ninja_ide
     - stage: tests
