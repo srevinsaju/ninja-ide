@@ -12,11 +12,14 @@ before_script: rm --recursive --force --verbose *.py[cod]
 
 script: python run_test.py
 
+stages:
+ - lint
+ - test
+
 jobs:
   include:
+    - python: 3.5
+    - python: 3.6
     - stage: lint
       python: 3.6
       script: flake8 ninja_ide
-    - stage: tests
-    - python: 3.5
-    - python: 3.6
