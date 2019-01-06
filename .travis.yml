@@ -8,7 +8,7 @@ before_install:
 
 install:
   - pip install pip --upgrade
-  - pip install PySide2 pytest pytest-qt flake8
+  - pip install pyside2==5.11 pytest pytest-qt flake8
 
 before_script: rm --recursive --force --verbose *.py[cod]
 
