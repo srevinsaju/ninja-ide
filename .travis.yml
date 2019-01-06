@@ -14,8 +14,8 @@ jobs:
       python: 3.6
       script: flake8 ninja_ide
     - stage: tests
-      python: 3.5
-      python: 3.6
+    - python: 3.5
+    - python: 3.6
       script: python run-tests.py
 
 # before_script: rm --recursive --force --verbose *.py[cod]
