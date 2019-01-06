@@ -10,7 +10,7 @@ install:
 
 before_script: rm --recursive --force --verbose *.py[cod]
 
-script: python run_test.py
+script: python run-tests.py
 
 stages:
  - lint
