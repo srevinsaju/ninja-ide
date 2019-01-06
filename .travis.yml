@@ -8,6 +8,10 @@ install:
   - pip install pip --upgrade
   - pip install PySide2 pytest pytest-qt flake8
 
+before_script: rm --recursive --force --verbose *.py[cod]
+
+script: python run_test.py
+
 jobs:
   include:
     - stage: lint
@@ -15,9 +19,4 @@ jobs:
       script: flake8 ninja_ide
     - stage: tests
     - python: 3.5
-      python: 3.6
-      script: python run-tests.py
-
-# before_script: rm --recursive --force --verbose *.py[cod]
-
-# script: python run_test.py
+    - python: 3.6
