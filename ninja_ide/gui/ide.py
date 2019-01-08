@@ -39,7 +39,7 @@ from ninja_ide import translations
 from ninja_ide.core.file_handling import nfilesystem
 # from ninja_ide.core import plugin_services
 from ninja_ide.core import settings
-from ninja_ide.core import nsettings
+# from ninja_ide.core import nsettings
 from ninja_ide.core import ipc
 from ninja_ide.core import interpreter_service
 
@@ -652,18 +652,17 @@ class IDE(QMainWindow):
         qsettings = QSettings(resources.SETTINGS_PATH, QSettings.IniFormat)
         return qsettings
 
-    @classmethod
-    def editor_settings(cls):
-        qsettings = nsettings.NSettings(resources.SETTINGS_PATH)
-        main_container = cls.get_service("main_container")
-        # Connect valueChanged signal to _editor_settings_changed slot
-        qsettings.valueChanged.connect(main_container._editor_settings_changed)
-        return qsettings
+    # @classmethod
+    # def editor_settings(cls):
+    #     qsettings = nsettings.NSettings(resources.SETTINGS_PATH)
+    #     main_container = cls.get_service("main_container")
+    #     # Connect valueChanged signal to _editor_settings_changed slot
+    #     qsettings.valueChanged.connect(main_container._editor_settings_changed)
+    #     return qsettings
 
     @classmethod
     def data_settings(cls):
-        qsettings = QSettings(
-            resources.DATA_SETTINGS_PATH, QSettings.IniFormat)
+        qsettings = QSettings(resources.DATA_SETTINGS_PATH, QSettings.IniFormat)
         return qsettings
 
     # @classmethod

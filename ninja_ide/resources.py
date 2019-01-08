@@ -74,7 +74,9 @@ NINJA_THEMES = os.path.join(PRJ_PATH, "extensions", "theme")
 # NINJA_THEME = os.path.join(PRJ_PATH, "extensions", "theme", "ninja_dark.qss")
 NINJA_QSS = os.path.join(PRJ_PATH, "extensions", "theme", "qss")
 
-LOG_FILE_PATH = os.path.join(HOME_NINJA_PATH, 'ninja_ide.log')
+LOGS = os.path.join(HOME_NINJA_PATH, 'logs')
+
+LOG_FILE_PATH = os.path.join(LOGS, 'ninja_ide.log')
 
 GET_SYSTEM_PATH = os.path.join(PRJ_PATH, 'tools', 'get_system_path.py')
 
@@ -255,7 +257,7 @@ def create_home_dir_structure():
     """
     for directory in (HOME_NINJA_PATH, EXTENSIONS_PATH, PLUGINS, EDITOR_SKINS,
                       LANGS, NINJA_THEMES_DOWNLOAD, NINJA_KNOWLEDGE_PATH,
-                      BACKUP_FILES):
+                      BACKUP_FILES, LOGS):
         if not os.path.isdir(directory):
             os.mkdir(directory)
 

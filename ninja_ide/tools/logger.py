@@ -17,6 +17,7 @@
 
 
 import logging
+from logging.handlers import RotatingFileHandler
 from ninja_ide import resources
 
 
@@ -25,9 +26,7 @@ TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 
 
 class Logger(object):
-    """
-        General logger
-    """
+    """General logger"""
 
     def __init__(self):
         self._loggers = {}
@@ -37,8 +36,7 @@ class Logger(object):
 
     def __call__(self, modname):
         if not self._handler:
-            self.add_handler(
-                resources.LOG_FILE_PATH, 'w', LOG_FORMAT, TIME_FORMAT)
+            self.add_handler(resources.LOG_FILE_PATH, LOG_FORMAT, TIME_FORMAT)
         if modname not in self._loggers:
             logger = logging.getLogger(modname)
             self._loggers[modname] = logger
@@ -56,18 +54,15 @@ class Logger(object):
         for each_log in list(self._loggers.values()):
             each_log.setLevel(level)
 
-    def add_handler(self, hfile, mode, log_format, time_format, stream=None):
+    def add_handler(self, hfile, log_format, time_format):
         formatter = logging.Formatter(log_format, time_format)
-        if stream:
-            handler = logging.StreamHandler(hfile)
-        else:
-            handler = logging.FileHandler(hfile, mode)
+        handler = RotatingFileHandler(hfile, maxBytes=1e6, backupCount=10)
         handler.setFormatter(formatter)
-        for each_log in list(self._loggers.values()):
+        for each_log in self._loggers.values():
             each_log.addHandler(handler)
         self._handler = handler
 
-    def argparse(self, log_level, log_file):
+    def argparse(self, log_level):
         if log_level:
             if log_level in ('debug', 'info', 'warning', 'error', 'critical'):
                 log_level = getattr(logging, log_level.upper())

@@ -63,7 +63,7 @@ def _get_parser():
 
 def parse():
     filenames = projects_path = linenos = None
-    extra_plugins = log_level = log_file = None
+    extra_plugins = log_level = None
 
     try:
         opts = _get_parser().parse_args()
@@ -84,10 +84,8 @@ def parse():
             if isinstance(opts.plugin, list) \
             else [opts.plugin]
         log_level = opts.loglevel
-        log_file = opts.logfile
 
     except Exception as reason:
         print("Args couldn't be parsed.")
         print(reason)
-    return (filenames, projects_path, extra_plugins, linenos, log_level,
-            log_file)
+    return filenames, projects_path, extra_plugins, linenos, log_level

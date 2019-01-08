@@ -43,8 +43,7 @@ def run_ninja():
             libc.prctl(PR_SET_NAME, b"%s\0" % PROCNAME, 0, 0, 0)
         except OSError:
             print("The process couldn't be renamed'")
-    filenames, projects_path, extra_plugins, linenos, log_level, log_file = \
-        cliparser.parse()
+    filenames, projects_path, extra_plugins, linenos, log_level = cliparser.parse()
     # Create the QApplication object before using the
     # Qt modules to avoid warnings
     app = QApplication(sys.argv)
@@ -53,7 +52,7 @@ def run_ninja():
     resources.create_home_dir_structure()
     # Load Logger
     from ninja_ide.tools.logger import NinjaLogger
-    NinjaLogger.argparse(log_level, log_file)
+    NinjaLogger.argparse(log_level)
 
     # Load Settings
     # settings.load_settings()
