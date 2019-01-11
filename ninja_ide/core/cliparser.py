@@ -42,14 +42,8 @@ def _get_parser():
                         nargs='+', help='A project/s to edit', default=[])
     parser.add_argument('--plugin', metavar='plugin', type=str,
                         nargs='+', help='A plugin to load', default=[])
-    # parser.add_argument(
-    #     '--loglevel', help="Level to use for logging, "
-    #     "one of 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'",
-    #     default=None, metavar="loglevel")
-    parser.add_argument('--verbose', '-v', action='store_true', help='Verbose')
-    # parser.add_argument('--logfile', help="A file path to log, special "
-    #                     "words STDOUT or STDERR are accepted",
-    #                     default=None, metavar="logfile")
+    parser.add_argument('-v', '--verbose', action='store_true', help='Verbose')
+
     return parser
 
 
