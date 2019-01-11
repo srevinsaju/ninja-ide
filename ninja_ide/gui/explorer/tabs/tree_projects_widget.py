@@ -57,7 +57,7 @@ from ninja_ide.gui.explorer import actions
 from ninja_ide.gui.explorer.nproject import NProject
 from ninja_ide.tools.logger import NinjaLogger
 
-logger = NinjaLogger('ninja_ide.gui.explorer.tree_projects_widget')
+logger = NinjaLogger('explorer.tree_projects_widget')
 
 MAX_RECENT_PROJECTS = 10
 

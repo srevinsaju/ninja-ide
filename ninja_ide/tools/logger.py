@@ -21,52 +21,53 @@ from logging.handlers import RotatingFileHandler
 from ninja_ide import resources
 
 
-LOG_FORMAT = "[%(asctime)s] %(name)s:%(funcName)-4s %(levelname)-8s %(message)s"
+LOG_FORMAT = "[%(asctime)s]  %(name)-22s:%(funcName)-5s  %(levelname)-8s %(message)s"
 TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 
 
-class Logger(object):
+class CustomRotatingFileHandler(RotatingFileHandler):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Rotate file at each start of NINJA-IDE
+        self.doRollover()
+
+
+class _Logger:
     """General logger"""
 
     def __init__(self):
+        self._level = logging.DEBUG
         self._loggers = {}
-        self._default_level = logging.NOTSET
-        self._handler = None
-        logging.basicConfig(format=LOG_FORMAT)
 
-    def __call__(self, modname):
-        if not self._handler:
-            self.add_handler(resources.LOG_FILE_PATH, LOG_FORMAT, TIME_FORMAT)
-        if modname not in self._loggers:
-            logger = logging.getLogger(modname)
-            self._loggers[modname] = logger
-            logger.setLevel(self._default_level)
-            logger.addHandler(self._handler)
+    def __call__(self, module_name: str):
+        if module_name not in self._loggers:
+            logger = logging.getLogger(module_name)
+            self._loggers[module_name] = logger
+        return self._loggers[module_name]
 
-        return self._loggers[modname]
-
-    def dissable(self):
-        for each_log in list(self._loggers.values()):
+    def disable(self):
+        for each_log in self._loggers.values():
             each_log.setLevel(logging.NOTSET)
 
-    def setLevel(self, level):
-        self._default_level = level
-        for each_log in list(self._loggers.values()):
+    def set_level(self, level: int):
+        self._level = level
+        for each_log in self._loggers.values():
             each_log.setLevel(level)
 
-    def add_handler(self, hfile, log_format, time_format):
-        formatter = logging.Formatter(log_format, time_format)
-        handler = RotatingFileHandler(hfile, maxBytes=1e6, backupCount=10)
+    def set_up(self, verbose: bool):
+        root_logger = logging.getLogger('ninja_ide')
+        self._loggers['ninja_ide'] = root_logger
+        handler = CustomRotatingFileHandler(
+            resources.LOG_FILE_PATH, maxBytes=1e6, backupCount=10)
+        root_logger.addHandler(handler)
+        formatter = logging.Formatter(LOG_FORMAT, TIME_FORMAT)
         handler.setFormatter(formatter)
-        for each_log in self._loggers.values():
-            each_log.addHandler(handler)
-        self._handler = handler
-
-    def argparse(self, log_level):
-        if log_level:
-            if log_level in ('debug', 'info', 'warning', 'error', 'critical'):
-                log_level = getattr(logging, log_level.upper())
-                self.setLevel(log_level)
+        self.set_level(self._level)
+        if verbose:
+            handler = logging.StreamHandler()
+            handler.setFormatter(formatter)
+            root_logger.addHandler(handler)
 
 
-NinjaLogger = Logger()
+NinjaLogger = _Logger()

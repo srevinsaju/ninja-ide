@@ -17,7 +17,7 @@
 from collections import OrderedDict
 from ninja_ide.tools.logger import NinjaLogger
 
-logger = NinjaLogger(__name__)
+logger = NinjaLogger('editor.side_area.manager')
 
 # TODO: support for widgets area (LEFT and RIGHT for now)
 
