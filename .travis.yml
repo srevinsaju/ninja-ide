@@ -23,3 +23,6 @@ jobs:
     - stage: lint
       python: 3.6
       script: flake8 ninja_ide
+
+notifications:
+  slack: ninja-ide:b3hUpEDwy56Dcb9sO2AIyGb8
