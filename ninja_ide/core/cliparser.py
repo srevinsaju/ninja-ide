@@ -54,21 +54,11 @@ def parse():
     try:
         opts = _get_parser().parse_args()
 
-        filenames = opts.file \
-            if isinstance(opts.file, list) \
-            else [opts.file]
-        filenames += opts.files \
-            if hasattr(opts, 'files') \
-            else []
-        projects_path = opts.project \
-            if isinstance(opts.project, list) \
-            else [opts.project]
-        linenos = opts.lineno \
-            if hasattr(opts, 'lineno') \
-            else [opts.lineno]
-        extra_plugins = opts.plugin \
-            if isinstance(opts.plugin, list) \
-            else [opts.plugin]
+        filenames = opts.file if isinstance(opts.file, list) else [opts.file]
+        filenames += opts.files if hasattr(opts, 'files') else []
+        projects_path = opts.project if isinstance(opts.project, list) else [opts.project]
+        linenos = opts.lineno if hasattr(opts, 'lineno') else [opts.lineno]
+        extra_plugins = opts.plugin if isinstance(opts.plugin, list) else [opts.plugin]
         verbose = opts.verbose
 
     except Exception as reason:

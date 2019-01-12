@@ -29,7 +29,7 @@ from ninja_ide import resources
 from ninja_ide.gui.ide import IDE
 from ninja_ide.tools.logger import NinjaLogger
 
-logger = NinjaLogger('editor.highlighter')
+logger = NinjaLogger(__name__)
 
 
 class TextCharFormat(QTextCharFormat):

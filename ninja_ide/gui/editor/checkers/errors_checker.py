@@ -18,15 +18,13 @@
 import _ast
 from collections import defaultdict
 
-from PySide2.QtCore import (
-    QThread,
-    Signal,
-    QTimer
-)
-from ninja_ide.gui.editor.checkers import (
-    register_checker,
-    remove_checker
-)
+from PySide2.QtCore import QThread
+from PySide2.QtCore import Signal
+from PySide2.QtCore import QTimer
+
+from ninja_ide.gui.editor.checkers import register_checker
+from ninja_ide.gui.editor.checkers import remove_checker
+
 from ninja_ide import resources
 from ninja_ide import translations
 from ninja_ide.core import settings
@@ -36,7 +34,7 @@ from ninja_ide.gui.editor import helpers
 from ninja_ide.tools.logger import NinjaLogger
 from ninja_ide.core.file_handling import file_manager
 
-logger = NinjaLogger(__file__)
+logger = NinjaLogger(__name__)
 
 
 class ErrorsChecker(QThread):
