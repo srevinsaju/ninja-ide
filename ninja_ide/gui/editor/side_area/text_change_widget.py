@@ -16,13 +16,13 @@
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
 import difflib
-from PySide2.QtGui import QPainter
-from PySide2.QtGui import QFontMetricsF
-from PySide2.QtGui import QColor
+from PyQt5.QtGui import QPainter
+from PyQt5.QtGui import QFontMetricsF
+from PyQt5.QtGui import QColor
 
-from PySide2.QtCore import Slot
-from PySide2.QtCore import QSize
-from PySide2.QtCore import QTimer
+from PyQt5.QtCore import pyqtSlot as Slot
+from PyQt5.QtCore import QSize
+from PyQt5.QtCore import QTimer
 
 from ninja_ide.gui.editor.side_area import SideBarWidget
 from ninja_ide import resources

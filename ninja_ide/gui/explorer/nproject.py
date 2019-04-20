@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from PySide2.QtCore import (
-    QObject,
-    QDir,
-    Signal
-)
+from PyQt5.QtCore import QObject
+from PyQt5.QtCore import QDir
+from PyQt5.QtCore import pyqtSignal as Signal
 
 import os
 

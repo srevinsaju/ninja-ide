@@ -19,9 +19,9 @@ import abc
 from collections import namedtuple
 from collections import Callable
 
-from PySide2.QtCore import QObject
-from PySide2.QtCore import QThread
-from PySide2.QtCore import Signal
+from PyQt5.QtCore import QObject
+from PyQt5.QtCore import QThread
+from PyQt5.QtCore import pyqtSignal as Signal
 
 from ninja_ide.gui.ide import IDE
 from ninja_ide.tools.logger import NinjaLogger

@@ -19,13 +19,13 @@ from __future__ import unicode_literals
 
 import collections
 from functools import partial
-from PySide2.QtWidgets import (
+from PyQt5.QtWidgets import (
     # QSplitter,
     QMenu,
     QTabWidget
 )
-from PySide2.QtGui import QIcon
-from PySide2.QtCore import Qt
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import Qt
 
 from ninja_ide import translations
 from ninja_ide.gui.ide import IDE

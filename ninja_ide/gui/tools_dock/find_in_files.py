@@ -19,7 +19,7 @@ import queue
 import re
 import os
 
-from PySide2.QtWidgets import (
+from PyQt5.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QHBoxLayout,
@@ -34,20 +34,20 @@ from PySide2.QtWidgets import (
     QStyle,
     QItemDelegate
 )
-from PySide2.QtCore import (
+from PyQt5.QtCore import (
     QObject,
     QDir,
     QAbstractItemModel,
     QFile,
     QTextStream,
-    Signal,
-    Slot,
+    pyqtSignal as Signal,
+    pyqtSlot as Slot,
     QRegExp,
     Qt,
     QRect,
     QModelIndex
 )
-from PySide2.QtGui import QPalette, QColor
+from PyQt5.QtGui import QPalette, QColor
 from ninja_ide.gui.ide import IDE
 from ninja_ide.core import settings
 from ninja_ide import translations

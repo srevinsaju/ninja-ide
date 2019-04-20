@@ -13,7 +13,7 @@ QTreeView::branch:selected {
 }
 
 QMenuBar {
-    background-color: #3c3c3c;
+    background-color: #2f343f;
 }
 
 QMenuBar::item {
@@ -41,7 +41,7 @@ QMenuBar::item:pressed {
 
 QMenu {
     color: #fff;
-    background-color: #252526;
+    background-color: #21252b;
     border: 1px solid lightblue;
     border-radius: 2;
 }
@@ -78,7 +78,7 @@ QPushButton:checked {
 }
 QPushButton {
      background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-        stop: 0 #232729, stop: 1.0 #212121);
+        stop: 0 #42474c, stop: 1.0 #373b3f);
      border-radius: 2px;
      padding: 6px;
      color: #fff;
@@ -304,7 +304,7 @@ QTabBar {
 
 _StatusBar,
 QDialog {
-    background-color: #161719;
+    background-color: #282828;
 }
 
 QTextBrowser {

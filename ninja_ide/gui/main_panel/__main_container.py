@@ -21,16 +21,16 @@ import os
 import re
 import webbrowser
 
-from PySide2 import uic
-from PySide2.QtWidgets import (
+from PyQt5 import uic
+from PyQt5.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QStackedLayout,
     QMessageBox,
     QFileDialog
 )
-from PySide2.QtGui import QPixmap
-from PySide2.QtCore import (
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import (
     Qt,
     QDir,
     Signal

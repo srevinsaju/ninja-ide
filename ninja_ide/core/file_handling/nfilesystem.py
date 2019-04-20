@@ -17,11 +17,11 @@
 
 import os
 
-from PySide2.QtWidgets import QFileSystemModel
+from PyQt5.QtWidgets import QFileSystemModel
 
-from PySide2.QtCore import QObject
-from PySide2.QtCore import QDir
-from PySide2.QtCore import Signal
+from PyQt5.QtCore import QObject
+from PyQt5.QtCore import QDir
+from PyQt5.QtCore import pyqtSignal as Signal
 
 from ninja_ide.core.file_handling.nfile import NFile
 from ninja_ide.tools.logger import NinjaLogger

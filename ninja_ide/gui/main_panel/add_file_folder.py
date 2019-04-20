@@ -17,18 +17,16 @@
 
 import os
 
-from PySide2.QtWidgets import (
+from PyQt5.QtWidgets import (
     QDialog,
     QShortcut,
     QVBoxLayout
 )
 
-from PySide2.QtGui import QKeySequence
-from PySide2.QtQuickWidgets import QQuickWidget
-from PySide2.QtCore import (
-    Qt,
-    Slot
-)
+from PyQt5.QtGui import QKeySequence
+from PyQt5.QtQuickWidgets import QQuickWidget
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import pyqtSlot as Slot
 
 from ninja_ide import resources
 from ninja_ide.tools import ui_tools

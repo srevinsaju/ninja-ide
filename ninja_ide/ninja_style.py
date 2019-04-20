@@ -16,11 +16,11 @@
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 import os
 
-from PySide2.QtWidgets import QProxyStyle
-from PySide2.QtWidgets import QApplication
-from PySide2.QtWidgets import QStyleFactory
-from PySide2.QtGui import QPalette
-from PySide2.QtGui import QColor
+from PyQt5.QtWidgets import QProxyStyle
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QStyleFactory
+from PyQt5.QtGui import QPalette
+from PyQt5.QtGui import QColor
 
 from ninja_ide import resources
 

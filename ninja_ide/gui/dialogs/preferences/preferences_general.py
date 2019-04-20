@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PySide2.QtWidgets import (
+from PyQt5.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QHBoxLayout,
@@ -32,7 +32,7 @@ from PySide2.QtWidgets import (
     QComboBox,
     QMessageBox,
 )
-from PySide2.QtCore import Qt
+from PyQt5.QtCore import Qt
 
 from ninja_ide.gui.dialogs.preferences import preferences
 from ninja_ide import translations

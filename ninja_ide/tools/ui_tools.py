@@ -21,59 +21,59 @@ import collections
 from functools import partial
 from urllib.parse import urlparse, urlunparse
 
-from PySide2.QtWidgets import QApplication
-from PySide2.QtWidgets import QWidget
-from PySide2.QtWidgets import QToolButton
-from PySide2.QtWidgets import QMenu
-from PySide2.QtWidgets import QAction
-from PySide2.QtWidgets import QCompleter
-from PySide2.QtWidgets import QLineEdit
-from PySide2.QtWidgets import QItemDelegate
-from PySide2.QtWidgets import QTableWidgetItem
-from PySide2.QtWidgets import QAbstractItemView
-from PySide2.QtWidgets import QShortcut
-from PySide2.QtWidgets import QTreeWidgetItem
-from PySide2.QtWidgets import QHBoxLayout
-from PySide2.QtWidgets import QPushButton
-from PySide2.QtWidgets import QCheckBox
-from PySide2.QtWidgets import QTableWidget
-from PySide2.QtWidgets import QLabel
-from PySide2.QtWidgets import QSizePolicy
-from PySide2.QtWidgets import QStyle
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QToolButton
+from PyQt5.QtWidgets import QMenu
+from PyQt5.QtWidgets import QAction
+from PyQt5.QtWidgets import QCompleter
+from PyQt5.QtWidgets import QLineEdit
+from PyQt5.QtWidgets import QItemDelegate
+from PyQt5.QtWidgets import QTableWidgetItem
+from PyQt5.QtWidgets import QAbstractItemView
+from PyQt5.QtWidgets import QShortcut
+from PyQt5.QtWidgets import QTreeWidgetItem
+from PyQt5.QtWidgets import QHBoxLayout
+from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtWidgets import QCheckBox
+from PyQt5.QtWidgets import QTableWidget
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QSizePolicy
+from PyQt5.QtWidgets import QStyle
 
-from PySide2.QtGui import QKeyEvent
-from PySide2.QtGui import QLinearGradient
-from PySide2.QtGui import QPalette
-from PySide2.QtGui import QPainter
-from PySide2.QtGui import QFontMetrics
-from PySide2.QtGui import QBrush
-from PySide2.QtGui import QPixmap
-from PySide2.QtGui import QPixmapCache
-from PySide2.QtGui import QIcon
-from PySide2.QtGui import QPen
-from PySide2.QtGui import QColor
-from PySide2.QtGui import QImage
-from PySide2.QtGui import QKeySequence
-from PySide2.QtGui import qGray
-from PySide2.QtGui import qRgba
-from PySide2.QtGui import qAlpha
+from PyQt5.QtGui import QKeyEvent
+from PyQt5.QtGui import QLinearGradient
+from PyQt5.QtGui import QPalette
+from PyQt5.QtGui import QPainter
+from PyQt5.QtGui import QFontMetrics
+from PyQt5.QtGui import QBrush
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmapCache
+from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QPen
+from PyQt5.QtGui import QColor
+from PyQt5.QtGui import QImage
+from PyQt5.QtGui import QKeySequence
+from PyQt5.QtGui import qGray
+from PyQt5.QtGui import qRgba
+from PyQt5.QtGui import qAlpha
 
-from PySide2.QtPrintSupport import QPrinter
-from PySide2.QtPrintSupport import QPrintPreviewDialog
+from PyQt5.QtPrintSupport import QPrinter
+from PyQt5.QtPrintSupport import QPrintPreviewDialog
 
-from PySide2.QtCore import Qt
-from PySide2.QtCore import QSize
-from PySide2.QtCore import Property
-from PySide2.QtCore import QDir
-from PySide2.QtCore import QUrl
-from PySide2.QtCore import QObject
-from PySide2.QtCore import QThread
-from PySide2.QtCore import Signal
-from PySide2.QtCore import QEvent
-from PySide2.QtCore import QTimeLine
-from PySide2.QtCore import QRect
-from PySide2.QtCore import QPoint
-from PySide2.QtCore import QPropertyAnimation
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QSize
+from PyQt5.QtCore import pyqtProperty
+from PyQt5.QtCore import QDir
+from PyQt5.QtCore import QUrl
+from PyQt5.QtCore import QObject
+from PyQt5.QtCore import QThread
+from PyQt5.QtCore import pyqtSignal as Signal
+from PyQt5.QtCore import QEvent
+from PyQt5.QtCore import QTimeLine
+from PyQt5.QtCore import QRect
+from PyQt5.QtCore import QPoint
+from PyQt5.QtCore import QPropertyAnimation
 
 from ninja_ide import resources
 
@@ -120,7 +120,7 @@ class Tab(QObject):
     def _get_fader(self):
         return self._fader
 
-    fader = Property(float, fget=_get_fader, fset=_set_fader)
+    fader = pyqtProperty(float, fget=_get_fader, fset=_set_fader)
 
 
 class ToolBar(QWidget):
@@ -323,7 +323,7 @@ class FancyButton(QToolButton):
     def _get_fader(self):
         return self._fader
 
-    fader = Property(float, fget=_get_fader, fset=_set_fader)
+    fader = pyqtProperty(float, fget=_get_fader, fset=_set_fader)
 
     def event(self, event):
         if event.type() == QEvent.Enter:
@@ -392,7 +392,7 @@ class CoolToolButton(QToolButton):
     def _get_fader(self):
         return self._fader
 
-    fader = Property(float, fget=_get_fader, fset=_set_fader)
+    fader = pyqtProperty(float, fget=_get_fader, fset=_set_fader)
 
     def event(self, event):
         if event.type() == QEvent.Enter:

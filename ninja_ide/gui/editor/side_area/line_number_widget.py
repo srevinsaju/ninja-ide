@@ -15,14 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PySide2.QtGui import QColor
-from PySide2.QtGui import QPainter
-from PySide2.QtGui import QPen
-from PySide2.QtGui import QFontMetrics
-from PySide2.QtGui import QFontMetricsF
+from PyQt5.QtGui import QColor
+from PyQt5.QtGui import QPainter
+from PyQt5.QtGui import QPen
+from PyQt5.QtGui import QFontMetrics
+from PyQt5.QtGui import QFontMetricsF
 
-from PySide2.QtCore import Qt
-from PySide2.QtCore import QSize
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QSize
 
 from ninja_ide.gui.editor.side_area import SideBarWidget
 from ninja_ide import resources

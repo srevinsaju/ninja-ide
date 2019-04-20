@@ -17,7 +17,7 @@
 
 from collections import defaultdict
 
-from PySide2.QtCore import (
+from PyQt5.QtCore import (
     QThread,
     QTimer,
     # Qt,

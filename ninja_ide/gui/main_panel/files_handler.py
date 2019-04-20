@@ -22,12 +22,12 @@ import os
 import re
 import uuid
 
-from PySide2.QtWidgets import (
+from PyQt5.QtWidgets import (
     QWidget,
     QVBoxLayout
 )
-from PySide2.QtCore import Qt, QTimer
-from PySide2.QtQuickWidgets import QQuickWidget
+from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtQuickWidgets import QQuickWidget
 
 from ninja_ide import resources
 from ninja_ide.gui.ide import IDE

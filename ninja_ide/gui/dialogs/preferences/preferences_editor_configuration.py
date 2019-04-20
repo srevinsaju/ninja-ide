@@ -19,7 +19,7 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-from PySide2.QtWidgets import (
+from PyQt5.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QHBoxLayout,
@@ -35,8 +35,8 @@ from PySide2.QtWidgets import (
     QComboBox,
     QSizePolicy
 )
-from PySide2.QtGui import QIcon
-from PySide2.QtCore import Qt
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import Qt
 
 from ninja_ide import translations
 from ninja_ide.core import settings

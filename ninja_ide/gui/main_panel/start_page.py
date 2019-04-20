@@ -15,16 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PySide2.QtWidgets import (
-    QWidget,
-    QVBoxLayout
-)
-from PySide2.QtQuickWidgets import QQuickWidget
-from PySide2.QtCore import (
-    Signal,
-    Slot,
-    QUrl
-)
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QVBoxLayout
+
+from PyQt5.QtQuickWidgets import QQuickWidget
+from PyQt5.QtCore import pyqtSignal as Signal
+from PyQt5.QtCore import pyqtSlot as Slot
+from PyQt5.QtCore import QUrl
 
 from ninja_ide.gui.ide import IDE
 from ninja_ide.tools import ui_tools
@@ -41,16 +38,14 @@ class StartPage(QWidget):
         vbox = QVBoxLayout(self)
         vbox.setContentsMargins(0, 0, 0, 0)
         vbox.setSpacing(0)
-        self.view = QQuickWidget()
-        self.view.rootContext().setContextProperty(
-            "theme", resources.QML_COLORS)
-        self.view.rootContext().setContextProperty(
-            "shortcuts", self.get_shortcuts())
-        self.view.setMinimumWidth(400)
-        self.view.setResizeMode(QQuickWidget.SizeRootObjectToView)
-        self.view.setSource(ui_tools.get_qml_resource("StartPage.qml"))
-        self.root = self.view.rootObject()
-        vbox.addWidget(self.view)
+        view = QQuickWidget()
+        # view.rootContext().setContextProperty("theme", resources.QML_COLORS)
+        view.rootContext().setContextProperty("shortcuts", self.get_shortcuts())
+        view.setMinimumWidth(400)
+        view.setResizeMode(QQuickWidget.SizeRootObjectToView)
+        view.setSource(ui_tools.get_qml_resource("StartPage.qml"))
+        self.root = view.rootObject()
+        vbox.addWidget(view)
 
         # Connections
         self.root.onDrop.connect(self.__open_drop_files)

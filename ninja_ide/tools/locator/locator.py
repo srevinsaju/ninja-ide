@@ -26,8 +26,8 @@ try:
 except ImportError:
     import queue as Queue  # lint:ok
 
-from PySide2.QtWidgets import QMessageBox
-from PySide2.QtCore import (
+from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtCore import (
     QObject,
     QThread,
     QDir,

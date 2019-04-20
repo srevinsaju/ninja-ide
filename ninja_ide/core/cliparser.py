@@ -19,49 +19,47 @@
 import argparse
 
 
-usage = "$python ninja-ide.py <option, [option3...option n]>"
+# usage = "$python ninja-ide.py <option, [option3...option n]>"
 
-epilog = ("This program comes with ABSOLUTELY NO WARRANTY."
-          "This is free software, and you are welcome to redistribute "
-          "it under certain conditions; for details see LICENSE.txt.")
+# epilog = ("This program comes with ABSOLUTELY NO WARRANTY."
+#           "This is free software, and you are welcome to redistribute "
+#           "it under certain conditions; for details see LICENSE.txt.")
 
 
-def _get_parser():
-    global usage, epilog
+def cmd_parser():
 
-    parser = argparse.ArgumentParser(description=usage, epilog=epilog)
-
-    parser.add_argument('file', metavar='file', type=str,
-                        nargs='*', help='A file/s to edit', default=[])
-    parser.add_argument('-f', '--files', metavar='file', type=str,
-                        nargs='+', help='A file/s to edit', default=[])
-    parser.add_argument('-l', '--lineno', metavar='lineno', type=int,
-                        nargs='+', help='Line number for the files to open',
-                        default=[])
-    parser.add_argument('-p', '--project', metavar='project', type=str,
-                        nargs='+', help='A project/s to edit', default=[])
-    parser.add_argument('--plugin', metavar='plugin', type=str,
-                        nargs='+', help='A plugin to load', default=[])
-    parser.add_argument('-v', '--verbose', action='store_true', help='Verbose')
+    parser = argparse.ArgumentParser()
+    parser.add_argument('files', nargs='*', help='A file/s to edit')
+    parser.add_argument('--projects', nargs='+', help='A project/s to edit')
+    parser.add_argument('--plugins', nargs='+', help='A plugin to load')
+    parser.add_argument('--stylesheet', help='QSS Style Sheet')
+    parser.add_argument('--verbose', action='store_true', help='Verbose')
 
     return parser
 
 
 def parse():
-    filenames = projects_path = linenos = None
-    extra_plugins = verbose = None
+    # filenames = projects_path = None
+    # extra_plugins = verbose = None
 
     try:
-        opts = _get_parser().parse_args()
+        opts = cmd_parser().parse_args()
 
-        filenames = opts.file if isinstance(opts.file, list) else [opts.file]
-        filenames += opts.files if hasattr(opts, 'files') else []
-        projects_path = opts.project if isinstance(opts.project, list) else [opts.project]
-        linenos = opts.lineno if hasattr(opts, 'lineno') else [opts.lineno]
-        extra_plugins = opts.plugin if isinstance(opts.plugin, list) else [opts.plugin]
-        verbose = opts.verbose
+        # filenames = opts.file if isinstance(opts.file, list) else [opts.file]
+        # filenames += opts.files if hasattr(opts, 'files') else []
+        # projects_path = opts.project if isinstance(opts.project, list) else [opts.project]
+        # linenos = opts.lineno if hasattr(opts, 'lineno') else [opts.lineno]
+        # extra_plugins = opts.plugin if isinstance(opts.plugin, list) else [opts.plugin]
+        # verbose = opts.verbose
 
     except Exception as reason:
         print("Args couldn't be parsed.")
         print(reason)
-    return filenames, projects_path, extra_plugins, linenos, verbose
+    return (
+        opts.files,
+        opts.projects,
+        opts.plugins,
+        opts.stylesheet,
+        opts.verbose
+    )
+    # return filenames, projects_path, extra_plugins, linenos, verbose

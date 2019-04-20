@@ -19,7 +19,7 @@ from __future__ import absolute_import
 
 import webbrowser
 
-from PySide2.QtWidgets import (
+from PyQt5.QtWidgets import (
     QDialog,
     QVBoxLayout,
     QHBoxLayout,
@@ -28,8 +28,8 @@ from PySide2.QtWidgets import (
     QPushButton,
     QLabel
 )
-from PySide2.QtGui import QPixmap
-from PySide2.QtCore import (
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import (
     Qt,
     QSize
 )

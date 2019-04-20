@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 import os
-from PySide2.QtWidgets import (
+from PyQt5.QtWidgets import (
     QWizardPage, QLineEdit, QGridLayout, QLabel,
 )
 
@@ -151,7 +151,7 @@ class PyQtProject(BaseProjectType):
 
     @classmethod
     def wizard_pages(cls):
-        from PySide2.QtWidgets import QWizardPage
+        from PyQt5.QtWidgets import QWizardPage
         p = QWizardPage()
         p.setTitle("PPPPPP")
         p.setSubTitle("Pyqslaldsald ")

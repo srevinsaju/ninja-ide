@@ -21,7 +21,7 @@ from __future__ import unicode_literals
 
 import copy
 
-from PySide2.QtWidgets import (
+from PyQt5.QtWidgets import (
     QWidget,
     QComboBox,
     QVBoxLayout,
@@ -40,8 +40,8 @@ from PySide2.QtWidgets import (
     QFontComboBox,
     QPushButton
 )
-from PySide2.QtGui import QIcon, QColor
-from PySide2.QtCore import (
+from PyQt5.QtGui import QIcon, QColor
+from PyQt5.QtCore import (
     QAbstractListModel,
     Qt,
     QSize

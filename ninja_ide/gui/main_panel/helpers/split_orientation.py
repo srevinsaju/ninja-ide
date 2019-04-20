@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 
 
-from PySide2.QtWidgets import (
+from PyQt5.QtWidgets import (
     QDialog,
     QVBoxLayout,
     QShortcut
 )
-from PySide2.QtGui import QKeySequence
-from PySide2.QtQuickWidgets import QQuickWidget
-from PySide2.QtCore import Qt
+from PyQt5.QtGui import QKeySequence
+from PyQt5.QtQuickWidgets import QQuickWidget
+from PyQt5.QtCore import Qt
 
 from ninja_ide import resources
 from ninja_ide.gui.ide import IDE
@@ -19,7 +19,7 @@ class SplitOrientation(QDialog):
 
     def __init__(self, parent=None):
         super().__init__(parent, Qt.Dialog | Qt.FramelessWindowHint)
-        self._operations = {'row': False, 'col': True}
+        self._operations = {'rowC': False, 'colC': True}
         self.setModal(True)
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setStyleSheet("background:transparent;")

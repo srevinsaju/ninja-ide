@@ -20,12 +20,12 @@ import sys
 from unittest import mock
 import time
 
-from PySide2.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication
 
-from PySide2.QtCore import QTimer
-from PySide2.QtCore import Qt
+from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import Qt
 
-from PySide2.QtTest import QTest
+from PyQt5.QtTest import QTest
 
 sys.path.append("..")
 

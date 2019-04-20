@@ -18,7 +18,7 @@ from __future__ import absolute_import
 
 import re
 
-from PySide2.QtWidgets import QInputDialog
+from PyQt5.QtWidgets import QInputDialog
 
 from ninja_ide.core import settings
 from ninja_ide.core.file_handling import file_manager

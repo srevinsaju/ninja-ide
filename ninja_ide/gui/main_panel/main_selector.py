@@ -17,12 +17,12 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-from PySide2.QtWidgets import (
+from PyQt5.QtWidgets import (
     QWidget,
     QVBoxLayout
 )
-from PySide2.QtQuickWidgets import QQuickWidget
-from PySide2.QtCore import (
+from PyQt5.QtQuickWidgets import QQuickWidget
+from PyQt5.QtCore import (
     Signal,
     Qt
 )

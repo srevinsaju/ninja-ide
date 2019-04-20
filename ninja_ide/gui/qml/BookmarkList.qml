@@ -3,12 +3,14 @@ import QtQuick 2.5
 Rectangle {
     id: root
 
-    color: theme.FilesHandlerBackground
+//    color: theme.FilesHandlerBackground
+    color: palette.window
     focus: true
 
     signal menuRequested(int x, int y, int index);
     signal openBookmark(string fname, int line);
 
+    SystemPalette { id: palette; colorGroup: SystemPalette.Active }
     MouseArea {
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton | Qt.RightButton

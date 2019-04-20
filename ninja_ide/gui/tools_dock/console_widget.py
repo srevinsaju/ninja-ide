@@ -15,18 +15,18 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PySide2.QtWidgets import QWidget
-from PySide2.QtWidgets import QMenu
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QMenu
 
-from PySide2.QtGui import QTextCursor
-from PySide2.QtGui import QColor
-from PySide2.QtGui import QFontMetrics
-from PySide2.QtGui import QPainter
-from PySide2.QtGui import QKeyEvent
+from PyQt5.QtGui import QTextCursor
+from PyQt5.QtGui import QColor
+from PyQt5.QtGui import QFontMetrics
+from PyQt5.QtGui import QPainter
+from PyQt5.QtGui import QKeyEvent
 
-from PySide2.QtCore import Qt
-from PySide2.QtCore import QSize
-from PySide2.QtCore import QEvent
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QSize
+from PyQt5.QtCore import QEvent
 
 from ninja_ide import translations
 from ninja_ide import resources

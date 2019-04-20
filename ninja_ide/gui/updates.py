@@ -19,14 +19,14 @@ from urllib.request import urlopen
 import webbrowser
 from distutils import version
 
-from PySide2.QtWidgets import (
+from PyQt5.QtWidgets import (
     QSystemTrayIcon,
     QAction,
     QMenu,
     QMessageBox
 )
-from PySide2.QtGui import QIcon
-from PySide2.QtCore import (
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import (
     QObject,
     QThread,
     Signal

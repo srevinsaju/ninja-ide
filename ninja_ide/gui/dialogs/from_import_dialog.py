@@ -20,15 +20,15 @@ from sys import builtin_module_names
 
 from pkgutil import iter_modules
 
-from PySide2.QtWidgets import QDialog
-from PySide2.QtWidgets import QGridLayout
-from PySide2.QtWidgets import QLabel
-from PySide2.QtWidgets import QLineEdit
-from PySide2.QtWidgets import QCompleter
-from PySide2.QtWidgets import QPushButton
-from PySide2.QtWidgets import QSpinBox
+from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QGridLayout
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QLineEdit
+from PyQt5.QtWidgets import QCompleter
+from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtWidgets import QSpinBox
 
-from PySide2.QtCore import Qt
+from PyQt5.QtCore import Qt
 
 from ninja_ide import translations
 from ninja_ide.tools import introspection

@@ -17,13 +17,13 @@
 
 import sys
 
-from PySide2.QtWidgets import QSplashScreen
+from PyQt5.QtWidgets import QSplashScreen
 
-from PySide2.QtGui import QPixmap
-from PySide2.QtGui import QIcon
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QIcon
 
-from PySide2.QtCore import QCoreApplication
-from PySide2.QtCore import Qt
+from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtCore import Qt
 
 from ninja_ide import resources
 from ninja_ide.core import ipc
@@ -42,7 +42,7 @@ from ninja_ide.core.template_registry import bundled_project_types  # noqa
 from ninja_ide.gui.syntax_registry import syntax_registry  # noqa
 
 
-def start_ide(app, filenames, projects_path, extra_plugins, linenos):
+def start_ide(app, filenames, projects_path, extra_plugins):
     """Load all the settings necessary before loading the UI, and start IDE."""
 
     def _add_splash(message):
@@ -155,24 +155,26 @@ def start_ide(app, filenames, projects_path, extra_plugins, linenos):
     _add_splash("Loading Files and Projects...")
     # First check if we need to load last session files
     if qsettings.value('general/loadFiles', True):
-        files = data_qsettings.value('lastSession/openedFiles')
-        projects = data_qsettings.value('lastSession/projects')
-        if isinstance(projects, str):
-            projects = [projects]
+        files = data_qsettings.value('lastSession/openedFiles') or []
+        projects = data_qsettings.value('lastSession/projects') or []
+        print(projects)
+        # if isinstance(projects, str):
+        #     projects = [projects]
         current_file = data_qsettings.value('lastSession/currentFile')
-        if files is None:
-            files = []
-        if projects is None:
-            projects = []
+        # if files is None:
+        #     files = []
+        # if projects is None:
+        #     projects = []
         # Include files received from console args
-        files_with_lineno = [(f[0], (f[1] - 1, 0))
-                             for f in zip(filenames, linenos)]
-        files_without_lineno = [(f, (0, 0))
-                                for f in filenames[len(linenos):]]
-        files += files_with_lineno + files_without_lineno
+        # files_with_lineno = [(f[0], (f[1] - 1, 0))
+        #                      for f in zip(filenames, linenos)]
+        # files_without_lineno = [(f, (0, 0))
+        #                         for f in filenames[len(linenos):]]
+        # files += files_with_lineno + files_without_lineno
+        # files += filenames
         # Include projects received from console args
-        if projects_path:
-            projects += projects_path
+        # if projects_path:
+        #     projects += projects_path
         ninjaide.load_session_files_projects(
             files, projects, current_file)
 
@@ -193,7 +195,7 @@ def start_ide(app, filenames, projects_path, extra_plugins, linenos):
 
 def load_fonts():
     import os
-    from PySide2.QtGui import QFontDatabase
+    from PyQt5.QtGui import QFontDatabase
 
     fonts = [f for f in os.listdir(resources.FONTS)
              if f.endswith(".ttf")]

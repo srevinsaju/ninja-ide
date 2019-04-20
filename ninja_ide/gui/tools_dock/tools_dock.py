@@ -17,27 +17,27 @@
 
 import collections
 
-from PySide2.QtWidgets import QWidget
-from PySide2.QtWidgets import QToolButton
-from PySide2.QtWidgets import QMenu
-from PySide2.QtWidgets import QHBoxLayout
-from PySide2.QtWidgets import QPushButton
-from PySide2.QtWidgets import QStackedWidget
-from PySide2.QtWidgets import QSpacerItem
-from PySide2.QtWidgets import QSizePolicy
-from PySide2.QtWidgets import QStyleOption
-from PySide2.QtWidgets import QStyle
-from PySide2.QtWidgets import QApplication
-from PySide2.QtWidgets import QShortcut
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QToolButton
+from PyQt5.QtWidgets import QMenu
+from PyQt5.QtWidgets import QHBoxLayout
+from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtWidgets import QStackedWidget
+from PyQt5.QtWidgets import QSpacerItem
+from PyQt5.QtWidgets import QSizePolicy
+from PyQt5.QtWidgets import QStyleOption
+from PyQt5.QtWidgets import QStyle
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QShortcut
 
-from PySide2.QtGui import QPainter
-from PySide2.QtGui import QKeySequence
-from PySide2.QtGui import QCursor
+from PyQt5.QtGui import QPainter
+from PyQt5.QtGui import QKeySequence
+from PyQt5.QtGui import QCursor
 
-from PySide2.QtCore import Signal
-from PySide2.QtCore import QRect
-from PySide2.QtCore import Qt
-from PySide2.QtCore import QSize
+from PyQt5.QtCore import pyqtSignal as Signal
+from PyQt5.QtCore import QRect
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QSize
 
 from ninja_ide.core import settings
 from ninja_ide.tools import ui_tools
@@ -379,7 +379,7 @@ class ToolButton(QPushButton):
 
 tools_dock = _ToolsDock()
 
-'''from PySide2.QtWidgets import (
+'''from PyQt5.QtWidgets import (
     QWidget,
     QToolBar,
     QPushButton,
@@ -392,11 +392,11 @@ tools_dock = _ToolsDock()
     QShortcut,
     QSizePolicy
 )
-from PySide2.QtGui import (
+from PyQt5.QtGui import (
     QIcon,
     QKeySequence
 )
-from PySide2.QtCore import (
+from PyQt5.QtCore import (
     QSize,
     Signal,
     Qt

@@ -15,29 +15,29 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PySide2.QtWidgets import QFrame
-from PySide2.QtWidgets import QListView
-from PySide2.QtWidgets import QVBoxLayout
-from PySide2.QtWidgets import QLabel
-from PySide2.QtWidgets import QAbstractItemView
-from PySide2.QtWidgets import QApplication
-from PySide2.QtWidgets import QStyle
-from PySide2.QtWidgets import QStylePainter
-from PySide2.QtWidgets import QStyleOptionFrame
-from PySide2.QtWidgets import QSizePolicy
-from PySide2.QtWidgets import QStyledItemDelegate
+from PyQt5.QtWidgets import QFrame
+from PyQt5.QtWidgets import QListView
+from PyQt5.QtWidgets import QVBoxLayout
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QAbstractItemView
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QStyle
+from PyQt5.QtWidgets import QStylePainter
+from PyQt5.QtWidgets import QStyleOptionFrame
+from PyQt5.QtWidgets import QSizePolicy
+from PyQt5.QtWidgets import QStyledItemDelegate
 
-from PySide2.QtGui import QIcon
-from PySide2.QtGui import QColor
+from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QColor
 
-from PySide2.QtCore import QAbstractListModel
-from PySide2.QtCore import Qt
-from PySide2.QtCore import QModelIndex
-from PySide2.QtCore import QEvent
-from PySide2.QtCore import QTimer
-from PySide2.QtCore import QPoint
-from PySide2.QtCore import Signal
-from PySide2.QtCore import QSize
+from PyQt5.QtCore import QAbstractListModel
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QModelIndex
+from PyQt5.QtCore import QEvent
+from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QPoint
+from PyQt5.QtCore import pyqtSignal as Signal
+from PyQt5.QtCore import QSize
 
 from ninja_ide.core import settings
 

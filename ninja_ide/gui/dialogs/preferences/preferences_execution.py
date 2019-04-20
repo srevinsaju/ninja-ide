@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PySide2.QtWidgets import (
+from PyQt5.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QHBoxLayout,
@@ -28,7 +28,7 @@ from PySide2.QtWidgets import (
     QPushButton,
     QComboBox
 )
-from PySide2.QtCore import Slot
+from PyQt5.QtCore import pyqtSlot as Slot
 from ninja_ide.gui.ide import IDE
 from ninja_ide.gui.dialogs.preferences import preferences
 from ninja_ide import translations

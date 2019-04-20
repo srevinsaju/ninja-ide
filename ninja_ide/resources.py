@@ -19,10 +19,10 @@ import os
 import sys
 import json
 
-from PySide2.QtGui import QKeySequence
-from PySide2.QtCore import QDir
-from PySide2.QtCore import QSettings
-from PySide2.QtCore import Qt
+from PyQt5.QtGui import QKeySequence
+from PyQt5.QtCore import QDir
+from PyQt5.QtCore import QSettings
+from PyQt5.QtCore import Qt
 
 from ninja_ide.core.file_handling import file_manager
 
@@ -49,6 +49,8 @@ NINJA_KNOWLEDGE_PATH = os.path.join(HOME_NINJA_PATH, 'knowledge')
 SETTINGS_PATH = os.path.join(HOME_NINJA_PATH, 'ninja_settings.ini')
 
 DATA_SETTINGS_PATH = os.path.join(HOME_NINJA_PATH, 'data_settings.ini')
+
+USER_SETTINGS_PATH = os.path.join(HOME_NINJA_PATH, 'user_settings.ini')
 
 EXTENSIONS_PATH = os.path.join(HOME_NINJA_PATH, "extensions")
 
@@ -273,6 +275,6 @@ def load_theme(name="Dark"):
                 theme_name = content["name"]
                 themes[theme_name] = content
     ninja_theme = themes[name]
-    global QML_COLORS
-    QML_COLORS = ninja_theme["qml"]
+    # global QML_COLORS
+    # QML_COLORS = ninja_theme["qml"]
     return ninja_theme

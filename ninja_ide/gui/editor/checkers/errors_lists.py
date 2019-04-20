@@ -15,20 +15,20 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PySide2.QtWidgets import (
+from PyQt5.QtWidgets import (
     QDialog,
     QWidget,
     QVBoxLayout,
     QHBoxLayout
 )
-from PySide2.QtGui import QIcon
-from PySide2.QtCore import (
-    Signal,
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import (
+    pyqtSignal as Signal,
     QModelIndex,
     QAbstractItemModel,
     Qt
 )
-from PySide2.QtQuickWidgets import QQuickWidget
+from PyQt5.QtQuickWidgets import QQuickWidget
 from ninja_ide.core import settings
 from ninja_ide import resources
 from ninja_ide.gui.ide import IDE

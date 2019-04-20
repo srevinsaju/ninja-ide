@@ -21,8 +21,8 @@ from unittest.mock import Mock
 from ninja_ide import resources
 from ninja_ide.gui.editor import editor
 
-from PySide2.QtGui import QTextDocument
-from PySide2.QtCore import Qt
+from PyQt5.QtGui import QTextDocument
+from PyQt5.QtCore import Qt
 
 # FIXME: use mock
 from ninja_ide.gui.explorer.tabs import bookmark_manager  # noqa

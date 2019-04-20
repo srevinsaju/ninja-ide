@@ -17,23 +17,23 @@
 
 from collections import defaultdict
 
-from PySide2.QtWidgets import QWidget
-from PySide2.QtWidgets import QVBoxLayout
-from PySide2.QtWidgets import QMenu
-from PySide2.QtWidgets import QMessageBox
-from PySide2.QtWidgets import QFormLayout
-from PySide2.QtWidgets import QDialog
-from PySide2.QtWidgets import QLineEdit
-from PySide2.QtWidgets import QDialogButtonBox
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QVBoxLayout
+from PyQt5.QtWidgets import QMenu
+from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QFormLayout
+from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QLineEdit
+from PyQt5.QtWidgets import QDialogButtonBox
 
-from PySide2.QtQuickWidgets import QQuickWidget
+from PyQt5.QtQuickWidgets import QQuickWidget
 
-from PySide2.QtCore import Qt
-from PySide2.QtCore import QPoint
-# from PySide2.QtCore import QVariant
-from PySide2.QtCore import QAbstractListModel
-from PySide2.QtCore import Signal
-from PySide2.QtCore import QModelIndex
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QPoint
+# from PyQt5.QtCore import QVariant
+from PyQt5.QtCore import QAbstractListModel
+from PyQt5.QtCore import pyqtSignal as Signal
+from PyQt5.QtCore import QModelIndex
 
 from ninja_ide import resources
 from ninja_ide import translations

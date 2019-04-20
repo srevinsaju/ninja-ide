@@ -8,7 +8,12 @@ Rectangle {
     signal onDrop(string files);
     signal openProject(string path)
     signal newFile
-    color: theme.StartPageBackground;
+
+    color: palette.window;
+
+    SystemPalette {
+        id: palette; colorGroup: SystemPalette.Active
+    }
 
     DropArea {
         anchors.fill: parent
@@ -25,7 +30,7 @@ Rectangle {
                 text: "Ninja IDE Is Not Just Another IDE"
                 renderType: Text.NativeRendering
                 font.pointSize: 12
-                color: theme.StartPageAlternativeText
+                color: palette.brightText
                 font.family: "monospace"
             }
             Rectangle {

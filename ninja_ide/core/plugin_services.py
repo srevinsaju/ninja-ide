@@ -20,7 +20,7 @@ from __future__ import unicode_literals
 
 from PyQt4.QtCore import QObject
 # from PyQt4.QtCore import SIGNAL
-from PyQt4.QtCore import Signal
+from PyQt4.QtCore import pyqtSignal as Signal
 
 from ninja_ide.core import settings
 from ninja_ide.core.file_handling import file_manager

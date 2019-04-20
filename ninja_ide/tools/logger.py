@@ -21,7 +21,7 @@ from logging.handlers import RotatingFileHandler
 from ninja_ide import resources
 
 
-LOG_FORMAT = "[%(asctime)s]  %(name)-22s:%(funcName)-5s  %(levelname)-8s %(message)s"
+LOG_FORMAT = "[%(asctime)s] [%(levelname)-6s]: %(name)-22s:%(funcName)-5s %(message)s"
 TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 
 

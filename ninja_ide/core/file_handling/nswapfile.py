@@ -18,12 +18,12 @@
 # import os
 # import hashlib
 
-# from PySide2.QtCore import QObject
-# from PySide2.QtCore import QFile
-# from PySide2.QtCore import QTextStream
-# from PySide2.QtCore import QIODevice
-# from PySide2.QtCore import QTimer
-# from PySide2.QtCore import Slot
+# from PyQt5.QtCore import QObject
+# from PyQt5.QtCore import QFile
+# from PyQt5.QtCore import QTextStream
+# from PyQt5.QtCore import QIODevice
+# from PyQt5.QtCore import QTimer
+# from PyQt5.QtCore import pyqtSlot as Slot
 
 # from ninja_ide.core import settings
 # from ninja_ide.gui.ide import IDE

@@ -17,21 +17,21 @@
 
 from collections import namedtuple
 from collections import defaultdict
-from PySide2.QtWidgets import (
+from PyQt5.QtWidgets import (
     QScrollBar,
     QToolTip,
     QStyleOptionSlider,
     QWidget,
     QStyle
 )
-from PySide2.QtGui import (
+from PyQt5.QtGui import (
     QPainter,
     QColor
 )
 
-from PySide2.QtCore import QPoint
-from PySide2.QtCore import QTimer
-from PySide2.QtCore import Qt
+from PyQt5.QtCore import QPoint
+from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import Qt
 
 
 Marker = namedtuple('Marker', 'position color priority')

@@ -15,13 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PySide2.QtWidgets import (
+from PyQt5.QtWidgets import (
     QWidget,
     QHBoxLayout,
     QVBoxLayout,
 )
 
-from PySide2.QtCore import Qt
+from PyQt5.QtCore import Qt
 
 from ninja_ide.gui import actions
 from ninja_ide.gui import dynamic_splitter

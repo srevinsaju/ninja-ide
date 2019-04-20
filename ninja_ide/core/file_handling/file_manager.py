@@ -22,7 +22,7 @@ import re
 import threading
 import shutil
 
-from PySide2 import QtCore
+from PyQt5 import QtCore
 
 from ninja_ide.core import settings
 

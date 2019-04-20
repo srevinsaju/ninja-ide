@@ -17,18 +17,19 @@
 
 import os
 
-from PySide2.QtWidgets import QWidget
-from PySide2.QtWidgets import QVBoxLayout
-from PySide2.QtWidgets import QStackedLayout
-from PySide2.QtWidgets import QFileDialog
-from PySide2.QtWidgets import QMessageBox
-from PySide2.QtWidgets import QShortcut
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QVBoxLayout
+from PyQt5.QtWidgets import QStackedLayout
+from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QShortcut
 
-from PySide2.QtGui import QKeySequence
-from PySide2.QtCore import Signal
-from PySide2.QtCore import Qt
+from PyQt5.QtGui import QKeySequence
+from PyQt5.QtCore import pyqtSignal as Signal
+from PyQt5.QtCore import Qt
 
 from ninja_ide.core import settings
+# from ninja_ide.core.config.settings import SETTINGS
 from ninja_ide.gui.ide import IDE
 from ninja_ide.tools import ui_tools
 from ninja_ide.gui.main_panel import actions
@@ -85,6 +86,7 @@ class _MainContainer(QWidget):
         # QML UI
         self._add_file_folder = add_file_folder.AddFileFolderWidget(self)
 
+        # if SETTINGS.get('show_start_page'):
         if settings.SHOW_START_PAGE:
             self.show_start_page()
 
@@ -124,11 +126,11 @@ class _MainContainer(QWidget):
         ninjaide = IDE.get_service("ide")
         ninjaide.place_me_on("main_container", self, "central", top=True)
 
-        self.combo_area = combo_editor.ComboEditor(original=True)
-        self.combo_area.allFilesClosed.connect(self._files_closed)
-        self.combo_area.allFilesClosed.connect(
-            lambda: self.allFilesClosed.emit())
-        self.combo_area.fileClosed.connect(self._add_to_last_opened)
+        self.combo_area = combo_editor.ComboEditor()
+        # self.combo_area.allFilesClosed.connect(self._files_closed)
+        # self.combo_area.allFilesClosed.connect(
+        #     lambda: self.allFilesClosed.emit())
+        # self.combo_area.fileClosed.connect(self._add_to_last_opened)
         self.splitter.add_widget(self.combo_area)
         self.add_widget(self.splitter)
         # self.current_widget = self.combo_area
@@ -245,7 +247,7 @@ class _MainContainer(QWidget):
         self.currentEditorChanged.emit(filename)
 
     def get_current_editor(self):
-        current_widget = self.combo_area.current_editor()
+        current_widget = self.combo_area.current_view()
         if isinstance(current_widget, editor.NEditor):
             return current_widget
         return None
@@ -272,7 +274,7 @@ class _MainContainer(QWidget):
         if not filename:
             logger.debug("Has no filename")
             if settings.WORKSPACE:
-                directory = settings.WORKSPACE
+                directory = settings.get('workspace')
             else:
                 directory = os.path.expanduser("~")
                 editor_widget = self.get_current_editor()
@@ -288,6 +290,7 @@ class _MainContainer(QWidget):
                 self,
                 translations.TR_OPEN_A_FILE,
                 directory,
+                # SETTINGS.get('supported_extensions_filter'),
                 settings.get_supported_extensions_filter(),
                 initialFilter="Python files (*.py *.pyw)"
             )[0]
@@ -352,8 +355,10 @@ class _MainContainer(QWidget):
                 file_path = editor_widget.file_path
                 # Emit signal before save
                 self.beforeFileSaved.emit(file_path)
+                # if SETTINGS.get('remove_trailing_spaces'):
                 if settings.REMOVE_TRAILING_SPACES:
                     editor_widget.remove_trailing_spaces()
+                # if SETTINGS.get('add_new_line_at_eof'):
                 if settings.ADD_NEW_LINE_AT_EOF:
                     editor_widget.insert_block_at_end()
                 # Save content
@@ -390,6 +395,7 @@ class _MainContainer(QWidget):
                 save_folder = self._get_save_folder(editor_widget.file_path)
             else:
                 save_folder = settings.WORKSPACE
+                # save_folder = SETTINGS.get('workspace')
 
             filename = QFileDialog.getSaveFileName(
                 self,
@@ -512,6 +518,7 @@ class _MainContainer(QWidget):
             self.stack.setCurrentIndex(0)
 
     def _files_closed(self):
+        # if SETTINGS.get('show_start_page'):
         if settings.SHOW_START_PAGE:
             self.show_start_page()
 

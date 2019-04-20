@@ -1,0 +1,14 @@
+{
+    "ide": {
+        "show_toolbar": false
+    },
+    "editor": {
+        "display": {
+            "show_tabs_and_spaces": true,
+            "show_indentation_guides": false
+        },
+        "behavior": {
+            "remove_trailing_spaces": true
+        }
+    }
+}

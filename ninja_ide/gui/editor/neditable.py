@@ -16,8 +16,8 @@
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 import collections
 
-from PySide2.QtCore import QObject
-from PySide2.QtCore import Signal
+from PyQt5.QtCore import QObject
+from PyQt5.QtCore import pyqtSignal as Signal
 
 from ninja_ide.core.file_handling import file_manager
 from ninja_ide.gui.editor import checkers

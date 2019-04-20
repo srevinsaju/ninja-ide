@@ -20,10 +20,10 @@ import re
 import subprocess
 import json
 
-from PySide2.QtCore import QObject
-from PySide2.QtCore import QTimer
-from PySide2.QtCore import QThread
-from PySide2.QtCore import Signal
+from PyQt5.QtCore import QObject
+from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QThread
+from PyQt5.QtCore import pyqtSignal as Signal
 
 from ninja_ide.tools.logger import NinjaLogger
 from ninja_ide.tools import utils

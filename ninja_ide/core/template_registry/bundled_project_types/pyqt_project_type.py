@@ -16,7 +16,7 @@
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
 import os
-from PySide2.QtWidgets import (
+from PyQt5.QtWidgets import (
     QWizardPage,
     QVBoxLayout,
     QFrame,
@@ -33,7 +33,7 @@ from ninja_ide.tools import json_manager
 
 MAIN = """
 import sys
-from PySide2.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication
 from {module} import {classname}
 
 
@@ -46,7 +46,7 @@ if __name__ == "__main__":
 """
 
 WIDGET = """
-from PySide2.QtWidgets import {baseclass}
+from PyQt5.QtWidgets import {baseclass}
 
 
 class {classname}({baseclass}):

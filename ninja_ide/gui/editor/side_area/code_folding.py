@@ -16,18 +16,18 @@
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 import re
 
-from PySide2.QtWidgets import QStyleOptionViewItem
-from PySide2.QtWidgets import QStyle
+from PyQt5.QtWidgets import QStyleOptionViewItem
+from PyQt5.QtWidgets import QStyle
 
-from PySide2.QtGui import QPainter
-from PySide2.QtGui import QPalette
-from PySide2.QtGui import QTextBlock
-from PySide2.QtGui import QColor
+from PyQt5.QtGui import QPainter
+from PyQt5.QtGui import QPalette
+from PyQt5.QtGui import QTextBlock
+from PyQt5.QtGui import QColor
 
-from PySide2.QtCore import QSize
-from PySide2.QtCore import QRect
-from PySide2.QtCore import Qt
-from PySide2.QtCore import QTimer
+from PyQt5.QtCore import QSize
+from PyQt5.QtCore import QRect
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QTimer
 
 from ninja_ide import resources
 from ninja_ide.gui.editor.side_area import SideBarWidget
@@ -102,7 +102,7 @@ class PythonCodeFolding(IndentationFolding):
 
 
 IMPLEMENTATIONS = {
-    "python": PythonCodeFolding()
+    "python": PythonCodeFolding()  # FIXME:
 }
 
 

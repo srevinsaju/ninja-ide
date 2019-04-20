@@ -18,19 +18,19 @@
 # import os
 import collections
 
-from PySide2.QtWidgets import QMainWindow
-from PySide2.QtWidgets import QMessageBox
-from PySide2.QtWidgets import QToolTip
+from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QToolTip
 
-from PySide2.QtGui import QFont
+from PyQt5.QtGui import QFont
 
-from PySide2.QtCore import QSettings
-from PySide2.QtCore import Qt
-from PySide2.QtCore import QPointF
-from PySide2.QtCore import QSizeF
-from PySide2.QtCore import Signal
+from PyQt5.QtCore import QSettings
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QPointF
+from PyQt5.QtCore import QSizeF
+from PyQt5.QtCore import pyqtSignal as Signal
 
-from PySide2.QtNetwork import QLocalServer
+from PyQt5.QtNetwork import QLocalServer
 
 from ninja_ide import resources
 from ninja_ide import translations
@@ -339,22 +339,14 @@ class IDE(QMainWindow):
             for connection in connections:
                 if connection.get('connected', False):
                     continue
-                target = IDE.__IDESERVICES.get(
-                    connection['target'], None)
+                target = IDE.__IDESERVICES.get(connection['target'], None)
                 slot = connection['slot']
                 signal_name = connection['signal_name']
-                if target and isinstance(slot, collections.Callable):
-                    # FIXME:
-                    sl = getattr(target, signal_name, None)
-
-                    if sl is not None:
-                        sl.connect(slot)
+                if callable(slot):
+                    signal = getattr(target, signal_name, None)
+                    if signal is not None:
+                        signal.connect(slot)
                         connection['connected'] = True
-
-                    # print("Falta conectar {} a {}".format(signal_name,
-                    #                                      slot.__name__))
-                    # self.connect(target, SIGNAL(signal_name), slot)
-                    # connection['connected'] = True
 
     @classmethod
     def register_shortcut(cls, shortcut_name, shortcut, action=None):

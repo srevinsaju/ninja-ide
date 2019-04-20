@@ -9,14 +9,14 @@ Rectangle {
 
     function signalForIndex(index) {
         if(index === 0) {
-            selected("row");
+            selected("rowC");
         } else {
-            selected("col");
+            selected("colC");
         }
     }
 
     Component {
-        id: col
+        id: colC
         Column {
             spacing: 5
             Rectangle {
@@ -52,7 +52,7 @@ Rectangle {
     }
 
     Component {
-        id: row
+        id: rowC
         Row {
             spacing: 5
             anchors.centerIn: parent
@@ -96,8 +96,8 @@ Rectangle {
         anchors.margins: 20
         highlightMoveDuration: 150
         model: ListModel {
-            ListElement { type: "row" }
-            ListElement { type: "col" }
+            ListElement { type: "rowC" }
+            ListElement { type: "colC" }
         }
         orientation: ListView.Horizontal
         delegate: Rectangle {
@@ -106,7 +106,7 @@ Rectangle {
             color: "transparent"
             Loader {
                 anchors.centerIn: parent
-                sourceComponent: type == "col" ? col : row
+                sourceComponent: type == "colC" ? colC : rowC
             }
 
             Keys.onLeftPressed: {

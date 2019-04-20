@@ -17,10 +17,8 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-from PySide2.QtCore import (
-    QSettings,
-    Signal
-)
+from PyQt5.QtCore import QSettings
+from PyQt5.QtCore import pyqtSignal as Signal
 
 
 class NSettings(QSettings):

@@ -18,9 +18,9 @@
 import _ast
 from collections import defaultdict
 
-from PySide2.QtCore import QThread
-from PySide2.QtCore import Signal
-from PySide2.QtCore import QTimer
+from PyQt5.QtCore import QThread
+from PyQt5.QtCore import pyqtSignal as Signal
+from PyQt5.QtCore import QTimer
 
 from ninja_ide.gui.editor.checkers import register_checker
 from ninja_ide.gui.editor.checkers import remove_checker

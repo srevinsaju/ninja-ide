@@ -17,7 +17,7 @@
 
 import pytest
 
-from PySide2.QtGui import QTextCursor
+from PyQt5.QtGui import QTextCursor
 
 from ninja_ide.gui.editor import base
 

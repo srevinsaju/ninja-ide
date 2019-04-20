@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
 
-from PySide2.QtCore import QObject
-from PySide2.QtCore import Qt
+from PyQt5.QtCore import QObject
+from PyQt5.QtCore import Qt
 
 from ninja_ide import translations
 from ninja_ide.gui.editor import proposal_widget
