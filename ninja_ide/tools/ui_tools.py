@@ -885,7 +885,7 @@ def install_shortcuts(obj, actions, ide):
                 item_ui.setShortcut(short(keysequence))
                 item_ui.setShortcutContext(Qt.ApplicationShortcut)
             if isinstance(func, collections.Callable) and not is_menu:
-                item_ui.triggered.connect(partial(func))
+                item_ui.triggered.connect(lambda _, func=func: func())
 
             if section and section[0] is not None and weight:
                 ide.register_menuitem(item_ui, section, weight)
