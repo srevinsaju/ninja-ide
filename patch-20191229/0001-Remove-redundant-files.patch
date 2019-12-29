@@ -1,7 +1,7 @@
 From 280d73d533dcfc75ac47be4468366bcb9eade1bb Mon Sep 17 00:00:00 2001
 From: Srevin Saju <srevin03@gmail.com>
 Date: Sun, 29 Dec 2019 21:05:14 +0300
-Subject: [PATCH 1/2] Remove redundant files
+Subject: [PATCH 1/4] Remove redundant files
 
 ---
  COPYING                                       | 675 ------------------
