@@ -1,0 +1,35 @@
+From 84331d944202a759a03ed31b22b3073eedd220f4 Mon Sep 17 00:00:00 2001
+From: Srevin Saju <srevin03@gmail.com>
+Date: Sun, 29 Dec 2019 21:55:33 +0300
+Subject: [PATCH 2/2] Temporaral fix for ast Attribute Error (FIXME)
+
+---
+ ninja_ide/tools/introspection.py | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/ninja_ide/tools/introspection.py b/ninja_ide/tools/introspection.py
+index ffee367e..11617648 100644
+--- a/ninja_ide/tools/introspection.py
++++ b/ninja_ide/tools/introspection.py
+@@ -27,12 +27,12 @@ logger_symbols = NinjaLogger(
+     'ninja_ide.tools.introspection.obtaining_symbols')
+ 
+ _map_type = {
+-    _ast.Tuple: 'tuple',
+-    _ast.List: 'list',
+-    _ast.Str: 'str',
+-    _ast.Dict: 'dict',
+-    _ast.Num: 'int',
+-    _ast.Call: 'function()',
++    ast.Tuple: 'tuple',
++    ast.List: 'list',
++    ast.Str: 'str',
++    ast.Dict: 'dict',
++    ast.Num: 'int',
++    ast.Call: 'function()',
+ }
+ 
+ 
+-- 
+2.24.1
+

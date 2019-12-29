@@ -1,0 +1,4068 @@
+From 280d73d533dcfc75ac47be4468366bcb9eade1bb Mon Sep 17 00:00:00 2001
+From: Srevin Saju <srevin03@gmail.com>
+Date: Sun, 29 Dec 2019 21:05:14 +0300
+Subject: [PATCH 1/2] Remove redundant files
+
+---
+ COPYING                                       | 675 ------------------
+ README.md                                     |  52 --
+ build_files/PKGBUILD                          |  49 --
+ build_files/installer/windows/installer.nsi   | 116 ---
+ build_files/installer/windows/ninja.ico       | Bin 36511 -> 0 bytes
+ build_files/installer/windows/setup.py        |  51 --
+ build_files/ninja-ide-git.desktop             |  10 -
+ clean_pycs.bat                                |   1 -
+ clean_pycs.sh                                 |   1 -
+ convert_qt_files                              |   3 -
+ icon.png                                      | Bin 44226 -> 0 bytes
+ ninja_tests/__init__.py                       |  20 -
+ ninja_tests/core/__init__.py                  |  16 -
+ ...__test_file_handling_nvirtualfilesystem.py |  86 ---
+ ninja_tests/core/__test_file_manager.py       |  45 --
+ ninja_tests/core/__test_plugin_interfaces.py  |  56 --
+ ninja_tests/core/__test_plugin_manager.py     |  53 --
+ ninja_tests/core/examples/__init__.py         |   0
+ ninja_tests/core/examples/file_for_tests.py   |   4 -
+ ninja_tests/core/plugins/test_plugin.plugin   |   8 -
+ .../core/plugins/test_plugin/__init__.py      |   1 -
+ .../core/plugins/test_plugin/__test_plugin.py |   7 -
+ ninja_tests/core/test_file_handling_nfile.py  | 176 -----
+ ninja_tests/gui/__init__.py                   |   0
+ ninja_tests/gui/editor/__init__.py            |  16 -
+ .../gui/editor/_test_autocomplete_braces.py   | 107 ---
+ .../gui/editor/_test_autocomplete_quotes.py   | 120 ----
+ ninja_tests/gui/editor/side_areas/__init__.py |  29 -
+ .../editor/side_areas/__test_marker_area.py   |  49 --
+ ninja_tests/gui/editor/test_code_editor.py    |  45 --
+ ninja_tests/gui/editor/test_editor.py         | 214 ------
+ ninja_tests/gui/editor/test_indenter.py       | 102 ---
+ .../gui/editor/test_python_indenter.py        | 262 -------
+ ninja_translate                               |   5 -
+ run-tests.py                                  |  29 -
+ test_requirements.txt                         |   2 -
+ 36 files changed, 2410 deletions(-)
+ delete mode 100644 COPYING
+ delete mode 100644 README.md
+ delete mode 100644 build_files/PKGBUILD
+ delete mode 100644 build_files/installer/windows/installer.nsi
+ delete mode 100644 build_files/installer/windows/ninja.ico
+ delete mode 100644 build_files/installer/windows/setup.py
+ delete mode 100644 build_files/ninja-ide-git.desktop
+ delete mode 100755 clean_pycs.bat
+ delete mode 100644 clean_pycs.sh
+ delete mode 100644 convert_qt_files
+ delete mode 100644 icon.png
+ delete mode 100644 ninja_tests/__init__.py
+ delete mode 100644 ninja_tests/core/__init__.py
+ delete mode 100644 ninja_tests/core/__test_file_handling_nvirtualfilesystem.py
+ delete mode 100644 ninja_tests/core/__test_file_manager.py
+ delete mode 100644 ninja_tests/core/__test_plugin_interfaces.py
+ delete mode 100644 ninja_tests/core/__test_plugin_manager.py
+ delete mode 100644 ninja_tests/core/examples/__init__.py
+ delete mode 100644 ninja_tests/core/examples/file_for_tests.py
+ delete mode 100644 ninja_tests/core/plugins/test_plugin.plugin
+ delete mode 100644 ninja_tests/core/plugins/test_plugin/__init__.py
+ delete mode 100644 ninja_tests/core/plugins/test_plugin/__test_plugin.py
+ delete mode 100644 ninja_tests/core/test_file_handling_nfile.py
+ delete mode 100644 ninja_tests/gui/__init__.py
+ delete mode 100644 ninja_tests/gui/editor/__init__.py
+ delete mode 100644 ninja_tests/gui/editor/_test_autocomplete_braces.py
+ delete mode 100644 ninja_tests/gui/editor/_test_autocomplete_quotes.py
+ delete mode 100644 ninja_tests/gui/editor/side_areas/__init__.py
+ delete mode 100644 ninja_tests/gui/editor/side_areas/__test_marker_area.py
+ delete mode 100644 ninja_tests/gui/editor/test_code_editor.py
+ delete mode 100644 ninja_tests/gui/editor/test_editor.py
+ delete mode 100644 ninja_tests/gui/editor/test_indenter.py
+ delete mode 100644 ninja_tests/gui/editor/test_python_indenter.py
+ delete mode 100644 ninja_translate
+ delete mode 100755 run-tests.py
+ delete mode 100644 test_requirements.txt
+
+diff --git a/COPYING b/COPYING
+deleted file mode 100644
+index 462c75e8..00000000
+--- a/COPYING
++++ /dev/null
+@@ -1,675 +0,0 @@
+-                    GNU GENERAL PUBLIC LICENSE
+-                       Version 3, 29 June 2007
+-
+- Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>
+- Everyone is permitted to copy and distribute verbatim copies
+- of this license document, but changing it is not allowed.
+-
+-                            Preamble
+-
+-  The GNU General Public License is a free, copyleft license for
+-software and other kinds of works.
+-
+-  The licenses for most software and other practical works are designed
+-to take away your freedom to share and change the works.  By contrast,
+-the GNU General Public License is intended to guarantee your freedom to
+-share and change all versions of a program--to make sure it remains free
+-software for all its users.  We, the Free Software Foundation, use the
+-GNU General Public License for most of our software; it applies also to
+-any other work released this way by its authors.  You can apply it to
+-your programs, too.
+-
+-  When we speak of free software, we are referring to freedom, not
+-price.  Our General Public Licenses are designed to make sure that you
+-have the freedom to distribute copies of free software (and charge for
+-them if you wish), that you receive source code or can get it if you
+-want it, that you can change the software or use pieces of it in new
+-free programs, and that you know you can do these things.
+-
+-  To protect your rights, we need to prevent others from denying you
+-these rights or asking you to surrender the rights.  Therefore, you have
+-certain responsibilities if you distribute copies of the software, or if
+-you modify it: responsibilities to respect the freedom of others.
+-
+-  For example, if you distribute copies of such a program, whether
+-gratis or for a fee, you must pass on to the recipients the same
+-freedoms that you received.  You must make sure that they, too, receive
+-or can get the source code.  And you must show them these terms so they
+-know their rights.
+-
+-  Developers that use the GNU GPL protect your rights with two steps:
+-(1) assert copyright on the software, and (2) offer you this License
+-giving you legal permission to copy, distribute and/or modify it.
+-
+-  For the developers' and authors' protection, the GPL clearly explains
+-that there is no warranty for this free software.  For both users' and
+-authors' sake, the GPL requires that modified versions be marked as
+-changed, so that their problems will not be attributed erroneously to
+-authors of previous versions.
+-
+-  Some devices are designed to deny users access to install or run
+-modified versions of the software inside them, although the manufacturer
+-can do so.  This is fundamentally incompatible with the aim of
+-protecting users' freedom to change the software.  The systematic
+-pattern of such abuse occurs in the area of products for individuals to
+-use, which is precisely where it is most unacceptable.  Therefore, we
+-have designed this version of the GPL to prohibit the practice for those
+-products.  If such problems arise substantially in other domains, we
+-stand ready to extend this provision to those domains in future versions
+-of the GPL, as needed to protect the freedom of users.
+-
+-  Finally, every program is threatened constantly by software patents.
+-States should not allow patents to restrict development and use of
+-software on general-purpose computers, but in those that do, we wish to
+-avoid the special danger that patents applied to a free program could
+-make it effectively proprietary.  To prevent this, the GPL assures that
+-patents cannot be used to render the program non-free.
+-
+-  The precise terms and conditions for copying, distribution and
+-modification follow.
+-
+-                       TERMS AND CONDITIONS
+-
+-  0. Definitions.
+-
+-  "This License" refers to version 3 of the GNU General Public License.
+-
+-  "Copyright" also means copyright-like laws that apply to other kinds of
+-works, such as semiconductor masks.
+-
+-  "The Program" refers to any copyrightable work licensed under this
+-License.  Each licensee is addressed as "you".  "Licensees" and
+-"recipients" may be individuals or organizations.
+-
+-  To "modify" a work means to copy from or adapt all or part of the work
+-in a fashion requiring copyright permission, other than the making of an
+-exact copy.  The resulting work is called a "modified version" of the
+-earlier work or a work "based on" the earlier work.
+-
+-  A "covered work" means either the unmodified Program or a work based
+-on the Program.
+-
+-  To "propagate" a work means to do anything with it that, without
+-permission, would make you directly or secondarily liable for
+-infringement under applicable copyright law, except executing it on a
+-computer or modifying a private copy.  Propagation includes copying,
+-distribution (with or without modification), making available to the
+-public, and in some countries other activities as well.
+-
+-  To "convey" a work means any kind of propagation that enables other
+-parties to make or receive copies.  Mere interaction with a user through
+-a computer network, with no transfer of a copy, is not conveying.
+-
+-  An interactive user interface displays "Appropriate Legal Notices"
+-to the extent that it includes a convenient and prominently visible
+-feature that (1) displays an appropriate copyright notice, and (2)
+-tells the user that there is no warranty for the work (except to the
+-extent that warranties are provided), that licensees may convey the
+-work under this License, and how to view a copy of this License.  If
+-the interface presents a list of user commands or options, such as a
+-menu, a prominent item in the list meets this criterion.
+-
+-  1. Source Code.
+-
+-  The "source code" for a work means the preferred form of the work
+-for making modifications to it.  "Object code" means any non-source
+-form of a work.
+-
+-  A "Standard Interface" means an interface that either is an official
+-standard defined by a recognized standards body, or, in the case of
+-interfaces specified for a particular programming language, one that
+-is widely used among developers working in that language.
+-
+-  The "System Libraries" of an executable work include anything, other
+-than the work as a whole, that (a) is included in the normal form of
+-packaging a Major Component, but which is not part of that Major
+-Component, and (b) serves only to enable use of the work with that
+-Major Component, or to implement a Standard Interface for which an
+-implementation is available to the public in source code form.  A
+-"Major Component", in this context, means a major essential component
+-(kernel, window system, and so on) of the specific operating system
+-(if any) on which the executable work runs, or a compiler used to
+-produce the work, or an object code interpreter used to run it.
+-
+-  The "Corresponding Source" for a work in object code form means all
+-the source code needed to generate, install, and (for an executable
+-work) run the object code and to modify the work, including scripts to
+-control those activities.  However, it does not include the work's
+-System Libraries, or general-purpose tools or generally available free
+-programs which are used unmodified in performing those activities but
+-which are not part of the work.  For example, Corresponding Source
+-includes interface definition files associated with source files for
+-the work, and the source code for shared libraries and dynamically
+-linked subprograms that the work is specifically designed to require,
+-such as by intimate data communication or control flow between those
+-subprograms and other parts of the work.
+-
+-  The Corresponding Source need not include anything that users
+-can regenerate automatically from other parts of the Corresponding
+-Source.
+-
+-  The Corresponding Source for a work in source code form is that
+-same work.
+-
+-  2. Basic Permissions.
+-
+-  All rights granted under this License are granted for the term of
+-copyright on the Program, and are irrevocable provided the stated
+-conditions are met.  This License explicitly affirms your unlimited
+-permission to run the unmodified Program.  The output from running a
+-covered work is covered by this License only if the output, given its
+-content, constitutes a covered work.  This License acknowledges your
+-rights of fair use or other equivalent, as provided by copyright law.
+-
+-  You may make, run and propagate covered works that you do not
+-convey, without conditions so long as your license otherwise remains
+-in force.  You may convey covered works to others for the sole purpose
+-of having them make modifications exclusively for you, or provide you
+-with facilities for running those works, provided that you comply with
+-the terms of this License in conveying all material for which you do
+-not control copyright.  Those thus making or running the covered works
+-for you must do so exclusively on your behalf, under your direction
+-and control, on terms that prohibit them from making any copies of
+-your copyrighted material outside their relationship with you.
+-
+-  Conveying under any other circumstances is permitted solely under
+-the conditions stated below.  Sublicensing is not allowed; section 10
+-makes it unnecessary.
+-
+-  3. Protecting Users' Legal Rights From Anti-Circumvention Law.
+-
+-  No covered work shall be deemed part of an effective technological
+-measure under any applicable law fulfilling obligations under article
+-11 of the WIPO copyright treaty adopted on 20 December 1996, or
+-similar laws prohibiting or restricting circumvention of such
+-measures.
+-
+-  When you convey a covered work, you waive any legal power to forbid
+-circumvention of technological measures to the extent such circumvention
+-is effected by exercising rights under this License with respect to
+-the covered work, and you disclaim any intention to limit operation or
+-modification of the work as a means of enforcing, against the work's
+-users, your or third parties' legal rights to forbid circumvention of
+-technological measures.
+-
+-  4. Conveying Verbatim Copies.
+-
+-  You may convey verbatim copies of the Program's source code as you
+-receive it, in any medium, provided that you conspicuously and
+-appropriately publish on each copy an appropriate copyright notice;
+-keep intact all notices stating that this License and any
+-non-permissive terms added in accord with section 7 apply to the code;
+-keep intact all notices of the absence of any warranty; and give all
+-recipients a copy of this License along with the Program.
+-
+-  You may charge any price or no price for each copy that you convey,
+-and you may offer support or warranty protection for a fee.
+-
+-  5. Conveying Modified Source Versions.
+-
+-  You may convey a work based on the Program, or the modifications to
+-produce it from the Program, in the form of source code under the
+-terms of section 4, provided that you also meet all of these conditions:
+-
+-    a) The work must carry prominent notices stating that you modified
+-    it, and giving a relevant date.
+-
+-    b) The work must carry prominent notices stating that it is
+-    released under this License and any conditions added under section
+-    7.  This requirement modifies the requirement in section 4 to
+-    "keep intact all notices".
+-
+-    c) You must license the entire work, as a whole, under this
+-    License to anyone who comes into possession of a copy.  This
+-    License will therefore apply, along with any applicable section 7
+-    additional terms, to the whole of the work, and all its parts,
+-    regardless of how they are packaged.  This License gives no
+-    permission to license the work in any other way, but it does not
+-    invalidate such permission if you have separately received it.
+-
+-    d) If the work has interactive user interfaces, each must display
+-    Appropriate Legal Notices; however, if the Program has interactive
+-    interfaces that do not display Appropriate Legal Notices, your
+-    work need not make them do so.
+-
+-  A compilation of a covered work with other separate and independent
+-works, which are not by their nature extensions of the covered work,
+-and which are not combined with it such as to form a larger program,
+-in or on a volume of a storage or distribution medium, is called an
+-"aggregate" if the compilation and its resulting copyright are not
+-used to limit the access or legal rights of the compilation's users
+-beyond what the individual works permit.  Inclusion of a covered work
+-in an aggregate does not cause this License to apply to the other
+-parts of the aggregate.
+-
+-  6. Conveying Non-Source Forms.
+-
+-  You may convey a covered work in object code form under the terms
+-of sections 4 and 5, provided that you also convey the
+-machine-readable Corresponding Source under the terms of this License,
+-in one of these ways:
+-
+-    a) Convey the object code in, or embodied in, a physical product
+-    (including a physical distribution medium), accompanied by the
+-    Corresponding Source fixed on a durable physical medium
+-    customarily used for software interchange.
+-
+-    b) Convey the object code in, or embodied in, a physical product
+-    (including a physical distribution medium), accompanied by a
+-    written offer, valid for at least three years and valid for as
+-    long as you offer spare parts or customer support for that product
+-    model, to give anyone who possesses the object code either (1) a
+-    copy of the Corresponding Source for all the software in the
+-    product that is covered by this License, on a durable physical
+-    medium customarily used for software interchange, for a price no
+-    more than your reasonable cost of physically performing this
+-    conveying of source, or (2) access to copy the
+-    Corresponding Source from a network server at no charge.
+-
+-    c) Convey individual copies of the object code with a copy of the
+-    written offer to provide the Corresponding Source.  This
+-    alternative is allowed only occasionally and noncommercially, and
+-    only if you received the object code with such an offer, in accord
+-    with subsection 6b.
+-
+-    d) Convey the object code by offering access from a designated
+-    place (gratis or for a charge), and offer equivalent access to the
+-    Corresponding Source in the same way through the same place at no
+-    further charge.  You need not require recipients to copy the
+-    Corresponding Source along with the object code.  If the place to
+-    copy the object code is a network server, the Corresponding Source
+-    may be on a different server (operated by you or a third party)
+-    that supports equivalent copying facilities, provided you maintain
+-    clear directions next to the object code saying where to find the
+-    Corresponding Source.  Regardless of what server hosts the
+-    Corresponding Source, you remain obligated to ensure that it is
+-    available for as long as needed to satisfy these requirements.
+-
+-    e) Convey the object code using peer-to-peer transmission, provided
+-    you inform other peers where the object code and Corresponding
+-    Source of the work are being offered to the general public at no
+-    charge under subsection 6d.
+-
+-  A separable portion of the object code, whose source code is excluded
+-from the Corresponding Source as a System Library, need not be
+-included in conveying the object code work.
+-
+-  A "User Product" is either (1) a "consumer product", which means any
+-tangible personal property which is normally used for personal, family,
+-or household purposes, or (2) anything designed or sold for incorporation
+-into a dwelling.  In determining whether a product is a consumer product,
+-doubtful cases shall be resolved in favor of coverage.  For a particular
+-product received by a particular user, "normally used" refers to a
+-typical or common use of that class of product, regardless of the status
+-of the particular user or of the way in which the particular user
+-actually uses, or expects or is expected to use, the product.  A product
+-is a consumer product regardless of whether the product has substantial
+-commercial, industrial or non-consumer uses, unless such uses represent
+-the only significant mode of use of the product.
+-
+-  "Installation Information" for a User Product means any methods,
+-procedures, authorization keys, or other information required to install
+-and execute modified versions of a covered work in that User Product from
+-a modified version of its Corresponding Source.  The information must
+-suffice to ensure that the continued functioning of the modified object
+-code is in no case prevented or interfered with solely because
+-modification has been made.
+-
+-  If you convey an object code work under this section in, or with, or
+-specifically for use in, a User Product, and the conveying occurs as
+-part of a transaction in which the right of possession and use of the
+-User Product is transferred to the recipient in perpetuity or for a
+-fixed term (regardless of how the transaction is characterized), the
+-Corresponding Source conveyed under this section must be accompanied
+-by the Installation Information.  But this requirement does not apply
+-if neither you nor any third party retains the ability to install
+-modified object code on the User Product (for example, the work has
+-been installed in ROM).
+-
+-  The requirement to provide Installation Information does not include a
+-requirement to continue to provide support service, warranty, or updates
+-for a work that has been modified or installed by the recipient, or for
+-the User Product in which it has been modified or installed.  Access to a
+-network may be denied when the modification itself materially and
+-adversely affects the operation of the network or violates the rules and
+-protocols for communication across the network.
+-
+-  Corresponding Source conveyed, and Installation Information provided,
+-in accord with this section must be in a format that is publicly
+-documented (and with an implementation available to the public in
+-source code form), and must require no special password or key for
+-unpacking, reading or copying.
+-
+-  7. Additional Terms.
+-
+-  "Additional permissions" are terms that supplement the terms of this
+-License by making exceptions from one or more of its conditions.
+-Additional permissions that are applicable to the entire Program shall
+-be treated as though they were included in this License, to the extent
+-that they are valid under applicable law.  If additional permissions
+-apply only to part of the Program, that part may be used separately
+-under those permissions, but the entire Program remains governed by
+-this License without regard to the additional permissions.
+-
+-  When you convey a copy of a covered work, you may at your option
+-remove any additional permissions from that copy, or from any part of
+-it.  (Additional permissions may be written to require their own
+-removal in certain cases when you modify the work.)  You may place
+-additional permissions on material, added by you to a covered work,
+-for which you have or can give appropriate copyright permission.
+-
+-  Notwithstanding any other provision of this License, for material you
+-add to a covered work, you may (if authorized by the copyright holders of
+-that material) supplement the terms of this License with terms:
+-
+-    a) Disclaiming warranty or limiting liability differently from the
+-    terms of sections 15 and 16 of this License; or
+-
+-    b) Requiring preservation of specified reasonable legal notices or
+-    author attributions in that material or in the Appropriate Legal
+-    Notices displayed by works containing it; or
+-
+-    c) Prohibiting misrepresentation of the origin of that material, or
+-    requiring that modified versions of such material be marked in
+-    reasonable ways as different from the original version; or
+-
+-    d) Limiting the use for publicity purposes of names of licensors or
+-    authors of the material; or
+-
+-    e) Declining to grant rights under trademark law for use of some
+-    trade names, trademarks, or service marks; or
+-
+-    f) Requiring indemnification of licensors and authors of that
+-    material by anyone who conveys the material (or modified versions of
+-    it) with contractual assumptions of liability to the recipient, for
+-    any liability that these contractual assumptions directly impose on
+-    those licensors and authors.
+-
+-  All other non-permissive additional terms are considered "further
+-restrictions" within the meaning of section 10.  If the Program as you
+-received it, or any part of it, contains a notice stating that it is
+-governed by this License along with a term that is a further
+-restriction, you may remove that term.  If a license document contains
+-a further restriction but permits relicensing or conveying under this
+-License, you may add to a covered work material governed by the terms
+-of that license document, provided that the further restriction does
+-not survive such relicensing or conveying.
+-
+-  If you add terms to a covered work in accord with this section, you
+-must place, in the relevant source files, a statement of the
+-additional terms that apply to those files, or a notice indicating
+-where to find the applicable terms.
+-
+-  Additional terms, permissive or non-permissive, may be stated in the
+-form of a separately written license, or stated as exceptions;
+-the above requirements apply either way.
+-
+-  8. Termination.
+-
+-  You may not propagate or modify a covered work except as expressly
+-provided under this License.  Any attempt otherwise to propagate or
+-modify it is void, and will automatically terminate your rights under
+-this License (including any patent licenses granted under the third
+-paragraph of section 11).
+-
+-  However, if you cease all violation of this License, then your
+-license from a particular copyright holder is reinstated (a)
+-provisionally, unless and until the copyright holder explicitly and
+-finally terminates your license, and (b) permanently, if the copyright
+-holder fails to notify you of the violation by some reasonable means
+-prior to 60 days after the cessation.
+-
+-  Moreover, your license from a particular copyright holder is
+-reinstated permanently if the copyright holder notifies you of the
+-violation by some reasonable means, this is the first time you have
+-received notice of violation of this License (for any work) from that
+-copyright holder, and you cure the violation prior to 30 days after
+-your receipt of the notice.
+-
+-  Termination of your rights under this section does not terminate the
+-licenses of parties who have received copies or rights from you under
+-this License.  If your rights have been terminated and not permanently
+-reinstated, you do not qualify to receive new licenses for the same
+-material under section 10.
+-
+-  9. Acceptance Not Required for Having Copies.
+-
+-  You are not required to accept this License in order to receive or
+-run a copy of the Program.  Ancillary propagation of a covered work
+-occurring solely as a consequence of using peer-to-peer transmission
+-to receive a copy likewise does not require acceptance.  However,
+-nothing other than this License grants you permission to propagate or
+-modify any covered work.  These actions infringe copyright if you do
+-not accept this License.  Therefore, by modifying or propagating a
+-covered work, you indicate your acceptance of this License to do so.
+-
+-  10. Automatic Licensing of Downstream Recipients.
+-
+-  Each time you convey a covered work, the recipient automatically
+-receives a license from the original licensors, to run, modify and
+-propagate that work, subject to this License.  You are not responsible
+-for enforcing compliance by third parties with this License.
+-
+-  An "entity transaction" is a transaction transferring control of an
+-organization, or substantially all assets of one, or subdividing an
+-organization, or merging organizations.  If propagation of a covered
+-work results from an entity transaction, each party to that
+-transaction who receives a copy of the work also receives whatever
+-licenses to the work the party's predecessor in interest had or could
+-give under the previous paragraph, plus a right to possession of the
+-Corresponding Source of the work from the predecessor in interest, if
+-the predecessor has it or can get it with reasonable efforts.
+-
+-  You may not impose any further restrictions on the exercise of the
+-rights granted or affirmed under this License.  For example, you may
+-not impose a license fee, royalty, or other charge for exercise of
+-rights granted under this License, and you may not initiate litigation
+-(including a cross-claim or counterclaim in a lawsuit) alleging that
+-any patent claim is infringed by making, using, selling, offering for
+-sale, or importing the Program or any portion of it.
+-
+-  11. Patents.
+-
+-  A "contributor" is a copyright holder who authorizes use under this
+-License of the Program or a work on which the Program is based.  The
+-work thus licensed is called the contributor's "contributor version".
+-
+-  A contributor's "essential patent claims" are all patent claims
+-owned or controlled by the contributor, whether already acquired or
+-hereafter acquired, that would be infringed by some manner, permitted
+-by this License, of making, using, or selling its contributor version,
+-but do not include claims that would be infringed only as a
+-consequence of further modification of the contributor version.  For
+-purposes of this definition, "control" includes the right to grant
+-patent sublicenses in a manner consistent with the requirements of
+-this License.
+-
+-  Each contributor grants you a non-exclusive, worldwide, royalty-free
+-patent license under the contributor's essential patent claims, to
+-make, use, sell, offer for sale, import and otherwise run, modify and
+-propagate the contents of its contributor version.
+-
+-  In the following three paragraphs, a "patent license" is any express
+-agreement or commitment, however denominated, not to enforce a patent
+-(such as an express permission to practice a patent or covenant not to
+-sue for patent infringement).  To "grant" such a patent license to a
+-party means to make such an agreement or commitment not to enforce a
+-patent against the party.
+-
+-  If you convey a covered work, knowingly relying on a patent license,
+-and the Corresponding Source of the work is not available for anyone
+-to copy, free of charge and under the terms of this License, through a
+-publicly available network server or other readily accessible means,
+-then you must either (1) cause the Corresponding Source to be so
+-available, or (2) arrange to deprive yourself of the benefit of the
+-patent license for this particular work, or (3) arrange, in a manner
+-consistent with the requirements of this License, to extend the patent
+-license to downstream recipients.  "Knowingly relying" means you have
+-actual knowledge that, but for the patent license, your conveying the
+-covered work in a country, or your recipient's use of the covered work
+-in a country, would infringe one or more identifiable patents in that
+-country that you have reason to believe are valid.
+-
+-  If, pursuant to or in connection with a single transaction or
+-arrangement, you convey, or propagate by procuring conveyance of, a
+-covered work, and grant a patent license to some of the parties
+-receiving the covered work authorizing them to use, propagate, modify
+-or convey a specific copy of the covered work, then the patent license
+-you grant is automatically extended to all recipients of the covered
+-work and works based on it.
+-
+-  A patent license is "discriminatory" if it does not include within
+-the scope of its coverage, prohibits the exercise of, or is
+-conditioned on the non-exercise of one or more of the rights that are
+-specifically granted under this License.  You may not convey a covered
+-work if you are a party to an arrangement with a third party that is
+-in the business of distributing software, under which you make payment
+-to the third party based on the extent of your activity of conveying
+-the work, and under which the third party grants, to any of the
+-parties who would receive the covered work from you, a discriminatory
+-patent license (a) in connection with copies of the covered work
+-conveyed by you (or copies made from those copies), or (b) primarily
+-for and in connection with specific products or compilations that
+-contain the covered work, unless you entered into that arrangement,
+-or that patent license was granted, prior to 28 March 2007.
+-
+-  Nothing in this License shall be construed as excluding or limiting
+-any implied license or other defenses to infringement that may
+-otherwise be available to you under applicable patent law.
+-
+-  12. No Surrender of Others' Freedom.
+-
+-  If conditions are imposed on you (whether by court order, agreement or
+-otherwise) that contradict the conditions of this License, they do not
+-excuse you from the conditions of this License.  If you cannot convey a
+-covered work so as to satisfy simultaneously your obligations under this
+-License and any other pertinent obligations, then as a consequence you may
+-not convey it at all.  For example, if you agree to terms that obligate you
+-to collect a royalty for further conveying from those to whom you convey
+-the Program, the only way you could satisfy both those terms and this
+-License would be to refrain entirely from conveying the Program.
+-
+-  13. Use with the GNU Affero General Public License.
+-
+-  Notwithstanding any other provision of this License, you have
+-permission to link or combine any covered work with a work licensed
+-under version 3 of the GNU Affero General Public License into a single
+-combined work, and to convey the resulting work.  The terms of this
+-License will continue to apply to the part which is the covered work,
+-but the special requirements of the GNU Affero General Public License,
+-section 13, concerning interaction through a network will apply to the
+-combination as such.
+-
+-  14. Revised Versions of this License.
+-
+-  The Free Software Foundation may publish revised and/or new versions of
+-the GNU General Public License from time to time.  Such new versions will
+-be similar in spirit to the present version, but may differ in detail to
+-address new problems or concerns.
+-
+-  Each version is given a distinguishing version number.  If the
+-Program specifies that a certain numbered version of the GNU General
+-Public License "or any later version" applies to it, you have the
+-option of following the terms and conditions either of that numbered
+-version or of any later version published by the Free Software
+-Foundation.  If the Program does not specify a version number of the
+-GNU General Public License, you may choose any version ever published
+-by the Free Software Foundation.
+-
+-  If the Program specifies that a proxy can decide which future
+-versions of the GNU General Public License can be used, that proxy's
+-public statement of acceptance of a version permanently authorizes you
+-to choose that version for the Program.
+-
+-  Later license versions may give you additional or different
+-permissions.  However, no additional obligations are imposed on any
+-author or copyright holder as a result of your choosing to follow a
+-later version.
+-
+-  15. Disclaimer of Warranty.
+-
+-  THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY
+-APPLICABLE LAW.  EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT
+-HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY
+-OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO,
+-THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+-PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM
+-IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF
+-ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
+-
+-  16. Limitation of Liability.
+-
+-  IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
+-WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MODIFIES AND/OR CONVEYS
+-THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY
+-GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE
+-USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF
+-DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD
+-PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS),
+-EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF
+-SUCH DAMAGES.
+-
+-  17. Interpretation of Sections 15 and 16.
+-
+-  If the disclaimer of warranty and limitation of liability provided
+-above cannot be given local legal effect according to their terms,
+-reviewing courts shall apply local law that most closely approximates
+-an absolute waiver of all civil liability in connection with the
+-Program, unless a warranty or assumption of liability accompanies a
+-copy of the Program in return for a fee.
+-
+-                     END OF TERMS AND CONDITIONS
+-
+-            How to Apply These Terms to Your New Programs
+-
+-  If you develop a new program, and you want it to be of the greatest
+-possible use to the public, the best way to achieve this is to make it
+-free software which everyone can redistribute and change under these terms.
+-
+-  To do so, attach the following notices to the program.  It is safest
+-to attach them to the start of each source file to most effectively
+-state the exclusion of warranty; and each file should have at least
+-the "copyright" line and a pointer to where the full notice is found.
+-
+-    <one line to give the program's name and a brief idea of what it does.>
+-    Copyright (C) <year>  <name of author>
+-
+-    This program is free software: you can redistribute it and/or modify
+-    it under the terms of the GNU General Public License as published by
+-    the Free Software Foundation, either version 3 of the License, or
+-    (at your option) any later version.
+-
+-    This program is distributed in the hope that it will be useful,
+-    but WITHOUT ANY WARRANTY; without even the implied warranty of
+-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-    GNU General Public License for more details.
+-
+-    You should have received a copy of the GNU General Public License
+-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-
+-Also add information on how to contact you by electronic and paper mail.
+-
+-  If the program does terminal interaction, make it output a short
+-notice like this when it starts in an interactive mode:
+-
+-    <program>  Copyright (C) <year>  <name of author>
+-    This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+-    This is free software, and you are welcome to redistribute it
+-    under certain conditions; type `show c' for details.
+-
+-The hypothetical commands `show w' and `show c' should show the appropriate
+-parts of the General Public License.  Of course, your program's commands
+-might be different; for a GUI interface, you would use an "about box".
+-
+-  You should also get your employer (if you work as a programmer) or school,
+-if any, to sign a "copyright disclaimer" for the program, if necessary.
+-For more information on this, and how to apply and follow the GNU GPL, see
+-<http://www.gnu.org/licenses/>.
+-
+-
+-  The GNU General Public License does not permit incorporating your program
+-into proprietary programs.  If your program is a subroutine library, you
+-may consider it more useful to permit linking proprietary applications with
+-the library.  If this is what you want to do, use the GNU Lesser General
+-Public License instead of this License.  But first, please read
+-<http://www.gnu.org/philosophy/why-not-lgpl.html>.
+diff --git a/README.md b/README.md
+deleted file mode 100644
+index f13e6a51..00000000
+--- a/README.md
++++ /dev/null
+@@ -1,52 +0,0 @@
+-# Ninja-IDE Is Not Just Another IDE
+-[![Build Status](https://travis-ci.org/ninja-ide/ninja-ide.svg?branch=master)](https://travis-ci.org/ninja-ide/ninja-ide)
+-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
+-[![Gitter](https://badges.gitter.im/ninja-ide/ninja-ide.svg)](https://gitter.im/ninja-ide/ninja-ide?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+-
+- [Ninja-IDE](http://ninja-ide.org) is a cross-platform integrated development environment (IDE) that allows developers to create applications for any purpose making the task of writing software easier and more enjoyable. It's also a secret ninja agency but this doesn't matter right now.
+-
+-<p align="center">
+-  <img alt="Ninja-IDE logo" src="http://ninjaide.webfactional.com/static/common/img/ninja-big.png">
+-</p>
+-
+-
+-## Important
+-Currently version 3.0 is being developed, therefore this branch is unstable. [This set of issues](https://github.com/ninja-ide/ninja-ide/issues?q=is%3Aopen+is%3Aissue+milestone%3A%22Version+3.0+-+Beta%22) lists the tasks we must complete to get to a beta version.
+-
+-## Requirements
+-On any system you want **Ninja-IDE**, you'll need to have this dependencies installed:
+-
+-- [Python](https://python.org "Python Homepage") 3.4+
+-- [PyQt5](https://riverbankcomputing.com/software/pyqt/intro) 5.6+
+-- python3-pyqt5.qtquick
+-- qml-module-qtquick2
+-
+-## Cloning and Running
+-You can clone this repo and simply execute:
+-
+-```bash
+-git clone git://github.com/ninja-ide/ninja-ide.git
+-cd ninja-ide
+-python3 ninja-ide.py
+-```
+-
+-Piece of cake, huh?
+-
+-## Ninja contact
+--   [Ninja website](http://ninja-ide.org "http://ninja-ide.org") at ninja-ide.org
+--   [Mailing List](http://groups.google.com/group/ninja-ide/topics "Ninja Google Groups") at Google Groups
+--   [@ninja\_ide](https://twitter.com/ninja_ide "@ninja_ide") at Twitter
+--   [Ninja-IDE](https://discord.gg/4s4SxCa) at Discord
+-
+-## Feedback
+-- File a bug in [GitHub issues](https://github.com/ninja-ide/ninja-ide/issues).
+-- [Tweet](https://twitter/ninja_ide) us.
+-
+-## Videos
+-[![Ninja-IDE Videos and Screencasts](http://img.youtube.com/vi/xShpNY5w-64/0.jpg)](https://www.youtube.com/channel/UCPopm5397ozfsS8FOSSOWGQ "Ninja-IDE Videos and Screencasts")
+-
+-## Contributing
+-If you are interested in fixing issues and contributing directly to the code base, please see the document [How to Contribute](https://github.com/ninja-ide/ninja-ide/wiki/How-to-Contribute).
+-
+-## License
+--   **GPLv3+** *(GPLv3 or any other later version published by FSF at your option)*
+diff --git a/build_files/PKGBUILD b/build_files/PKGBUILD
+deleted file mode 100644
+index b9aa3ff3..00000000
+--- a/build_files/PKGBUILD
++++ /dev/null
+@@ -1,49 +0,0 @@
+-# Maintainer Severin Glöckner <severin dot gloeckner at stud dot htwk minus leipzig dot de>
+-# Contributor: Federico Cinelli <cinelli.federico@gmail.com>
+-
+-pkgname=ninja-ide-git
+-pkgver=20180807
+-pkgrel=1
+-pkgdesc="Cross-platform IDE focused on Python application development - latest git pull"
+-arch=('any')
+-url="http://ninja-ide.org"
+-license=('GPL')
+-depends=('python' 'python-pyqt5' 'qt5-declarative')
+-provides=('ninja-ide')
+-conflicts=('ninja-ide')
+-source=(ninja-ide-git.desktop)
+-md5sums=('8501ff78ec0150270be0f48ee87bddb5')
+-
+-_gitroot="https://github.com/ninja-ide/ninja-ide.git"
+-_gitname="ninja-ide"
+-
+-
+-prepare() {
+-  cd "$startdir"
+-  msg "Connecting to GIT server...."
+-
+-  if  [ -d "$_gitname" ] ; then
+-    cd "$_gitname" && git pull origin
+-    msg "The local files are updated."
+-  else
+-    git clone "$_gitroot" "$_gitname"
+-  fi
+-
+-  msg "GIT checkout done or server timeout"
+-}
+-
+-pkgver() {
+-  cd "$startdir/$_gitname"
+-  git log -1 --date=short --pretty=format:%ad | sed 's/-//g'
+-}
+-
+-package() {
+-  install -Dm644 "$startdir/$pkgname.desktop" "$pkgdir/usr/share/applications/$pkgname.desktop"
+-  install -Dm644 "$startdir/ninja-ide/ninja_ide/img/ninja_icon.png" "$pkgdir/usr/share/icons/hicolor/128x128/apps/$pkgname.png"
+-
+-  mkdir -p "$pkgdir/usr/lib/python3.7/site-packages"
+-  cp -a "$startdir/ninja-ide/ninja_ide" "$pkgdir/usr/lib/python3.7/site-packages"
+-
+-  mkdir -p "$pkgdir/usr/bin"
+-  cp -a "$startdir/ninja-ide/ninja-ide.py" "$pkgdir/usr/bin/$pkgname"
+-}
+diff --git a/build_files/installer/windows/installer.nsi b/build_files/installer/windows/installer.nsi
+deleted file mode 100644
+index 186769b7..00000000
+--- a/build_files/installer/windows/installer.nsi
++++ /dev/null
+@@ -1,116 +0,0 @@
+-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+-;        Auto-Generated With py2Nsis
+-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+-
+-; HM NIS Edit Wizard helper defines
+-!define PRODUCT_NAME Ninja
+-!define PRODUCT_VERSION 2.1
+-!define PRODUCT_PUBLISHER 
+-!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\Ninja.exe"
+-!define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
+-!define PRODUCT_UNINST_ROOT_KEY "HKLM"
+-
+-; MUI 1.67 compatible ------
+-!include "MUI.nsh"
+-
+-; MUI Settings
+-!define MUI_ABORTWARNING
+-!define MUI_ICON ninja.ico
+-!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
+-
+-; Welcome page
+-!define MUI_WELCOMEPAGE_TITLE_3LINES
+-!insertmacro MUI_PAGE_WELCOME
+-; License page
+-
+-; Directory page
+-!insertmacro MUI_PAGE_DIRECTORY
+-; Instfiles page
+-!insertmacro MUI_PAGE_INSTFILES
+-; Finish page
+-!define MUI_FINISHPAGE_TITLE_3LINES
+-
+-!insertmacro MUI_PAGE_FINISH
+-
+-; Uninstaller pages
+-!insertmacro MUI_UNPAGE_INSTFILES
+-
+-; Language files
+-!insertmacro MUI_LANGUAGE "Spanish"
+-
+-; MUI end ------
+-
+-Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
+-OutFile "installer.exe"
+-InstallDir "$PROGRAMFILES\Ninja"
+-InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
+-ShowInstDetails hide
+-ShowUnInstDetails hide
+-
+-Section "Principal" SEC01
+-    
+-  SetOutPath "$INSTDIR"
+-
+-  File C:\\NINJA\\ninja-ide-2.1\\dist\\Ninja.exe
+-  File C:\\NINJA\\ninja-ide-2.1\\dist\\w9xpopen.exe
+-  
+-  SetOutPath $INSTDIR\\doc
+-  
+-  File /r C:\\NINJA\\ninja-ide-2.1\\dist\\doc\\* 
+-  
+-  SetOutPath $INSTDIR\\img
+-  
+-  File /r C:\\NINJA\\ninja-ide-2.1\\dist\\img\\* 
+-  
+-  SetOutPath $INSTDIR\\addins
+-  
+-  File /r C:\\NINJA\\ninja-ide-2.1\\dist\\addins\\* 
+-  
+-  SetOutPath "$INSTDIR"
+-  
+-SectionEnd
+-
+-Section -AdditionalIcons
+-  CreateShortCut "$SMPROGRAMS\Ninja.lnk" "$INSTDIR\Ninja.exe"
+-  CreateShortCut "$DESKTOP\Ninja.lnk" "$INSTDIR\Ninja.exe"
+-  CreateShortCut "$SMPROGRAMS\Ninja\Desinstalar.lnk" "$INSTDIR\uninst.exe"
+-SectionEnd
+-
+-Section -Post
+-  WriteUninstaller "$INSTDIR\uninst.exe"
+-  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\Ninja.exe"
+-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
+-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninst.exe"
+-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\Ninja.exe"
+-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
+-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
+-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
+-SectionEnd
+-
+-
+-Function un.onUninstSuccess
+-  HideWindow
+-  MessageBox MB_ICONINFORMATION|MB_OK "La desinstalacion de $(^Name) finalizo satisfactoriamente."
+-FunctionEnd
+-
+-Function un.onInit
+-  MessageBox MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 "Esta completamente seguro que desea desinstalar $(^Name) junto con todos sus componentes?" IDYES +2
+-  Abort
+-FunctionEnd
+-
+-Section Uninstall
+-  Delete "$INSTDIR\*"
+-
+-  Delete "$SMPROGRAMS\Ninja\Desinstalar.lnk"
+-  Delete "$DESKTOP\Ninja.lnk"
+-  Delete "$SMPROGRAMS\Ninja.lnk"
+-  
+-  Delete "$INSTDIR\*"
+-    
+-  RMDir "$SMPROGRAMS\Ninja"
+-  RMDir "$INSTDIR"
+-
+-  DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
+-  DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
+-  SetAutoClose true
+-SectionEnd
+diff --git a/build_files/installer/windows/ninja.ico b/build_files/installer/windows/ninja.ico
+deleted file mode 100644
+index d01c41ab2dc19e6fbfe6fc63a7a4181783a0aff4..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+HcmV?d00001
+
+literal 36511
+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
+z=3Nu#YpCG82J&neS;V?HI5NP}hzP0oz%0D@m_l!zT=`ra?_#0Ly}MRpC*R_Kyx2AW
+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
+
+diff --git a/build_files/installer/windows/setup.py b/build_files/installer/windows/setup.py
+deleted file mode 100644
+index 1d8a1dbe..00000000
+--- a/build_files/installer/windows/setup.py
++++ /dev/null
+@@ -1,51 +0,0 @@
+-#*********************************************
+-#        Auto-Generated With py2Nsis
+-#*********************************************
+-
+-from setuptools import find_packages
+-packages = find_packages(exclude=["tests"])
+-
+-import warnings 
+-#ignore the sets DeprecationWarning
+-warnings.simplefilter('ignore', DeprecationWarning) 
+-import py2exe
+-warnings.resetwarnings() 
+-
+-from distutils.core import setup
+-        
+-target = {
+-    'script' : "ninja-ide.py",
+-    'version' : "2.1",
+-    'company_name' : "",
+-    'copyright' : "GPL",
+-    'name' : "Ninja", 
+-    'dest_base' : "Ninja", 
+-    'icon_resources': [(1, "ninja.ico")]
+-}
+-
+-setup(
+-    data_files = [],
+-    
+-    zipfile = None,
+-
+-    options = {
+-        "py2exe": {
+-            "compressed": 0, 
+-              "optimize": 0,
+-              "includes": ['sip', 'PyQt4.QtNetwork', 'win32com'],
+-              "excludes": ['_gtkagg', '_tkagg', 'bsddb', 'curses', 'email', 'pywin.debugger', 'pywin.debugger.dbgcon', 'pywin.dialogs', 'tcl', 'Tkconstants', 'Tkinter'],
+-              "packages": packages,
+-              "bundle_files": 1,
+-              "dist_dir": "dist",
+-              "xref": False,
+-              "skip_archive": False,
+-              "ascii": False,
+-              "custom_boot_script": '',
+-            }
+-        },
+-    console = [],
+-    windows = [target],
+-    service = [],
+-    com_server = [],
+-    ctypes_com_server = []
+-)
+diff --git a/build_files/ninja-ide-git.desktop b/build_files/ninja-ide-git.desktop
+deleted file mode 100644
+index b362c8be..00000000
+--- a/build_files/ninja-ide-git.desktop
++++ /dev/null
+@@ -1,10 +0,0 @@
+-[Desktop Entry]
+-Name=Ninja IDE
+-Comment=A Python IDE
+-Exec=ninja-ide-git %F
+-Icon=ninja-ide-git
+-Terminal=false
+-Type=Application
+-Categories=Development;IDE;
+-StartupNotify=true
+-MimeType=application/x-python;application/x-ninja-ide;
+diff --git a/clean_pycs.bat b/clean_pycs.bat
+deleted file mode 100755
+index 12833f82..00000000
+--- a/clean_pycs.bat
++++ /dev/null
+@@ -1 +0,0 @@
+-DEL /S .\*.pyc
+\ No newline at end of file
+diff --git a/clean_pycs.sh b/clean_pycs.sh
+deleted file mode 100644
+index 8ca3ca4b..00000000
+--- a/clean_pycs.sh
++++ /dev/null
+@@ -1 +0,0 @@
+-find . \( -name '*.pyc' -or -name '*.qmlc' -or -name '*.jsc' \) -type f -delete
+diff --git a/convert_qt_files b/convert_qt_files
+deleted file mode 100644
+index 788eb1b2..00000000
+--- a/convert_qt_files
++++ /dev/null
+@@ -1,3 +0,0 @@
+-pyrcc4 ninja_ide/ninja_resources.qrc -o ninja_ide/ninja_resources.py -py3
+-
+-pylupdate4 ninja_translate ninja.ts
+diff --git a/icon.png b/icon.png
+deleted file mode 100644
+index aeb33d19db521373e0f38e7568d0613e3f6a1f46..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+HcmV?d00001
+
+literal 44226
+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
+zNJkFIK1%0DL$UEHl_dfu>Lf^%+i100&wZNvX_n=Z;^Y6lv$Td&fsw|7o6|J4v}n@t
+zE{%<;O6l5JenFtO-aP01`vvbzUOMApOZK|ao(PV-FTf(Z-i|u&m(Qe(|2~ItrnOk4
+zJ%o(v<d%q8CrFO94gYCx7qsh$E|ESG2V1Uf>n<Hwwo&ccPm%wl^l8LG<^I7O=ET^W
+z&%4^BT>J<BMev<Rx@qY@!&FmgZF>Xx(#wyCsBm8L#Z+TghGb5tG?&ZiH*OkWdJovG
+zf=^fLh+5Vs^w%ypg)CrClgYKaUn3;kAmPJ4pa?Y^|E7&BNic^%GtTRd`=b_*YO-ul
+zzywOfrpc1XI2UOBsYn=jE<HHfQ8Ckr!caRqso|h)YZidMQs-wU$?;<V!(a`3g0iY|
+z$H?{SlK-J@#xyQVMM@%+I(oMQ%Wj6x&OaiPe&Twj4fpZulULlt_fhaELh4}Gwwcz0
+zuPFC};DcT`fQ7I58ujJNZI3>|3fvdDapbwE<6$(clFxMDI!D=)L}%1H(hF?Z=^Vd0
+zMO!-dI>XV>rM<u$!l0D(e8z*Z-;P$C@<UJ&iQckcQAg-J=TT;;qq(_x3$ziXVGdom
+zsXqR+fsLMTwJT=*m$qNW19wH{kp@Q!nSf5Gjv-sGS%Xl6s}nBy-fB0)XXpy+l)tz~
+z*2v|{2+Up2Q|D4~VXzH9D!H8k-S;+>*YcEqQe@3|D}*ZswQupI{!K&p_vBOjO7966
+z%HZFtVA{YqI)htM0e=9$WH@P+NjB)>3&5`Z^}Rz72GCKv=ogWsvF2~s@w+!4uTZwY
+zhzmT9V6dU@k%}>!3ZP?shec7zbWs_YeMTgB^(7bXFI}GG;C$NnK&EXZDwD0=Cks6M
+zzF%mT9jV-2gSQG%A0hWYpo?g{KZam8t6}BAV<6#`RWALbIfQ3F11-|FtKBqM&;8c<
+zfGOE&lB&DqkHjeOAZY{30$qiJ*Js-m2}>s-WVS&7icklovB45wGTJqqab5MpIz#3w
+zaYfTM`Us~vU{o);RJGWPmcA1g{BgW!8L2AXqw_1DCZmHxK%C3h*pBS%wByS0Kjh~a
+z4xzn2Pi6TS<NFjDrtqL$_TGM>L@5S7^3yk9>){k-+2hs*j0i?}RV>9PQTgB4b3MaD
+zrlPG43S83}K~XW8`SVV+i$&hM;qdI;l8u(%H!MfR_Mn-z1C!2Mg7T&tOC8U{y5H5T
+zjEtpEY$lP=hI6;XJJ~58A5=kAg#Mu+2|UiJTUtmzJ5`33N%U?t(4soyAFxflWNlUM
+zNGsB0EHy=<J4kd!4=(e}4E9c%r^ViUA-(0(Bt3U0Bf_+*LJX27gs8-LdheOHczo0F
+z`G~dOe>W=ACk&$t7^H2pG)D*-JXU?L`;vW(rxrm~o4popYL?dv*)~3C^R@cw?;%!+
+zoaHu-hmBa_0%U)E+*F-UjDRr~7%Oszdw+X5p@2YbNfqE<XP)W0I*I;`H}1rlq4}+K
+zxNE9)M@tY<n&!uIyUGTsizD8XNWtgdL2+f;kI)UNRB)tS9haues{AyPu5gm_pocBi
+ziG&C)AJ&QU=@6AO>fh#gOb5wOMD4p{-;=Hia0X059yx9~7Qz3sozV_ewODp5ScWB=
+z@Y2eDm_bCr4#?^|+Ki*ir=!XnT)O!c8iYFW;dN!`H7X_Y<PWF_kXKj5b;9x#*o&#E
+zWW5Q{tGMBoi}gduzK|mF4VDKHvgk#fu{J`|SfpVU?RR*3_?XBJ4*(C>uwtse-h)QW
+zp4)+h7~+AuosXOnOLg>3HG@l~!YzB?D#=97$$pD2jLGe{R3d_scnt>OgEx7ZaNpII
+z_pk^d@>z`+y26hWu2GP}>%gH*RUe%gQ!Qro0o{Y`{zunJuw(cG6ZqL6)&z4zU~1^+
+zp{uKdgN862sria74Slfus)73Z-DrjUHt+yw^bLJRv7*>eJ$$V{OdJ~?txJ^Z1Cp-L
+zaDEnp4Dv}N#z0X!jWwocA2WXs;X>$;$DN@Z?)n+ZFa!J<<4K<6PqljjGF*PM%~Mj1
+z%gZ?@dw_7<S!&^Hzq)hkG2*y%RK^GJ4b9IY_k3QrBYea{?(7U-fc6|FRnSa_8@W3w
+zfq=<80-GV`mO!W_?l-KI>|VyUrpg@<>wG`uCfv*68^9stYgfKxPbx3&&enV9U~90D
+z^e&220B=L|e$wT<80fv~07tp^9ZXtzuEIHlA2a-3V759slTUt;BN}vj<O@Yij6&<Q
+zUFT)Z9X{<Nd<ga)6MnpF@CEHQ&jC5bu?I!R;U~doKEPpiKb2ZiT(`EHvUi4SeybP;
+zAB=}9{x8IaJ=aLcV=gqTOql)}&T}iLl*N9gWn^}ctAw!>>kSV{tU{SA{u$}Rr(N$R
+z!=g!%u23FIc%+hU5!_sSMD!9GNxoc|Y6(Xv>IWk{F8Zg?M~mx@vpc<UA>duIb>sq|
+z^3GHXUn{u$V+#CJd-@r^I^+|2>^=hsYc}QgUqa;+Sc2JJs@tX`=QHH0P4r>?=^SG=
+zl5mlA;Wbk4vrWtkOV1*P=k*mZtK=34ucHpPmnF7g5@o|t5<TN)ZJS&gE3!y;1>H6s
+zRmQu&>wdj|L_NS{vxIC__?0L-0W}if0^wF0H)4JORCSDOuiA%dPAAP;T8ueR50nC!
+zBVOwu)8*21@TFJik{sA8PS>O<=SY&@l|;Z>LU7dhNu=-Ms>L|q21&7IpjM_2ULocP
+zgPDHRd9T?$gLaq9(1gJB#-%T+VN2Kgxm|yF^<!`IRO7Y91cQ;eQ-+kt`7w2pI2ZD*
+zu@Qx;)L2*ngnc~w><N!E%D;hGYdg`KIoig`ZU2i3lbjpXO1+|2d!zU1fb<i9AQX-p
+z#<pwx{qh;8(&-A{AW%h+=sILL4%Z*?T7<Q#X$G?UDsT)UK#L?RDMOtWiSls(nTWy4
+zPZ=xnmjT#+2G6{0n@@WiL^Ige_#ij{80RD8+fuUMkGqT5SAOr^W07qg7=T`e#&-Yn
+zpIWD%bb04zjxley=`^!{qI)|9f)Z3xDkq~Y$27n*R?%^aynfm!fXVyb*_7|_BR~OS
+zqS7YHMMT3N?Hnab(#}8T_pomltG-XXRsd8rAGjYEZt_(l9WQT@%TH`#pOezM!OPho
+zl_(ej2s~D&@i>mTwL3RbZgV0!bkux?4SG-8P^Sz6p0imll)s?xIuToR=zDPm+&L%9
+zpegEhAW>xyE3rJH9fJ&YCpUM%6#K1MWEo3%LJr*5VM$|owzob2H-Aqo;swB_Am3eV
+zw^BIPc3;0B;&u8ZwLRGOvQOX42V@V}<GvuD4KQKDb|y=o&)3^ndDde=V2;aw1G;M)
+zU!}Y<x<Ne9lUu;(GptGn=Gupm9N+8B2T*k&-9Vo+7CNKn`(mlt<p;P%hL`PuD4iBE
+zVtSYHq%ujk<a=i;T=h*Y6GIGyzwL-<5dS~|ZxC^!6Gy4tTV}%mzgJVk*ABxryG!9G
+z%o6`lf;lcYzTz2LzPS<8oe$ibbD|2_!$Ar%SH_oW@Ob`d!{?!C+a6(?V3`cK`9juy
+zgc@C)tj*TjkkKh+M}<G9)1R-km~A%-EhWJfm#-O9Z}2i>ggdcF_@wkkXd)vzbK-$P
+zA4{F)DpEdiDi_==)&M!aZ}YK{9E`+dZw}14Nhx_OCtK`VPkY^drHP^o{D>SLn>MlR
+z_=;x#Tb5o$rKScB24)^3@kTw40XFQmr7z>|BVe6Afsur4dcuEi_WOK5NSm*TU{C?H
+z(SpD~#Zy~q(Zd}Vw?d7a?+1%`9j3-F2!ROxL8kvOPT-;ZS+abSmA|9BKM9f8&E`x<
+zp&BbyWvw~#aH>xQll0<ryt@^0o+Ih}iX1u!i$ebCDG)XKdN?s?21sZdy`y<*a(t2^
+zKnE0F(!qSNX2)X;qv)OA(+p<!_m`5{!^{u8h)6$<H$L+&UQNl-x~z{tOb>vufcLBC
+za_?8WFu?jFf>;Q7AB89L?*z=_QS-ARg%(z@Za&_#n+)oJ*Cdsh!~GU&{SQfi^myg*
+z!L8487SivJqkg({gF{@#x5WetNa*d)=zBCk4-viDNd<*=TcW3b5{a6GSHmcTPd1c9
+z*CtLkPJ!}lG)n3FIk<w<FLwa)vm(!?q~by_9*3yH2_ePj{+(Akz$OUE7lkU2$-L>E
+zME$iby_)3~66m*+?pL(iju&kKRdSO5lV*~k%?FOJ&W__ou3e`~x=mioAXOz{f+xcy
+z!<X4=4=x~yhRxM%>o4DVfU;bqCm%D2#HA@$4~FnH8DooSzDW1mF}5ZFiv$1|n}e6^
+zNlXRj6Y0l?`|&&@X+D(Z*9w{J2FoR6w(h>5>`JPVR<z=##)a)URWgPD)+aF67_TaD
+z(!=QMp+Z2xE(CmMmzsN39wcK71o+2906hy{IldIV>wgKFwD+2}vqGP^IRN$BHCtu$
+zlnT!K_HDR`lM^r@bj5e*WnM2?NC=WFuf0lXrG!Ec#{&Ho?okr20ybg`X&yo2-?-9&
+zow0SgI=o3%JoJ{pJTovFKJ4c@|3l-$&hJ-E>CF{kxB*)%TDcyPg#3r+6L7#hfC+9u
+zKR~jp%5;SEn{EyA{!E25pp!n4FhH*Jpu9}-y$JzLd>F-BdHC5VjnCY~m{ho^H01xY
+zIi~gQi~(b#`FtVTe4Sk=unZP>-(myZLH?D&X!0~D*c7@cZ)tab48$?*42$b}cWbmr
+zGl6WZ1!LOng!};KJ#7$~+yR1F4U`m;hwsoh-7&^-wRhj&P<ot?qXDSwlu@scXVuuY
+zn~T7$mk1^aC!$0M<`ZTX)G5#dpe^5(_cZf2%@#tAm%EbI@|fiA$a1gFH(Yg$-%T7D
+zqw$%NR_1%&+fc*4vQ-fDt{<oyj<&pHL2yEM?iN6?Vb$EQl$cjhc4GGR3t*Ub=8T{|
+zya5*N`>Z=3QPAq@55!Ua)|vF8JmByI&kBI*8Q9pQ|5q{_hUPwQjt^?dL4_M{BCv}D
+z1&EcDMby@E1CflHMfinJ2aZ3?K9+`x6AUnz08eq-*9WLhMJcJN#{oReI7Sz0#497u
+zQ2W1hL?h!+FfScLeowRc;m;hiwFBfc6V!K6p<Eoa60~XO+i)<XRnJ|pF6-7gnw(}B
+z_315xCgV2)=+)p&CI+?GPvAp9y65@&!DuaCN~2O=1oY<kgEB;YupTk6ut+Jm@T@bI
+zxR$;XZ%o~E|DC3JE<0O|kjCa`_UR-&;-R1s^2=M>7ZDMmgnp%E?W~Cj<M{1l`vk+2
+zqVV<#a>Ra$++x}LZcQ2hOrF4l3xuiYTMQQM=Gvzk^4mkOx?g*5m+Ssy=hmP7;;lBj
+z)#Z1JtzDsj?KjXcqvM2i(=7Rt9Et<$GSG&80St80)+8`(7=AR-!_bdn(?*3JFB9p<
+z_7@tCQ#i&%JlB99<QM%^Hx_c>&f*u0|J-&Bv2B53t*ogT{$ioQNZNtp$${&A%L{5f
+z5r9>qq`XuN)KtHJpFAlmgDM7e15|(*euCG5QX?4fbv~_ReNE6XIix$)0PFm#L$(!u
+z+Bb<hY;(pCl=a5KDbW(|^R(z0V*kzk?k)ZnV-P%2diM>yGVc0v(=P5I2?3Zf+ybhT
+z?gL;_Je*F9iB^QYp=mKd6`DP~B?iX|IfS^<2fxts%fY|NirAk<1-8L4KYZOb?S}0J
+z!h@{5>s?6BYEsA;n3(20x`K(?@4#u{!s9$%I>c>%xy?ft{p0)hPhX$cuQ9->yrP&X
+z`MJ|cTA){n{NEO-G19*R5X8(ZD=DT%e}%8pLfOgX^@<jSovRDDGWKUS0&|nZ^CIGR
+z3jE)}M_Vcr!!z6nH`u)Hrk;0-=-UW?|M~;rBM6IIwO?;#Y=Xr}yGAu<P&T$r3)_CY
+zW~|VcT#=;{3wn2mY5dnRmO|Jb^usi_ci=-{juz70EpENkJazbA{3(gVnHH4zaQ7b$
+zsuy7trQctW550f*@n=9zI*NGwF-6->I1lK%F7N@~Vnq@-DTUh;?^zU}BIV2B54al-
+z_4y&2yC`h?ETK6*5no>H6e9S;!$(Uo!T@K8-DbX`adZ07YR6D0mw_<y6_97t0laT7
+zE0U0P@#gkmj%<54t;S-i?7g62mBy>{G8Kc<z|X&4e!4c2DMzC<^68Yg`S@w~OH%YB
+z{mXU2txtdArP+bRE5^s;D`je0-=<WJn9J3;qJe{YJL{8ERSx|EMXcZ?lQp>+@w(!`
+z7m$6)v(wTTm3r-{NI@fo`~3(X7!=t2n|+xn5$ANH83Uuf7~4iDlu1HB<U)bixn^Mh
+z(&DI%D^HgS{@J#mdHn^#tm9rOmTnT(+w`Jw4d#@vHwEE?gM&}06f5xC5;W4P)Ojz|
+zM}W5g$jlAp#!oFWPs=4p+)n=m?KVt1?=lQH&Z-9gJ1#_r92x}?+q(U#*E%8SiR}%}
+zSZ~uRB;SZMAkgP{aRM0p$T6Noz#W2#DHIzZsUf-kBhm-51ceOpH(ME^0MR&d2bd7i
+zN+g_x6DMmwTCl*)^SyzAL7=C%q|3@)XLozT=NM5Dl+H=?P7WV*Sm)=AED5waai0*J
+zIO1?IbZT`)hVd+aNoqe+3+U9Hd`8#z1t<pc#&k@JTZa{!bEgA)>ZIHLbOjsM)jc}&
+zmM0pdk))ts>3iwsw4~u5-hYsK?Rp%eepDXyreIuy7B5`otx@HCjb=Jjtfy&{odqJM
+zV~s+n{p<G}0~~zMJ6RUDQ6F`|KQen5$K4zXmxM0{sd><cD$U0Nn?!VH@e>f9?WPs3
+zcowGR7kj%|VRn{h0eQ`7YR)Y+yRjXtRIC`Zd0yI%*J(G<fg)^;g3QcJ+|r7|6a1YJ
+zm4cJrS-$w>WRvs556m!S#L}@#)0%2O`M%uujk1v6SIfcg%4exkC_O6C`jkAH6EH?)
+zUDaririh=>jkPLoLLNy!ZXo=SwR@bZ%e!{ywwwlMWvtsEW&;&7v1A`_`KSI1NapB3
+zg}2QUJtduUhh%LYfs{9H%)C|x2R4b8qh<`zhpU2_f1C<_7EnH&{_*vCYYdwtWy5zz
+zjKRU7As{g8fo}QpFOZs)inxbIG$*!|hlV1U);WS^@KjY$AFU3G<2lKQ@C(gMO+z?2
+zxg-Elxm}szk18tln*A&Xsf2=pf{<aUe-$w4J~a;ZcZvmSaa&Cf?{d;}vOum%;Hoh;
+zaF<WGI^6Pm22BnzAem5p&inhKe&xCT5L>6vW5hT;^kzoe+q?t}y`(99G3}ynDUq@M
+zL+_(>6KZxljse>vu)sbI%KlLht)xy?e0(&u1C3i&qNOqBoAoSm{%-roZ1B+7UA`=p
+z(Wi!AIjNwkVJxd@ErcwAQ*;#$@>`a22b0<>0LQ%!MYS-mkE1F;bd!IhmlkB`&&dKi
+z=VO4viY&%o2u8Ra&Z@MY#Wp!zbCVQBGeBw`D-|I>s72wZ*J^A1JhG3}>3QPQCAsm&
+z0owohq97fJ06B+aLipjuAD?CVdKFVDZ8Z>l>HDv07{Wk=z9!;+lNYlT4h#^_BjrxP
+zlF<yMM)K*P6c7-YZEL~H@jXQXeycEL{-EJud1Dh(n%9D4V!oX&LP7VySzHE2nMCV1
+z@h@NWk@B(11ZFX|g-j_TL9NK0@o;{_IC0iFSLJAH9)6(+Ct%4f{-Epf{;kP28YGf~
+z1A3cz?!gC^DrIp{m3xWsgjK&b++^P}^Tw3iGTYAw?GvUeyBf@Iz!HZDfv-dOAD!eD
+z95O~(6`-|ka^7{Sc@1rj30{8_uUQ#XkE`eYsQFB`Ov}%3!9W~y1#-eAK9-5Lrw*fd
+zN!6^mdUhMXJ3;XBEo0eNt4e_8&)~J=ZRt6x0L1XM^y$on5*1=a<hQ(|dYmv^F)IIg
+zf4_{7xVQZ{6deo<44nnBBI%BE*9lqnKwMe}4H<7!h@e>>KjS~It~KFKhR4{1pne)W
+z&MkGF3l2m5t~Umo7fq)f-ov6!`abLY3Rl+M9POPahUpdGl60|EuraL}fA}HE^m<4(
+z7S9=kIKA21Q(b!h=#551I)xiPAk95GGGH)IAzGiEs(U!SFsh&(hsHYRv`8#G=jo9~
+zQ=d;4wEDeaIUhu97*loML6CE@A=qR&S*X$&sS-Y%!_E=<Kd)dx?zks6uUKc;x3&cm
+zU`j>F^(MhPB(A3EY{iZlzcV?*<-XZWc=x?J52IT9c|LilqbQfF&hdO9-PD8vuP6~0
+zJLSSIfAQo0wRDyNQFY-KJ~N~sDJ?A^Aze}fNGc!-Lx~I^NGRRSAc`oR3VgIuA|t4D
+zD&5^Jt#rcxch9}|m%kL8vuB^Z*SpqwG6IU;51Mfgz64(|c#{QXoaXD}jjpq?F7?S>
+zILsvNbNsnq)Zg23$qzo57oG(J@ATkMR5Y?s?*a6`pI80)RxXA74w{}=<Yy*D%#ID(
+z_=6Z^@lM5QaE=tRPDTG46XbYD#Wupe_0P^8s{I~anlxe@#VJPg&m!N=PbuA}FNlg3
+z-MG#YKTZ+GpJk=|0+tvSa;<ZgK`ct!zyP^5>qt)XTmQ-3p6%mvJ|aj=&Xf?pqZ^Ll
+zMLSH9F#w6X8$17{(U6w@sS6B;cK92wa}9zl4%P;6%~~QuftS9cITI0L9UCi$tBTsR
+zL5##A>WMJ45nHJBxq)#ny*Uav;6TPKZLZqji#h-^*{9}N+Pb=qfWAd7ILud9?bq2<
+zS+C5rtzN=Hlg!q?UYYwW)d>Z*6VbbSQ`d~jS!2G1QvUP^I$r(kWg)Cj?V?A6)VLLX
+zn|g;7nm;}VM>oD=MlWCC0Df}m)J06%4LMqu9XLz<{O9huJe`}<zN_h;MgJwj8n=%D
+zW_$ZHC~sp2cnJq-48e|<#MK^(TqQ-Jg(2OOe=!&8kU(3LTCEs+d3ohFq`UW`K@|<g
+z8xSO>K<Aa5{KbHs!~)%e$JatKDNi;-0;X1}FC$LL?i+mmuhC*QMoDNSVdkR`8v^QB
+z-B%V3TRtNFv-$SdLRM+a#AJX_5Pxq4642dL`g;~M&B~wm!79iqvz&pc3=ETQOy+9D
+zR417^K16K(7;^bdCfyH$`{O+{l&0JmSUB5nWDrReVV293n0oTp+j1CLhU;M^4VP#7
+z&NZ9mmY~pZ|KBTS;F77cNG}Xa_;U@g66vMb9})jVlK(ners7RpCTg6tJ-J?-67-HX
+zS_DIY6iT!!5_@gr82+<oE<rI<@b#QVrT0jM4$>g}yHb_A55ALKPAS8yOLlnt7N|KB
+z53}V#n-)1b_CT2aETi^E(_u>)C{%DlN&VT2Nx6>LO%zf9^uU2|8YQ^t9JJ7zAM6o{
+ztk@)W(@>^l{uDJ7EflH$_p#M+dkahlSwM-m7jk>HF5T+ZNc^irPL-k9JkhYRl*~uZ
+zL`jz!+qNR-tv+@*Fv|R*`rsKf)zMt!lFt9s77lSo!wsVTo=Wswyefd_FjkSdJ=5;f
+zhA@d!*4fI!BAP9hYn}@8!w@?TGQ=zsk8sj1);B8hWZ{4R%G9Zf;0BL&BTx`Njle*m
+zT0+6(PGp~!9~J(IQ&PuA)N+aK@myf<ge}`~L&fY_LveBOu)3r6JtkfW7nx&1-)v?K
+zkMg*NLa!}>(M{7f#{s=@o_H&Hv3=TdbIOq{>({Y#E{?tO?h!1mwOANRPcbR55cL~R
+zNpGdEudfZrpld+(av*<eWK?t`yaLcx6tO#a3gC&igIjdV2bw^*(|TjT&D9G+F{Sws
+zw5?Z4VdGX4iRW=R;DW5z9naRJ@jj?q{$aC3JI+I^ph~7m!(Oy#6C*N5y$@^mTj<bp
+zo}qS~{^udw>XmRH2BBS|qew_ecR^}wsGhG|I+kR_B;qgNVc?dW-`RS80_ZX-ZJY^!
+z*Sh>saVbXAEL5f?cZcFpFv$PGQ#u56!8v!3biaDoid}Az`)1$bhNPhf6qcn5yLUF}
+zvK${*kPMyWwAt1}JiPUI(i%aT@ixf&B)6o-q+6bqR_571BS#yt)~6*185E{FD93wh
+zj)G}tx;HC`_!>DT_;2xT#xafoPGA6lJ{$lH1CN?oIhBnyd!v@0p&eGHmX7^JE(&57
+zL(~Lw3JVMGgZpBQ0u6c1(YvRoZOj3uzetVu_Js?^A74+^L{q*}5(#hpO0F_zng1sd
+z#6D2_$pt06ZTS?_F^p^huK~UF(R-`LD{ej}f+%&E8tgtP96=kds{ADvdaQJhLup3*
+zFbQyqiQhn(-(}jYN{u<=C>1VI3Ojl%z8X9oFlRoB;gH?^{r%m(;LC(rk0G7*;??Zw
+zqwyGVi$(~Cnal9sszR|t<2vwNW=6`LQ>+tfP{lnih?4?wG9LwOmUaUE+dg;RA7AaW
+zX$N>+&oPh$P~WCi3Z-3B){`8`zaqP(`8!i@Gv|w^oLi<b^{ua*>oxogrI48ceya@<
+zRM5a(I|=wteL4JxvaotoT{evr3>(xxlhkjBQFoY>Xbw6hn=EmQJvdOH;C@6xef`(_
+zy(ctL;1;3EN#aYFVQR}P3_+mLS<|w?fdz8;SK0=8c+K<tUlM!knWxL+2B+Yf$^w+6
+zID`D+w6t#F`J}e(6=qvsIDbV6xMO_10OXBJWn<2ZKc&1GReL1ZonHU;_Ray@jF5rf
+z6yN-g7%8%L?^4GR2ZTVcnqp}?#m`{Ik0Al1t+{Qsv{&>(6#Xx>6sC^rIxlO5??shJ
+z)=xpw<tkMem!;C%w@E%~Fk(AT$waKf>nj<Ortf`t_qIYG+ua<^IXhjYOxcmtWGDU?
+zA|7FAz~QoYt=;EPvaJ-9DHd-I<hCi^iqoVmc0J+LL}2M6R`Z!s_s?ikx)au6>_Ars
+z`H;ITK<@xx`;Dhk9R)!iA`q^78q|}DJZmPNAgbcXyED9)th1bq;8XdxMwY9de#7hW
+zMcb_JZJvgGRxvlX>`z%?MF_=LjO#l@p)Q4(1}Q4|69a;|1;@C<1%Kk`lbYN6cxX4{
+zo1YX<uZyt;_lqnYWj*C1=;(}R<rm~De6Pw$bvMDqy0FSACB&(>2`P4}H$bD^+1=f&
+zLZP4v>J;yT8`@c2Css)T4ng>ESS>JaeU$eV+XSV1W+7SSd`Zu;+xD3xUq}R;xU6dv
+zyVsu+W;X0_4t_6Fe(~9Vi-J%1oNq)mtK2apat!rmFi&N(WTc?}-~C-ZlK9(1=*4t7
+z0n25m^5<6t7+hF6x!c@AFM&q~chRl(-M5hie@fU7T00LXhHlV84Cx+&_dkl;lB0YU
+z2$+&}Wdy%RS&Jeu#rzeN4}M&sVP>Rhk_o*5yB+#hZ|KI3?gsgVUmxVng4-WQhYe!C
+zJuzeQwY}pt=gT(kL*U6n!W%{M>1}6M=Yxfk-rEt!HK%Yr7;I~ENt<F#-wT)-<4T_V
+ze2+NjS2^5T(o*-2A_b&N^(dw{z;He!fT@jtfMmqHdLUWMIZFZk$OZR_dq)q0dsCu5
+zi`#H~O!m@@!`#jp8QIB{Ww^8=8r!IDpK{LG3(-)<hA6}k@}dVn6(01j2%36v`Z~;g
+zb&t6@ls`ykmVy8m5uC`1!=ss%J1{DMUUQB#ur2kY=tJMUdE*1lX5Z`vIQ>Qpj0S+3
+zv73mDXSd!+^dY~&@dDIYO?J#aANXNkP*N<Be}qu=S5MTVY<M+4*IPK^8RzPpwHMN+
+zgjKfCZM*r2hHL)qAQC~`TK)5-H>c;7KEG>#bnB7z84&-jGl)Q-ZeB1QJnjn+^>zW^
+z21~YRD}m2}$-Of<YNWN7XMb^J#(^LswhN}!alm@>j)3@X!rO7g?o-D78&FV%FQIga
+zarW^@{?pYN!V)xI>f$xtp44Asxwf4jRA>FjlCFHIxgP2ILT77vk5W5VWv6jA79ZQE
+z{w<qojx_O}MlYty1p#aQ6_6Z;tfFNI^V7Ya)Y13{4kEVu2Ed^zl2M#+^*?v=y5(fk
+zb^wH(c}UCn)Nrj#BxmFJ{B!hMGc{AH&@ellpV2gz5WH!gqYW6;sooCOQgR90{ycQc
+z%3N*vx9$krKAsXMj9ZwEOE;B8!{{qY5Dq;Zo%zoTi>Y+FWnch&e8fLqj*)|_cplg|
+z8*$n3Om5WnumwvsZiJ+rE}H~a<(rQZ_VIUQcp2YC_POEP>2T=@*39Psm=fOy6v@bT
+zs3N7(Zk~?MdB!>A*JxHZlF>I3WLyfQg-D~GG)&gULcY?gg)^%lNFoD0SSzEc9{p#$
+zH@$^h&9q|cbw(?tm2;1fnp@JWdu9%A<=Ms;`%F;U1&}PC^7C^+)pNAywIkaX{jBLJ
+zDJeK_G_E;{AC1=J<gMhU;)51}vOjevZF6M@^uJt=9{E!s(C^c^iEWuv`6?c&5*Hx)
+z%WjX<UQ!pa23F6eutBlmDx2({rxw4%qFU6Z%9DN<!njBWxVtufhg02J1F+|C@U&R_
+zf8{pK$upDx0WWrqc)mzYa0r14=Co5KZcVrgc+vfN>+1ZQo|q?4WAhP4QKk^l?>H4=
+z7xkA<5>r=s{E-bJ&Z_>@A!J(Zp@3$p)bi(Z_y32NMe%DFw0r^;{)k9oAMYFnK}uk^
+z9{?3{NL}4zL*@)XtSts{d9kU#JYBX|(JX0FO{>`@RQD)j)U(fMxE6QAgz_$80{E$K
+zO5ZB=`g!2e^F=soW5D)^b^j%krn+o^#z8D=#(o>ymw6UF!lgl07smerLCOqAd^&b(
+z+LD_ThO&~Iy=mb8p|f73CRgqi31mLOMc${K%3Rm=xE8M!IyE_=3=E@>0{yKHD$KL(
+zYorQF3hdUL=P=>CBz9`tIdj@>%wK#@WsnL-*EQ{gMHQju#Ya=+VUs0w2RqvheNV30
+z>JA{&1N6w|afDl<J)}J+OE`$*vQk3qm2S&LU%^gL`yAvKx}MV~ZcnbKkUTX&ML)zl
+zU(DQYh>%h^pU?B2YqgxI&MNys^MuotSA3kE`Z~v62fkfePl)9s@hwlJf+!(ZVma=U
+zj#8h$IZpBDzmj5Lmv;hnqr2+uHSh5X3$MzpK(B=V7bBF)KoAUipEEyd>ipI7zY+En
+zcS`7<ocHGBPoIGtgR+QM+26Wmh>HaH`|T|hv2$%~95tmGmWJbn;#((Y0{_YHG4Ud3
+z4L(0FC@fYju0F#kh{etkId*v=74u?r=)v||bhY1%vJC>K0dh{4PQJn44LX_iKWb}h
+zX$(KORV2Fi^~%V<xtHz75@{8jbz$?gEl($H>s05C*mrou`}d#x{J)d4eAcV2u7z*<
+zv4of^VjHc4)KdteTqne>TsjZOthS8IEf2d>#?79-N`E=Vi8A}{eG?m`&85IHu$_Oe
+zX6art{T%}AA;YRS$CDc&7+voZzfO(j3m|UT{zh~rnx@KB29|65JCC0}{xJtNvc{SQ
+z!%3j7WZ^mfnu0(KsvR`k%QFG%o6_};xe_Ca>D_goB`L?1v&K9YinjF%<7=#$iav_<
+zzF7NDtJcyUCKAl27vX*XQQ&WIR4CFuXr_|CdWycgxeGvRi4Qa6eW@VD;tX`*YwU?R
+zQ53i((9zJ$Tjb!WS$CAdpGOL3Y^O<kZ>6eoF1Rd6Z}(G~5t6BXDq;c*!lVzmW|&*9
+ztNEFn7~f8+Ymm|vsgSB)u7h3hp{6o#K@3ybhj*i@SzeprjqA3WF~PentK#KA`)4^i
+z<*#$Q>@g*6C_fC1It{sCgW_9k6PBF>aR1L*pWPhKvb0S1F2Nmwi*Yl(_eX(#izR&s
+zHI%#W!zy~oO^>^TC^st38t;60g}49?KEe8Gq1UEaeJ_@(DV?Y)t|@0_(^2xiWB4^@
+zMn;_+-Jv<>^QVVx!8)iSME1lhv3Qfk<Hy`bi0=&2ySA{SP)8Zl_62cjjg4egi1uiH
+zUkzlrFqF683djno2g|ZXrAlJ<&ohJ08%lTb3&*S7B!AgkDhQ{P{o{JE!dDaJp63kY
+zK&8Yk2eC!k6-ulAx7%WJig#_G#V~g9zJcv^h6mk8<kNu?3k*LguC>wy8L!sqyoTcT
+zNF-zqRhRzb*bce7{ug75gW?h#l=rm4X=?V$jFQPlHXndM#1i79Gf?YLif2AU&(&2_
+z)?-Zxz#)6Q{{*#M^E5u+SHY~IOIabxrJzt~*zhgOsKZum)s^EgZ=dBSBcsIJq8w)5
+zo@wr@y5nha&zZBsW$#(nwya*W>dJ@pmw$B?7i$~R@ko>oPn9G|9z+q)AcrCYQ%lL9
+zR#zQGqQqBv$B{Icz-gLKLK@3AI}(pBxED=sL}i;;>SM*M2vdK)5R`k90UB+N!Ar<9
+zqm)H7naS7+rf$hb(f<;q<kA3UXfTCE;`K*2h=fweeuRA3+jH|+>sO|UkDOq1e+zwr
+zwd2Q<va>01pnpR@@cJ1W<NC!fV_+`S=xiu#I(V*bdr-FD%zH+Xpm7G;x`q#@U~@kh
+z__NZTQP;AG743`4E}GL2|Nh<1@S#*sdvDIVNs5Hvt@N;=K|5aNoTf*yXQ4qG`{xB4
+zMum&|e2<AGPmcQ+%PH@*1)mkZGz&agAZmc_4jG3*cUc>ipgPC{ub)ckCDa3xAnYer
+zqC<N?md3AMXI4c)>_F7CUhYgH>%Dzg_fHyu29hSQOLYp;vzxRgui;U)1?(&CHYb>O
+zrzo8FP1X*r)oi7Lv2+a9LW0;_f+<Sp{BZ2~Esdx%fZ5hm2$G)hxv^FCQi5NAKZ~0>
+z>`eRc%}zmHjC}X7carff!U!%KnX0e*tJR19?a8iq2B`=|X0Ywwx%7&DdI%5(6M>*T
+zDe&2k5G2v=!F$5-wVVi{d*?@ck-za$j&1@0!sAr+rjyK+m<>IVm$iyQZc#O0hJ7jV
+z^BwC=UoNce0<*^5o?9Td$5Py(F<va%G#7joxT)Yhr_i!FdA`-a79)=(=8PkL@uE0d
+zERWA3OL)qbHCN~>#omQeD3=eFz}>j2Bco??$G_bBfD-NOrr>-q;~iWH@>65K5giUi
+z`hmMK@p@kjzaCMTR%O^Xz|jBzT**Ss9bC51{5(PN1b7E3_kaT@u;|mLX7R$SUb(H4
+zz0x+;t5IIIAX)n(@U0xyR|IEa*TN}<%Ru1EIr&X7@F@$7EWK`J+lK}A1;FQnBw2{L
+zbhLRE_@-0L>87Yj<9wJym!4q!w{&u#vhQU(18>=$4M#~=XB-df>js_z@?s#7*&FYh
+z2*gC}OqqECc{z=R`Z+D6$(!_ujBO>3Y`dE$FdVjnBR6A1@Q7yjfmDGtG%>L!XQqy5
+zSroVJHdX*j_ye0icGuZL2f_c4-SQ!q>!##bq<NWjhg4<1iEU=+dc#FngnFbBZkXyB
+zl_b^u0}9=(V{p)A5T@nRRVcZ?5;=XdxpVPjZVV6<#a)1-u`)vrYy_(_z=6c}3-PXW
+zZCuN<Q&=+y9H{j@)*f{&^iohxI_E%<LiH!l_P_~cYWA_Q^-##Ur5ZkV`j-a5Ng$+@
+zN=qjNTJOyMSct5dR|EyN0LDl8OTX1C%J{TA67<PJx-2c&_)k;mfP2Iza4eB62&YcJ
+zDpb6RRJ|u|I|qXmsDIvn7Opp|b$0uvrl`SsU*>n=l+55!OF`2`pmw$@f)+1CrvE3u
+zt?8=2poh8hPm7#)vXbqKmE{;0Et=%j%!_IrA|aLlFJK%3rn|mlVfDh>liLsuF@tOR
+zejX$=D<A-e(h48ohd}>0?lriuR-Tsz^2duKC{#<qak~P$xZj6yn90-07^`>;H2?q<
+zU@nz{6E1Z*o#VdjOzW_`ekVF4IIL1Q>B2>(zCtsgq^M|Z=F4rM!!hA9Quo{1%quOL
+z!T@XlQ3n_phT-zR_alWL613_PcD^JkQx$_6ftN+i86filkz(h`M{*D@ydSN2>7$2o
+zI@_3Ty}aQLuT@g&rr&WL+tHuj-KWSSf%wrrU`;axV+S;Xx5pZS|03(Z<M6Cld0G(F
+zX36XO7?LDllv7<To213EloXlZ@J$U<8-gqp62t`(?WY+uJhr26Jd~#b*9oR-&+Uvs
+zVmWb}ZsR~ODX#wpO1L&#g)-I?L>mfV?L0)HiV>8r-rcx82#i>ut$Q=`#~e71J_X19
+zCGgnF>hgC5w6gx(7z+4?2kSdoL|j%QKbj9KsS2uUX=#yyaOTh|&dRJYvf_W^9ln&~
+zbU1JiTkHaNLzNr1A?C>&M_>bJJK8KLC{Xg$A^UOhtweQD!}RDDFsIy7z>C^r;*gUg
+z1pwz3%dbzezk!wbZ}=LR1u{&QzkGY=gUrRW-L$E*4x8t1vTZ{{!!0SV-AEx*+akqn
+z(s&&>zrhu*tq<hwx2_1xH712&^8mH>3wR{&SC*bwn}l>IHBwX=HXiME3-bi=PVZ~R
+zukQ5`L4K{@EbB6W6ZbogV(+8d8S;YZ{|od$x!$-T@-?WELK+%?kC|z}?s|)y7dz9t
+ztZL98mXvfhyn+vg#RXEbvQ@L@<uQ6E0sMnQgO2C-vMI&H#p5)&V$;(iii_`@1R(I?
+zL9bOTU;nnWwtdcl$$}PK7#1E819=|A6iPmH2*3CKS5Ucmb-6uMF&lJFZ>%TBZ*t<G
+zDEe0yc~NHrBZQ`b^yLA}CjNj6Ah7uXf*=iMS9}vtroU;nVBL<Cgc+1=abG0B(EPqa
+z!F|RyHtI)YxlVVt%qynd0+f}TvMt~K)hso>gV_37VKZ~ph-dByGED--9QD40^do_&
+zvzo%o+NBRi*8u4GqpT<Y<`~9Yh5k1x_ks?(Jnaj{IbAvkA<u+ndHp?YVf_n(1=ON=
+zEu<7c*FX+E2|}SRfhT|T7$ELg#{s~^kL7U5A`jTPQ+NNg_1)b6_g$Y}=t;9W%ja(l
+zCdl3Af5qA|Ki-<>zc@cwSF!EOhzd<PGKGNG;vU#kIzWn`+nYA1P8)`hWf!v*o0=oT
+z*MmV5`^0Ef5r%fqYiA`JS-F;z0owki*S{HlB`+!cyb%Jx=~mxu`%qWwC%dEwM#Z2e
+zFsF}*RKZWCS^dDfl&U1wAuQJLW54h9wHs?Dw&^4NEoDab4FnK$7l3hhz{SVk9u{e$
+zX5%$PT>CL|M!*1y6|7z75SNsIxD-I-+h}`MFh+6f#7l!E5Sa$D*%J1kz(2X@(zBID
+zi;H@)cX6@k=gTp=zBI+)E<m&%#YzR9RRh1ibAB~{-$ttL%Azv+Mrm(mTmI{Ph}|8V
+z(hX{D-T>NtKb_zUMMQIm>bWFz$Fv+IW{-L9`9$hkeehkG!NT7!8I9`9Z8D;m(7Jm9
+zcyKQ=3(32|eovmL154PxtjE8PbEiAMZ&m<HFb0t2CxBU@r?;z%)YjUDaA;@<?^AYu
+zyiQ2YfE}p6;{oG-T0ud<C=hW%ZcqOF;?_0#wFXd*^y=;RSK`6%pX?;S&p-FgQpMiH
+z_tfcuJ^tuPAbzg{0u>cgb%*m0KsKgqY|FAXw#VICj}WdO?{BFZvu_}TAn-^c+QCS|
+z!ryjF+CaF@!IW<D&vpdY@v+_&0Da+c&2BeJs}i7fAJYUs^zz~r7Z*>=h@<N4>!Vn<
+zwtWi{#P`5pJmk?`W>EXLXZtDt9GR)x)7eQ<My`P{Fc1?LOVIV_idE<PTEH9gDA$rQ
+zCl<ICjGr%W73A=K`cZu6iGdkQ%;<14kR^-3*7(HCjO9x~L3m<fvU(A}fEDQD8R*<7
+zvIE)vW`^jf`<594%`^m<-lsW)>~Lk|T^_3-lh#ZJYxdXoH~^I(mbG}jL4NZX0z`9a
+zX5XbaE+;nUK0%pwt(%mL#$GJ*WDv>*t-Vo`0!P_|7vC;6GH0o{ycatSh`u^wuaSQI
+zHHS;uqj3>1rR!cgO877;=98Dxix(w>SK#jX8F&hjEbliPb1zsSXdVoi+koQ6`Eu>w
+zn3mp+7;}>`_xPpRj(aghZ5VC5N8H<5@wIGM5nShgBjP<7XvX-KB89~=jf5XQCXE%X
+z(Uyyq!RoD(;XvsV-))DSW~w(oKbvk?Lqlk=0CR({F0H4eG`4E(zI+eNd9j_x*Iq&!
+z{CqzC4n^bbi6b}~2|d7~e2V?!rhE&fUR!qyPuZMXU+2Yx%7w&Xs<h_UcdI-Ps4_bm
+zYEFB-XFTaygH9GMGWj;%krRVsU`N93KL8qXpXac4&|A&M=xNEDHid*Y@EHj(-F&T$
+zr%4E*A{&Gypow}USA&BHeaeL}9wcpZ{4Aitnyqjn7z{`L07EiDgdr!xu7Q#EE@L{t
+zQ&s}^Q(-J~vv>3jxek~g9%XvKzo%qwHV^2$tQX{UjCC7(=dU@Li`~xZ)_^&&U6B{2
+z!Vh&&(EQ=wRxIk4?5+jn+iB)l7Vm^Jz9_f{&^@j`e`LFhmVhAR?>1z;vVZT0sxich
+zmwxbq+8M)rusr(&mG*e=+sZ$LmX!yg>j>~AS{$WUh^C3=cbEoydT!6R9ysYKa<4QT
+z3~H_8{AIdoUi1Ahu!nr}*?q?B-YtsVSy-vi9M!jEl2)gR`AluE`DWpH_I>G<RY^!#
+z@lEmd+RnBJJHhA?1H9N2sLZl<8jWVlee9LqJ?s7RoI(-n0$Li4egLtHk8Yqzg@_q~
+z&ayZFXpH+l7xkcXeDQ57x<ywuX+d^c%2-e4c$rJR5ePaLaUyz8IG^l!TYsdkvGHZN
+za0Nrdt*#hz3c^raj(c;)6w$HP^pJ=Pf*OTE2P3dA#)FMVv!TmM&ZP3rh)b>!JpSe%
+z|A~t-bES;b>z0{g=VSETRspW&j#$WP1x?TH6Lr+}_T(wIA_OXYqETKG&;3D4HCWaH
+z92KOTXCoV~F1Am=F505Xv41{YUz2=Z>xMtgAd}Q0sJ%`Al^qxLNPm7%$OEr}DHqwG
+zZxV+O!1zr**i)6%oi}^qT$k%)($n9F)I8>gU}R8ahTjGsuH?e{cx%Qfe>jW^Sd%Hs
+zpJ(_BAI?VXJ}*~fYjPQ~=3Sa>oMop|fawjv^+xb(KTbL__*9J7cTd>9Tmuf&Y@jl`
+ze%0WT9bd}=FHYl17Y;Brk_iASPK+q~U`oICXIf{EmYwiWqgIRVC}W{ed9Y)HFyn~9
+z4NY2NpVpChZ0D!ikAr_1hV=u+h5$zv%wrHe;LV-SDeJPH1%uSxSGt?PTF^oHF4Kal
+zzUo<?6xq!cddg$&u6s0pE>J1K9YOjR(MUd%-&yxZ>##5fGq60FUYRmsjKXyju_pkC
+zN-o-<OvD17HG3MaG`urOU>6|j=fVEU4&1B*b{@J;e|bD-#7K@kLb{xb9yZi{g|$al
+zO-wsg!JN*m@jN<@K6jr$BH##r27u>WEN)ngDiJrdL-S4*S4g?s^&vMW2M!8<Z{qmG
+z@fjJ>pfTVXU}ycTdtN4DRWu2^zaTpyUOQSh`%?&MB#53X0b&{<xkQI&#&!-b$t<|I
+z`GLbD0KGGFMv(hKJ2{}LB^Mx(i;8}2A6wz{GoX_z6E}g<&HKK-GW`5c^Qnq;2svJF
+zT2H($^Y{Jg|JY2KeI)ELn=c%DY3+W*t%WFi41R-k@To?D6ZB{)1G&?g79N`3z|ip7
+zK45n2G!cmgo_Ul3reTG?{yQcvcP>9z*qC^HomQZ}SsDJ!=u6V;5^wxdX~^HYf}cJF
+zaxZYuj5^oV;x<3X0cnN+gVrv%{VjlL?kxbr^p+DeF+@3v)972C1yUXD=hVT7%L4ht
+z5m{i80LBmp;QHn`zc_KVP6-XaDtDN81*TXGfV_Hr;+tjYlzpK!$KF(-h?mNJERuIb
+zBzx)-`B5$<1qOlc-4-3`8C6jFxftptHFuV$0zD#{EPGB`kKNOf2e@!+AWoz5N0X~w
+zcCDR@L!bO2^L*0()&aZM&UWxs8ctic1Fv(H4{b2Dw~z%z0XXmDCM4i8gqW~X<Mb63
+zRdch*;+qyQSj1p3gzWX^{Ca8C|D_GqJh!n~#Hp(|^KPnyy`FC7?pO}^`4mXd1r3bF
+z^KlxiO-mgKxW`iIOIBA<FMoRe<VL~E*A_8-I$ByP;2X9+-xRtFevxzG%+8v84`OH|
+z1s56uqM;Qa^WtVw6QCd0(YaLmW0lnLG(B04VIL0Tjw@;XYAP-JVwjg1z&_9CX|I^T
+z-#+5}YVw^BH~t5TQ#(N3g6DW}R=Ig;aqR!NPNHD8&Og`Siy<z1hMUL(jlVDKvLrN~
+z9M*`)0p@;i;Kci4glT<GE6@%W)Gk;ek_Rt0>2VKw;`xWB?c-d)#Ql+#1%ZE8`A@6A
+zM9mq;gAj6<65iwg>r2K5GY$VE2M{me1U0{G0Xr~oK_Camb5QT7_iv)oT#uIq7g^^0
+z4Dj8!#}_3%t9cQm2xWnnrKXlvD7fkMXXDW<3yVuG2C0BYqL>SCMZ?3xO2Ev6L|QET
+zdSjsv5BqHy0G6pWC`SN?=ZxdWG%ffklX`xBvLL|{ikwpCqE-eD-8IiKGh4692VB&^
+ubFT{6dyQdE`ZNSU?IAO3ejA>9MMS79!Y!+QhXZU<(0#RsswMX<Ui}Zy1;|eT
+
+diff --git a/ninja_tests/__init__.py b/ninja_tests/__init__.py
+deleted file mode 100644
+index 5e07ffc3..00000000
+--- a/ninja_tests/__init__.py
++++ /dev/null
+@@ -1,20 +0,0 @@
+-# -*- coding: utf-8 -*-
+-#
+-# This file is part of NINJA-IDE (http://ninja-ide.org).
+-#
+-# NINJA-IDE is free software; you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 3 of the License, or
+-# any later version.
+-#
+-# NINJA-IDE is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
+-
+-from PyQt5.QtWidgets import QApplication
+-import pytest
+-app = QApplication([])
+\ No newline at end of file
+diff --git a/ninja_tests/core/__init__.py b/ninja_tests/core/__init__.py
+deleted file mode 100644
+index 088056cc..00000000
+--- a/ninja_tests/core/__init__.py
++++ /dev/null
+@@ -1,16 +0,0 @@
+-# -*- coding: utf-8 -*-
+-#
+-# This file is part of NINJA-IDE (http://ninja-ide.org).
+-#
+-# NINJA-IDE is free software; you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 3 of the License, or
+-# any later version.
+-#
+-# NINJA-IDE is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
+diff --git a/ninja_tests/core/__test_file_handling_nvirtualfilesystem.py b/ninja_tests/core/__test_file_handling_nvirtualfilesystem.py
+deleted file mode 100644
+index b63f0f7e..00000000
+--- a/ninja_tests/core/__test_file_handling_nvirtualfilesystem.py
++++ /dev/null
+@@ -1,86 +0,0 @@
+-# -*- coding: utf-8 -*-
+-#
+-# This file is part of NINJA-IDE (http://ninja-ide.org).
+-#
+-# NINJA-IDE is free software; you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 3 of the License, or
+-# any later version.
+-#
+-# NINJA-IDE is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
+-
+-from __future__ import absolute_import
+-from __future__ import unicode_literals
+-from PyQt4.QtCore import QObject
+-
+-import unittest
+-import os
+-#import tempfile
+-
+-#from ninja_ide.core.file_handling.nfile import NFile
+-
+-from ninja_ide.core.file_handling import nfilesystem
+-NVirtualFileSystem = nfilesystem.NVirtualFileSystem
+-
+-CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
+-
+-
+-class FakeNProject(QObject):
+-
+-    def __init__(self, path):
+-        self.path = path
+-        super(FakeNProject, self).__init__()
+-
+-
+-class FakeNFile(QObject):
+-
+-    def __init__(self, path=""):
+-        self.path = path
+-        super(FakeNFile, self).__init__()
+-
+-nfilesystem.NFile = FakeNFile
+-
+-
+-class NVirtualFileSystemTestCase(unittest.TestCase):
+-    """Test NVirtualFileSystem API works"""
+-
+-    def test_supports_adding_nproject(self):
+-        nvfs = NVirtualFileSystem()
+-        project_path = "a given path"
+-        project = FakeNProject(project_path)
+-        nvfs.open_project(project)
+-        self.assertIn(project_path, nvfs._NVirtualFileSystem__projects)
+-
+-    def test_adding_repeated_nproject_is_ignored(self):
+-        nvfs = NVirtualFileSystem()
+-        project_path = "a given path"
+-        project = FakeNProject(project_path)
+-        project2 = FakeNProject(project_path)
+-        self.assertNotEqual(project, project2)
+-        nvfs.open_project(project)
+-        self.assertIn(project_path, nvfs._NVirtualFileSystem__projects)
+-        nvfs.open_project(project2)
+-        self.assertEqual(nvfs._NVirtualFileSystem__projects[project_path],
+-                        project)
+-
+-    def test_files_get_attached_to_project(self):
+-        nvfs = NVirtualFileSystem()
+-        project_path = "a given path"
+-        project = FakeNProject(project_path)
+-        nvfs.get_file(project_path)
+-        nvfs.open_project(project)
+-        nfile = nvfs._NVirtualFileSystem__tree[project_path]
+-        self.assertEqual(project,
+-                        nvfs._NVirtualFileSystem__reverse_project_map[nfile])
+-
+-    def test_close_file_is_handled(self):
+-        pass
+-
+-if __name__ == '__main__':
+-    unittest.main()
+\ No newline at end of file
+diff --git a/ninja_tests/core/__test_file_manager.py b/ninja_tests/core/__test_file_manager.py
+deleted file mode 100644
+index babca53a..00000000
+--- a/ninja_tests/core/__test_file_manager.py
++++ /dev/null
+@@ -1,45 +0,0 @@
+-# -*- coding: utf-8 -*-
+-#
+-# This file is part of NINJA-IDE (http://ninja-ide.org).
+-#
+-# NINJA-IDE is free software; you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 3 of the License, or
+-# any later version.
+-#
+-# NINJA-IDE is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
+-
+-from __future__ import absolute_import
+-from __future__ import unicode_literals
+-
+-import unittest
+-import os
+-
+-from ninja_ide.core.file_handling import file_manager
+-
+-
+-CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
+-
+-
+-class FileManagerTestCase(unittest.TestCase):
+-
+-    def setUp(self):
+-        global CURRENT_DIR
+-        self.examples_dir = os.path.join(CURRENT_DIR, 'examples')
+-
+-    def test_read_file_content(self):
+-        filename = os.path.join(self.examples_dir, 'file_for_tests.py')
+-        content = file_manager.read_file_content(filename)
+-        expected = ("# -*- coding: utf-8 -*-\n\nprint 'testing'\n"
+-                    "print 'ñandú testing'\n").encode('utf-8')
+-        self.assertEqual(content, expected)
+-
+-
+-if __name__ == '__main__':
+-    unittest.main()
+diff --git a/ninja_tests/core/__test_plugin_interfaces.py b/ninja_tests/core/__test_plugin_interfaces.py
+deleted file mode 100644
+index 0e6c6ebe..00000000
+--- a/ninja_tests/core/__test_plugin_interfaces.py
++++ /dev/null
+@@ -1,56 +0,0 @@
+-# -*- coding: utf-8 -*-
+-#
+-# This file is part of NINJA-IDE (http://ninja-ide.org).
+-#
+-# NINJA-IDE is free software; you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 3 of the License, or
+-# any later version.
+-#
+-# NINJA-IDE is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
+-from __future__ import absolute_import
+-import unittest
+-
+-from ninja_ide.core.plugin_interfaces import implements
+-from ninja_ide.core.plugin_interfaces import MethodNotImplemented
+-
+-
+-class A(object):
+-    def _a_private_method(self):
+-        pass
+-
+-    def one(self):
+-        pass
+-
+-    def two(self):
+-        pass
+-
+-
+-class B(object):
+-    pass
+-
+-
+-class C(object):
+-    def one(self):
+-        pass
+-
+-    def two(self):
+-        pass
+-
+-
+-class PluginInterfacesTestCase(unittest.TestCase):
+-
+-    def test_implements_decorator(self):
+-        a_implement = implements(A)
+-        self.assertRaises(MethodNotImplemented, a_implement, B)
+-        self.assertEqual(a_implement(C), C)
+-
+-
+-if __name__ == '__main__':
+-    unittest.main()
+diff --git a/ninja_tests/core/__test_plugin_manager.py b/ninja_tests/core/__test_plugin_manager.py
+deleted file mode 100644
+index 0217656c..00000000
+--- a/ninja_tests/core/__test_plugin_manager.py
++++ /dev/null
+@@ -1,53 +0,0 @@
+-# -*- coding: utf-8 -*-
+-#
+-# This file is part of NINJA-IDE (http://ninja-ide.org).
+-#
+-# NINJA-IDE is free software; you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 3 of the License, or
+-# any later version.
+-#
+-# NINJA-IDE is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
+-from __future__ import absolute_import
+-import unittest
+-import os
+-from ninja_ide.core.plugin_manager import PluginManager
+-
+-
+-CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
+-PLUGIN_NOT_VALID_NAME = 'test_NOT_plugin.plugin'
+-PLUGIN_VALID_NAME = 'test_plugin.plugin'
+-
+-
+-class PluginManagerTestCase(unittest.TestCase):
+-    def setUp(self):
+-        global CURRENT_DIR
+-        plugin_dir = os.path.join(CURRENT_DIR, 'plugins')
+-        self.pm = PluginManager(plugin_dir, None)
+-
+-    def test_discover(self):
+-        self.assertEqual(len(self.pm), 0)
+-        self.pm.discover()
+-        self.assertEqual(len(self.pm), 1)
+-
+-    def test_magic_method_contains(self):
+-        global PLUGIN_VALID_NAME, PLUGIN_NOT_VALID_NAME
+-        self.pm.discover()
+-        self.assertEqual(PLUGIN_VALID_NAME in self.pm, True)
+-        self.assertEqual(PLUGIN_NOT_VALID_NAME in self.pm, False)
+-
+-    def test_magic_method_getitem(self):
+-        global PLUGIN_VALID_NAME, PLUGIN_NOT_VALID_NAME
+-        self.pm.discover()
+-        self.assertTrue(self.pm['test_plugin.plugin'])
+-        self.assertRaises(KeyError, self.pm.__getitem__, PLUGIN_NOT_VALID_NAME)
+-
+-
+-if __name__ == '__main__':
+-    unittest.main()
+diff --git a/ninja_tests/core/examples/__init__.py b/ninja_tests/core/examples/__init__.py
+deleted file mode 100644
+index e69de29b..00000000
+diff --git a/ninja_tests/core/examples/file_for_tests.py b/ninja_tests/core/examples/file_for_tests.py
+deleted file mode 100644
+index c9954650..00000000
+--- a/ninja_tests/core/examples/file_for_tests.py
++++ /dev/null
+@@ -1,4 +0,0 @@
+-# -*- coding: utf-8 -*-
+-
+-print('testing')
+-print('ñandú testing')
+diff --git a/ninja_tests/core/plugins/test_plugin.plugin b/ninja_tests/core/plugins/test_plugin.plugin
+deleted file mode 100644
+index 2a3d4c8e..00000000
+--- a/ninja_tests/core/plugins/test_plugin.plugin
++++ /dev/null
+@@ -1,8 +0,0 @@
+-{
+-  "module": "test_plugin",
+-  "class": "TestPlugin",
+-  "authors": "Martin Alderete <malderete@ninja-ide.org>",
+-  "version": "0.1",
+-  "description": "Plugin for UnitTest",
+-  "url": "http://ninja-ide.org"
+-}
+diff --git a/ninja_tests/core/plugins/test_plugin/__init__.py b/ninja_tests/core/plugins/test_plugin/__init__.py
+deleted file mode 100644
+index 04d4227c..00000000
+--- a/ninja_tests/core/plugins/test_plugin/__init__.py
++++ /dev/null
+@@ -1 +0,0 @@
+-from test_plugin import TestPlugin
+diff --git a/ninja_tests/core/plugins/test_plugin/__test_plugin.py b/ninja_tests/core/plugins/test_plugin/__test_plugin.py
+deleted file mode 100644
+index c46fef80..00000000
+--- a/ninja_tests/core/plugins/test_plugin/__test_plugin.py
++++ /dev/null
+@@ -1,7 +0,0 @@
+-# -*- coding: utf-8 -*-
+-
+-from ninja_ide.core import plugin
+-
+-
+-class TestPlugin(plugin.Plugin):
+-    pass
+diff --git a/ninja_tests/core/test_file_handling_nfile.py b/ninja_tests/core/test_file_handling_nfile.py
+deleted file mode 100644
+index 40650cca..00000000
+--- a/ninja_tests/core/test_file_handling_nfile.py
++++ /dev/null
+@@ -1,176 +0,0 @@
+-# -*- coding: utf-8 -*-
+-#
+-# This file is part of NINJA-IDE (http://ninja-ide.org).
+-#
+-# NINJA-IDE is free software; you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 3 of the License, or
+-# any later version.
+-#
+-# NINJA-IDE is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
+-
+-
+-import os
+-import tempfile
+-import pytest
+-
+-from ninja_ide.core.file_handling import nfile
+-from ninja_ide.core.file_handling.file_manager import NinjaNoFileNameException
+-from ninja_ide.core.file_handling.file_manager import NinjaIOException
+-
+-CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
+-
+-# Test Nfile API works
+-
+-
+-def test_knows_if_exists():
+-    """If the file exists, can NFile tell?"""
+-    temp_file = tempfile.NamedTemporaryFile()
+-    existing_nfile = nfile.NFile(temp_file.name)
+-    assert existing_nfile._exists()
+-
+-
+-def test_knows_if_doesnt_exists():
+-    """If the file does not exists, can NFile tell?"""
+-    temp_file = tempfile.NamedTemporaryFile()
+-    existing_nfile = nfile.NFile(temp_file.name)
+-    temp_file.close()
+-    assert not existing_nfile._exists()
+-
+-
+-def test_save_no_filename_raises():
+-    """If there is no filename associated to the nfile we should get error"""
+-    no_filename_file = nfile.NFile()
+-    with pytest.raises(NinjaNoFileNameException) as info:
+-        no_filename_file.save("dumb content")
+-    assert str(info.value) == "I am asked to write a file but no one told me"\
+-                              " where"
+-
+-
+-def test_creates_if_doesnt_exist():
+-    temp_name = tempfile.NamedTemporaryFile().name
+-    assert not os.path.exists(temp_name)
+-    a_nfile = nfile.NFile(temp_name)
+-    a_nfile.save("empty content")
+-    assert os.path.exists(temp_name)
+-
+-
+-def test_actual_content_is_saved():
+-    content = "empty content"
+-    temp_name = tempfile.NamedTemporaryFile().name
+-    assert not os.path.exists(temp_name)
+-    a_nfile = nfile.NFile(temp_name)
+-    a_nfile.save(content)
+-    a_file = open(temp_name)
+-    a_file_content = a_file.read()
+-    assert a_file_content == content
+-    a_file.close()
+-
+-
+-def test_saves_to_filepath():
+-    temp_name = tempfile.NamedTemporaryFile().name
+-    assert not os.path.exists(temp_name)
+-    a_nfile = nfile.NFile(temp_name)
+-    assert not os.path.exists(a_nfile.file_path)
+-    a_nfile.save("content")
+-    assert os.path.exists(a_nfile.file_path)
+-
+-
+-def test_path_overrides_filepath():
+-    temp_name = tempfile.NamedTemporaryFile().name
+-    temp_name_path = tempfile.NamedTemporaryFile().name
+-    temp_name_path = "%s_really_unique" % temp_name_path
+-    assert temp_name != temp_name_path
+-    assert not temp_name == temp_name_path
+-    a_nfile = nfile.NFile(temp_name)
+-    assert not os.path.exists(a_nfile.file_path)
+-    a_nfile.save("content", path=temp_name_path)
+-    assert not os.path.exists(temp_name)
+-    assert os.path.exists(temp_name_path)
+-
+-
+-def test_path_is_set_as_new_nfile_filepath():
+-    temp_name = tempfile.NamedTemporaryFile().name
+-    temp_name_path = tempfile.NamedTemporaryFile().name
+-    temp_name_path = "%s_really_unique" % temp_name_path
+-    assert temp_name != temp_name_path
+-    a_nfile = nfile.NFile(temp_name)
+-    assert temp_name_path != a_nfile.file_path
+-    new_nfile = a_nfile.save("content", path=temp_name_path)
+-    assert temp_name_path == new_nfile.file_path
+-    assert temp_name != a_nfile.file_path
+-
+-
+-def test_copy_flag_saves_to_path_only():
+-    temp_name = tempfile.NamedTemporaryFile().name
+-    temp_name_path = tempfile.NamedTemporaryFile().name
+-    temp_name_path = u"%s_really_unique" % temp_name_path
+-    assert temp_name != temp_name_path
+-    a_nfile = nfile.NFile(temp_name)
+-    a_nfile.save("content", path=temp_name_path)
+-    assert not os.path.exists(temp_name)
+-    assert os.path.exists(temp_name_path)
+-
+-
+-def test_file_is_read_properly():
+-    to_load_file = tempfile.NamedTemporaryFile()
+-    load_text = "Something to load"
+-    to_load_file.write(load_text.encode())
+-    to_load_file.seek(0)
+-    a_nfile = nfile.NFile(to_load_file.name)
+-    content = a_nfile.read()
+-    assert content == load_text
+-
+-
+-def test_file_read_blows_when_nonexistent_path():
+-    a_nfile = nfile.NFile()
+-    with pytest.raises(NinjaNoFileNameException):
+-        a_nfile.read()
+-
+-
+-def test_file_read_blows_on_nonexistent_file():
+-    temp_name = tempfile.NamedTemporaryFile().name
+-    a_nfile = nfile.NFile(temp_name)
+-    with pytest.raises(NinjaIOException):
+-        a_nfile.read()
+-
+-
+-def test_file_is_moved():
+-    temp_name = tempfile.NamedTemporaryFile().name
+-    new_temp_name = "%s_new" % temp_name
+-    test_content = "zero"
+-    temp_file = open(temp_name, "w")
+-    temp_file.write(test_content)
+-    temp_file.close()
+-    a_nfile = nfile.NFile(temp_name)
+-    a_nfile.move(new_temp_name)
+-    assert os.path.exists(new_temp_name)
+-    read_test_content = open(new_temp_name, "r")
+-    assert read_test_content.read() == test_content
+-    read_test_content.close()
+-    assert not os.path.exists(temp_name)
+-
+-
+-def test_move_changes_filepath():
+-    temp_name = tempfile.NamedTemporaryFile().name
+-    new_temp_name = "%s_new" % temp_name
+-    test_content = "zero"
+-    temp_file = open(temp_name, "w")
+-    temp_file.write(test_content)
+-    temp_file.close()
+-    a_nfile = nfile.NFile(temp_name)
+-    a_nfile.move(new_temp_name)
+-    assert a_nfile.file_path == new_temp_name
+-
+-
+-def test_filepath_changes_even_if_inexistent():
+-    temp_name = tempfile.NamedTemporaryFile().name
+-    a_nfile = nfile.NFile()
+-    a_nfile.move(temp_name)
+-    assert a_nfile.file_path == temp_name
+diff --git a/ninja_tests/gui/__init__.py b/ninja_tests/gui/__init__.py
+deleted file mode 100644
+index e69de29b..00000000
+diff --git a/ninja_tests/gui/editor/__init__.py b/ninja_tests/gui/editor/__init__.py
+deleted file mode 100644
+index 088056cc..00000000
+--- a/ninja_tests/gui/editor/__init__.py
++++ /dev/null
+@@ -1,16 +0,0 @@
+-# -*- coding: utf-8 -*-
+-#
+-# This file is part of NINJA-IDE (http://ninja-ide.org).
+-#
+-# NINJA-IDE is free software; you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 3 of the License, or
+-# any later version.
+-#
+-# NINJA-IDE is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
+diff --git a/ninja_tests/gui/editor/_test_autocomplete_braces.py b/ninja_tests/gui/editor/_test_autocomplete_braces.py
+deleted file mode 100644
+index 7ffbfbf6..00000000
+--- a/ninja_tests/gui/editor/_test_autocomplete_braces.py
++++ /dev/null
+@@ -1,107 +0,0 @@
+-# -*- coding: utf-8 -*-
+-#
+-# This file is part of NINJA-IDE (http://ninja-ide.org).
+-#
+-# NINJA-IDE is free software; you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 3 of the License, or
+-# any later version.
+-#
+-# NINJA-IDE is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
+-
+-import pytest
+-from unittest.mock import Mock
+-
+-from ninja_ide import resources
+-from ninja_ide.gui.editor import editor
+-
+-from PyQt5.QtGui import QTextDocument
+-from PyQt5.QtCore import Qt
+-
+-# FIXME: use mock
+-from ninja_ide.gui.explorer.tabs import bookmark_manager  # noqa
+-
+-resources.COLOR_SCHEME = {"colors": []}
+-
+-
+-@pytest.fixture
+-def editor_bot(qtbot):
+-    editable = Mock()
+-    editable.document = QTextDocument()
+-    _editor = editor.create_editor(editable)
+-    return _editor
+-
+-
+-@pytest.mark.parametrize(
+-    "text, expected_text, column",
+-    [
+-        ("[", "[]", 1),
+-        ("{", "{}", 1),
+-        ("(", "()", 1)
+-    ])
+-def test_close_braces(qtbot, editor_bot, text, expected_text, column):
+-    qtbot.keyClicks(editor_bot, text)
+-    assert editor_bot.text == expected_text
+-    _, col = editor_bot.cursor_position
+-    assert col == column
+-
+-
+-@pytest.mark.parametrize(
+-    "text, expected_text, column",
+-    [
+-        ("[]", "[]", 2),
+-        ("{}", "{}", 2),
+-        ("()", "()", 2)
+-    ])
+-def test_close_braces2(qtbot, editor_bot, text, expected_text, column):
+-    qtbot.keyClicks(editor_bot, text)
+-
+-    assert editor_bot.text == expected_text
+-    _, col = editor_bot.cursor_position
+-    assert col == column
+-
+-
+-@pytest.mark.parametrize(
+-    "text, expected_text, column",
+-    [
+-        ("[[[[[[[[[[", "[[[[[[[[[[]]]]]]]]]]", 10),
+-        ("{{{{{{{{{{", "{{{{{{{{{{}}}}}}}}}}", 10),
+-        ("((((((((((", "(((((((((())))))))))", 10)
+-    ])
+-def test_close_braces3(qtbot, editor_bot, text, expected_text, column):
+-    qtbot.keyClicks(editor_bot, text)
+-
+-    assert editor_bot.text == expected_text
+-    _, col = editor_bot.cursor_position
+-    assert col == column
+-
+-
+-def test_close_braces4(editor_bot, qtbot):
+-    editor_bot.text = "test content"
+-    cursor = editor_bot.textCursor()
+-    cursor.movePosition(cursor.EndOfBlock)
+-    editor_bot.setTextCursor(cursor)
+-    # Press '('
+-    qtbot.keyPress(editor_bot, Qt.Key_ParenLeft)
+-    assert editor_bot.text == "test content()"
+-
+-
+-def test_close_braces5(editor_bot, qtbot):
+-    editor_bot.text = "test content"
+-    cursor = editor_bot.textCursor()
+-    cursor.movePosition(cursor.EndOfBlock)
+-    cursor.movePosition(cursor.Left)
+-    editor_bot.setTextCursor(cursor)
+-    # Press '('
+-    qtbot.keyPress(editor_bot, Qt.Key_ParenLeft)
+-    assert editor_bot.text == "test conten(t"
+-
+-
+-if __name__ == "__main__":
+-    pytest.main()
+diff --git a/ninja_tests/gui/editor/_test_autocomplete_quotes.py b/ninja_tests/gui/editor/_test_autocomplete_quotes.py
+deleted file mode 100644
+index 3a7b281d..00000000
+--- a/ninja_tests/gui/editor/_test_autocomplete_quotes.py
++++ /dev/null
+@@ -1,120 +0,0 @@
+-# -*- coding: utf-8 -*-
+-#
+-# This file is part of NINJA-IDE (http://ninja-ide.org).
+-#
+-# NINJA-IDE is free software; you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 3 of the License, or
+-# any later version.
+-#
+-# NINJA-IDE is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
+-
+-import pytest
+-from unittest.mock import Mock
+-
+-from ninja_ide.gui.editor import editor
+-
+-from PyQt5.QtGui import QTextDocument
+-from PyQt5.QtCore import Qt
+-
+-
+-@pytest.fixture
+-def editor_bot(qtbot):
+-    editable = Mock()
+-    editable.document = QTextDocument()
+-    _editor = editor.create_editor(editable)
+-    return _editor
+-
+-
+-@pytest.mark.parametrize(
+-    "text, expected_text, column",
+-    [
+-        ("'", "''", 1),
+-        ("''", "''", 2),
+-        ('"', '""', 1),
+-        ('""', '""', 2),
+-        ("''''", "''''''", 3),
+-        ('""""', '""""""', 3)
+-    ])
+-def test_close_quotes(qtbot, editor_bot, text, expected_text, column):
+-    qtbot.keyClicks(editor_bot, text)
+-    assert editor_bot.text == expected_text
+-    _, col = editor_bot.cursor_position
+-    assert col == column
+-
+-
+-def test_autocomplete_single_selection(editor_bot, qtbot):
+-    editor_bot.text = 'ninja-ide rocks!'
+-    editor_bot.selectAll()
+-    qtbot.keyPress(editor_bot, Qt.Key_QuoteDbl)
+-    assert editor_bot.text == '"ninja-ide rocks!"'
+-
+-
+-def test_autocomplete_multiline_selection(editor_bot, qtbot):
+-    editor_bot.text = 'ninja-ide rocks!\nholaaaa\nkokoko'
+-    editor_bot.selectAll()
+-    qtbot.keyPress(editor_bot, Qt.Key_Apostrophe)
+-    assert editor_bot.text == "'ninja-ide rocks!\nholaaaa\nkokoko'"
+-
+-
+-def test_autocomplete_multiline_selection2(editor_bot, qtbot):
+-    editor_bot.text = 'ninja-ide rocks!\nholaaaa\nkokoko'
+-    editor_bot.selectAll()
+-    for i in range(5):
+-        qtbot.keyPress(editor_bot, Qt.Key_Apostrophe)
+-    assert editor_bot.text == "'''''ninja-ide rocks!\nholaaaa\nkokoko'''''"
+-
+-
+-def test_autocomplete_triple_double_quotes(editor_bot, qtbot):
+-    qtbot.keyPress(editor_bot, Qt.Key_Return)
+-    qtbot.keyPress(editor_bot, Qt.Key_Return)
+-    qtbot.keyPress(editor_bot, Qt.Key_QuoteDbl)
+-    qtbot.keyPress(editor_bot, Qt.Key_QuoteDbl)
+-    qtbot.keyPress(editor_bot, Qt.Key_QuoteDbl)
+-    qtbot.keyPress(editor_bot, Qt.Key_QuoteDbl)
+-
+-    assert editor_bot.text == '\n\n""""""'
+-    _, col = editor_bot.cursor_position
+-    assert col == 3
+-
+-
+-def test_autocomplete_triple_double_quotes2(editor_bot, qtbot):
+-    qtbot.keyPress(editor_bot, Qt.Key_Return)
+-    qtbot.keyPress(editor_bot, Qt.Key_Return)
+-    for i in range(4):
+-        qtbot.keyPress(editor_bot, Qt.Key_Space)
+-    qtbot.keyPress(editor_bot, Qt.Key_QuoteDbl)
+-    qtbot.keyPress(editor_bot, Qt.Key_QuoteDbl)
+-    qtbot.keyPress(editor_bot, Qt.Key_QuoteDbl)
+-    qtbot.keyPress(editor_bot, Qt.Key_QuoteDbl)
+-
+-    assert editor_bot.text == '\n\n    """"""'
+-    _, col = editor_bot.cursor_position
+-    assert col == 7
+-
+-
+-def test_last(editor_bot, qtbot):
+-    editor_bot.text = "class NINJA(object):\n    "
+-    cur = editor_bot.textCursor()
+-    cur.movePosition(cur.End)
+-    editor_bot.setTextCursor(cur)
+-    qtbot.keyPress(editor_bot, Qt.Key_QuoteDbl)
+-    qtbot.keyPress(editor_bot, Qt.Key_QuoteDbl)
+-    qtbot.keyPress(editor_bot, Qt.Key_QuoteDbl)
+-    qtbot.keyPress(editor_bot, Qt.Key_QuoteDbl)
+-
+-    assert editor_bot.text == 'class NINJA(object):\n    """"""'
+-    _, col = editor_bot.cursor_position
+-    assert col == 7
+-    editor_bot.textCursor().insertText('docstring')
+-    assert editor_bot.text == 'class NINJA(object):\n    """docstring"""'
+-
+-
+-if __name__ == "__main__":
+-    pytest.main()
+diff --git a/ninja_tests/gui/editor/side_areas/__init__.py b/ninja_tests/gui/editor/side_areas/__init__.py
+deleted file mode 100644
+index ea751587..00000000
+--- a/ninja_tests/gui/editor/side_areas/__init__.py
++++ /dev/null
+@@ -1,29 +0,0 @@
+-# -*- coding: utf-8 -*-
+-#
+-# This file is part of NINJA-IDE (http://ninja-ide.org).
+-#
+-# NINJA-IDE is free software; you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 3 of the License, or
+-# any later version.
+-#
+-# NINJA-IDE is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
+-
+-
+-# from ninja_ide.gui.editor.side_area import marker_widget
+-# # Need COLOR_SCHEME
+-# from ninja_ide import resources
+-# from ninja_ide.tools import json_manager
+-# all_schemes = json_manager.load_editor_schemes()
+-# resources.COLOR_SCHEME = all_schemes["Ninja Dark"]
+-
+-
+-# def get_marker_area():
+-#     # editor = create_editor()
+-#     return marker_widget.MarkerWidget()
+diff --git a/ninja_tests/gui/editor/side_areas/__test_marker_area.py b/ninja_tests/gui/editor/side_areas/__test_marker_area.py
+deleted file mode 100644
+index 1f5dd1e9..00000000
+--- a/ninja_tests/gui/editor/side_areas/__test_marker_area.py
++++ /dev/null
+@@ -1,49 +0,0 @@
+-from ninja_tests.gui import editor
+-
+-editor_ref = editor.create_editor()
+-widget = editor_ref.side_widgets.get("MarkerWidget")
+-
+-
+-def test_1(qtbot):
+-    widget.add_bookmark(2)
+-    widget.add_bookmark(5)
+-    assert widget.bookmarks == [2, 5]
+-
+-
+-def test_2(qtbot):
+-    for i in range(100):
+-        editor_ref.textCursor().insertBlock()
+-    widget.add_bookmark(57)
+-    widget.add_bookmark(20)
+-    widget.add_bookmark(5)
+-    widget.add_bookmark(97)
+-    widget.add_bookmark(100)
+-    editor_ref.cursor_position = 16, 0
+-    widget.next_bookmark()
+-    line, _ = editor_ref.cursor_position
+-    assert line == 20
+-    widget.previous_bookmark()
+-    line, _ = editor_ref.cursor_position
+-    assert line == 5
+-
+-
+-def test_3():
+-    for i in range(190):
+-        editor_ref.textCursor().insertBlock()
+-    widget.add_bookmark(20)
+-    widget.add_bookmark(5)
+-    widget.add_bookmark(54)
+-    widget.add_bookmark(124)
+-    widget.add_bookmark(189)
+-    editor_ref.cursor_position = 130, 0
+-    widget.next_bookmark()
+-    line, _ = editor_ref.cursor_position
+-    assert line == 189
+-    widget.previous_bookmark()
+-    line, _ = editor_ref.cursor_position
+-    assert line == 124
+-    widget.next_bookmark()
+-    widget.next_bookmark()
+-    widget.next_bookmark()
+-    line, _ = editor_ref.cursor_position
+-    assert line == 5
+diff --git a/ninja_tests/gui/editor/test_code_editor.py b/ninja_tests/gui/editor/test_code_editor.py
+deleted file mode 100644
+index d8034d9b..00000000
+--- a/ninja_tests/gui/editor/test_code_editor.py
++++ /dev/null
+@@ -1,45 +0,0 @@
+-import pytest
+-
+-from PyQt5.QtGui import QTextCursor
+-
+-from ninja_ide.gui.editor.base import CodeEditor
+-
+-
+-@pytest.fixture
+-def code_editor():
+-    editor = CodeEditor()
+-    editor.text = "NINJA-IDE is not just another IDE"
+-    return editor
+-
+-
+-def test_find_match(code_editor):
+-    assert code_editor.find_match('IDE') is True
+-    _, col = code_editor.cursor_position
+-    assert col == 9
+-
+-
+-def test_find_match_cs(code_editor):
+-    assert code_editor.find_match('JUST', True) is False
+-
+-
+-def test_find_match_wo(code_editor):
+-    assert code_editor.find_match('ju', whole_word=True) is False
+-
+-
+-def test_replace_match(code_editor):
+-    code_editor.find_match('just')
+-    code_editor.replace_match(
+-        word_old='just',
+-        word_new='JUST'
+-    )
+-    assert code_editor.text == 'NINJA-IDE is not JUST another IDE'
+-
+-
+-def test_replace_all(code_editor):
+-    code_editor.replace_all(
+-        word_old='IDE',
+-        word_new='Integrated Development Environment'
+-    )
+-    assert code_editor.text == (
+-        'NINJA-Integrated Development Environment is not just another '
+-        'Integrated Development Environment')
+diff --git a/ninja_tests/gui/editor/test_editor.py b/ninja_tests/gui/editor/test_editor.py
+deleted file mode 100644
+index d749e272..00000000
+--- a/ninja_tests/gui/editor/test_editor.py
++++ /dev/null
+@@ -1,214 +0,0 @@
+-# -*- coding: utf-8 -*-
+-#
+-# This file is part of NINJA-IDE (http://ninja-ide.org).
+-#
+-# NINJA-IDE is free software; you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 3 of the License, or
+-# any later version.
+-#
+-# NINJA-IDE is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
+-
+-import pytest
+-
+-from PyQt5.QtGui import QTextCursor
+-
+-from ninja_ide.gui.editor import base
+-
+-
+-@pytest.fixture
+-def editor_fixture():
+-    editor = base.BaseTextEditor()
+-    return editor
+-
+-
+-@pytest.fixture
+-def editor_with_text(editor_fixture):
+-    editor_fixture.setPlainText("this\nis\an\nexample")
+-    editor_fixture.moveCursor(QTextCursor.Start)
+-    return editor_fixture
+-
+-
+-def test_selected_text(editor_with_text):
+-    cursor = editor_with_text.textCursor()
+-    cursor.movePosition(cursor.Right, cursor.KeepAnchor, 4)
+-    editor_with_text.setTextCursor(cursor)
+-    assert editor_with_text.has_selection()
+-    assert editor_with_text.selected_text() == 'this'
+-
+-
+-def test_selection_range(editor_with_text):
+-    cursor = editor_with_text.textCursor()
+-    cursor.movePosition(QTextCursor.Down, QTextCursor.KeepAnchor, 2)
+-    editor_with_text.setTextCursor(cursor)
+-    assert editor_with_text.selection_range() == (0, 1)
+-    cursor.movePosition(QTextCursor.Right, QTextCursor. KeepAnchor)
+-    editor_with_text.setTextCursor(cursor)
+-    assert editor_with_text.selection_range() == (0, 2)
+-
+-
+-@pytest.mark.parametrize(
+-    'text, lineno, expected',
+-    [
+-        ('ninja\nIDE\n\nis awesome!', 2, ''),
+-        ('ninja\nIDE\n\nis awesome!', 0, 'ninja'),
+-        ('ninja\nIDE\n\nis awesome!', 3, 'is awesome!'),
+-        ('ninja\nIDE\n\nis awesome!', -1, 'ninja')
+-    ]
+-)
+-def test_line_text(editor_fixture, text, lineno, expected):
+-    editor_fixture.text = text
+-    editor_fixture.cursor_position = lineno, 0
+-    assert editor_fixture.line_text(lineno) == expected
+-
+-@pytest.mark.parametrize(
+-    'text, expected',
+-    [
+-        ('asd ldsaj lkaskdj hakjshdkjh asd', 1),
+-        ('as\n\n\nd ld\nsaj l\nkaskdj hakjshdkjh asd', 6),
+-        ('asd ldsaj lkaskdj ha\nkj\nshdkjh asd', 3)
+-    ]
+-)
+-def test_line_count(editor_fixture, text, expected):
+-    editor_fixture.text = text
+-    assert editor_fixture.line_count() == expected
+-
+-
+-def test_insert_text(editor_fixture):
+-    assert editor_fixture.text == ''
+-    editor_fixture.insert_text("inserting text")
+-    assert editor_fixture.text == 'inserting text'
+-    editor_fixture.setReadOnly(True)
+-    editor_fixture.insert_text("INSERTING TEXt")
+-    assert editor_fixture.text == 'inserting text'
+-
+-
+-@pytest.mark.parametrize(
+-    'text, position, expected',
+-    [
+-        ('hola como estas', (0, 0), 'hola'),
+-        ('hola\n como \nestas', (2, 3), 'estas'),
+-        ('hola\n aaa ssss wwww como estas', (1, 17), 'como')
+-    ]
+-)
+-def test_get_right_word(editor_fixture, text, position, expected):
+-    editor_fixture.text = text
+-    editor_fixture.cursor_position = position
+-    assert editor_fixture.cursor_position == position
+-
+-
+-@pytest.mark.parametrize(
+-    'text, position, expected',
+-    [
+-        ('hola como estas', (0, 0), 'h'),
+-        ('hola\n como \nestas', (2, 3), 'a'),
+-        ('hola\n aaa ssss wwww como estas', (1, 17), 'm')
+-    ]
+-)
+-def test_get_right_character(editor_fixture, text, position, expected):
+-    editor_fixture.text = text
+-    editor_fixture.cursor_position = position
+-    assert editor_fixture.get_right_character() == expected
+-
+-
+-@pytest.mark.parametrize(
+-    'text, lineno, up, expected',
+-    [
+-        ('ninja\nIDE\n\nis awesome!!!\n!', 0, False,
+-         'IDE\nninja\n\nis awesome!!!\n!'),
+-        ('ninja\nIDE\n\nis awesome!!!\n!', 3, True,
+-         'ninja\nIDE\nis awesome!!!\n\n!')
+-    ]
+-)
+-def test_move_up_down(editor_fixture, text, lineno, up, expected):
+-    editor_fixture.text = text
+-    editor_fixture.cursor_position = lineno, 0
+-    editor_fixture.move_up_down(up)
+-    assert editor_fixture.text == expected
+-
+-
+-@pytest.mark.parametrize(
+-    'text, range_, up, expected',
+-    [
+-        ('ninja is not just\nanother\nide\nprint', (0, 1), False,
+-         'ide\nninja is not just\nanother\nprint'),
+-        ('ninja is not just\nanother\nide\nprint', (2, 1), True,
+-         'another\nide\nninja is not just\nprint')
+-    ]
+-)
+-def test_move_up_down_selection(editor_fixture, text, range_, up, expected):
+-    editor_fixture.text = text
+-    start, end = range_
+-    editor_fixture.cursor_position = start, 0
+-    cursor = editor_fixture.textCursor()
+-    if up:
+-        cursor.movePosition(QTextCursor.EndOfLine)
+-        cursor.movePosition(QTextCursor.StartOfLine, QTextCursor.KeepAnchor)
+-        cursor.movePosition(QTextCursor.Up, QTextCursor.KeepAnchor, abs(end - start))
+-    else:
+-        cursor.movePosition(QTextCursor.Down, QTextCursor.KeepAnchor, end - start)
+-        cursor.movePosition(QTextCursor.EndOfLine, QTextCursor.KeepAnchor)
+-    editor_fixture.setTextCursor(cursor)
+-    editor_fixture.move_up_down(up)
+-    assert editor_fixture.text == expected
+-
+-
+-
+-@pytest.mark.parametrize(
+-    'text, lineno, n, expected',
+-    [
+-        ('example\ntext', 0, 1, 'example\nexample\ntext'),
+-        ('example\ntext', 1, 1, 'example\ntext\ntext'),
+-        ('example\ntext', 1, 3, 'example\ntext\ntext\ntext\ntext')
+-    ]
+-)
+-def test_duplicate_line(editor_fixture, text, lineno, n, expected):
+-    editor_fixture.text = text
+-    editor_fixture.cursor_position = lineno, 0
+-    for i in range(n):
+-        editor_fixture.duplicate_line()
+-    assert editor_fixture.text == expected
+-
+-
+-@pytest.mark.parametrize(
+-    'text, _range, n, expected',
+-    [
+-        ('exa\nmple\ntext\n!!', (0, 1), 1, 'exa\nmple\nexa\nmple\ntext\n!!'),
+-        ('exa\nmple\ntext\n!!', (0, 1), 4, 'exa\nmple\nexa\nmple\nexa\nmple\nexa\nmple\nexa\nmple\ntext\n!!'),  # noqa
+-    ]
+-)
+-def test_duplicate_line_selection(editor_fixture, text, _range, n, expected):
+-    editor_fixture.text = text
+-    cursor = editor_fixture.textCursor()
+-    start, end = _range
+-    editor_fixture.cursor_position = start, 0
+-    cursor.movePosition(QTextCursor.Down, QTextCursor.KeepAnchor, end - start)
+-    cursor.movePosition(QTextCursor.EndOfLine, QTextCursor.KeepAnchor)
+-    editor_fixture.setTextCursor(cursor)
+-    for i in range(n):
+-        editor_fixture.duplicate_line()
+-    assert editor_fixture.text == expected
+-
+-
+-@pytest.mark.parametrize(
+-    'text, position, expected',
+-    [
+-        ('hola\ncomo\nestas\n  ', (0, 4), 'hola'),
+-        ('hola\ncomo\nestas\n  ', (2, 1), 'estas'),
+-        ('hola\ncomo\nestas\n  ', (0, 1), 'hola'),
+-        ('hola\ncomo\nestas\n  ', (1, 3), 'como'),
+-        ('hola\ncomo\nestas\n  ', (3, 2), '')
+-    ]
+-)
+-def test_word_under_cursor(editor_fixture, text, position, expected):
+-    editor_fixture.text = text
+-    editor_fixture.cursor_position = position
+-    cursor = editor_fixture.word_under_cursor()
+-    assert not cursor.isNull()
+-    assert cursor.selectedText() == expected
+diff --git a/ninja_tests/gui/editor/test_indenter.py b/ninja_tests/gui/editor/test_indenter.py
+deleted file mode 100644
+index 7ef8ec5d..00000000
+--- a/ninja_tests/gui/editor/test_indenter.py
++++ /dev/null
+@@ -1,102 +0,0 @@
+-import pytest
+-
+-from PyQt5.QtWidgets import QPlainTextEdit
+-
+-from ninja_ide.gui.editor.indenter import base
+-
+-
+-class DummyEditor(QPlainTextEdit):
+-
+-    def __enter__(self):
+-        self.textCursor().beginEditBlock()
+-
+-    def __exit__(self, exc_type, exc_value, traceback):
+-        self.textCursor().endEditBlock()
+-
+-
+-@pytest.fixture
+-def code_editor():
+-    editor = DummyEditor()
+-    indenter = base.BasicIndenter(editor)
+-    return editor, indenter
+-
+-
+-@pytest.mark.parametrize(
+-    'text, expected',
+-    [
+-        ('  def foo():', '  def foo():\n  '),
+-        ('   def foo():', '   def foo():\n   '),
+-        ('def foo():', 'def foo():\n'),
+-        ('          def foo():', '          def foo():\n          ')
+-    ]
+-)
+-def test_basic_indenter(code_editor, text, expected):
+-    editor, indenter = code_editor
+-    editor.setPlainText(text)
+-    cursor = editor.textCursor()
+-    cursor.movePosition(cursor.EndOfLine)
+-    editor.setTextCursor(cursor)
+-    indenter.indent_block(cursor)
+-    assert editor.toPlainText() == expected
+-
+-
+-@pytest.mark.parametrize(
+-    'text, use_tab, expected',
+-    [
+-        ('  def foo():', False, '  def foo():\n  '),
+-        ('\tdef foo():', True, '\tdef foo():\n\t')
+-    ]
+-)
+-def test_text(code_editor, text, use_tab, expected):
+-    editor, indenter = code_editor
+-    editor.setPlainText(text)
+-    cursor = editor.textCursor()
+-    cursor.movePosition(cursor.EndOfLine)
+-    editor.setTextCursor(cursor)
+-
+-    indenter.use_tabs = use_tab
+-    if use_tab:
+-        text = '\t'
+-    else:
+-        text = '    '
+-    assert indenter.text() == text
+-    indenter.indent_block(cursor)
+-    assert editor.toPlainText() == expected
+-
+-
+-@pytest.mark.parametrize(
+-    'text, width, expected, use_tab',
+-    [
+-        ('def foo():', 4, 'def foo():  ', False),
+-        ('def foo():', 2, 'def foo():  ', False),
+-        ('def foooo():', 4, 'def foooo():    ', False),
+-        ('def foo():', 1, 'def foo():\t', True)
+-    ]
+-)
+-def test_indent(code_editor, text, width, expected, use_tab):
+-    editor, indenter = code_editor
+-    editor.setPlainText(text)
+-    cursor = editor.textCursor()
+-    cursor.movePosition(cursor.EndOfLine)
+-    editor.setTextCursor(cursor)
+-    indenter.width = width
+-    indenter.use_tabs = use_tab
+-    indenter.indent()
+-    assert editor.toPlainText() == expected
+-
+-
+-@pytest.mark.parametrize(
+-    'text, n, expected',
+-    [
+-        ('ninja\nide', 1, '    ninja\n    ide'),
+-        ('ninja\nide', 2, '        ninja\n        ide'),
+-        ('ninja', 4, '                ninja')
+-    ]
+-)
+-def test_indent_selection(code_editor, text, n, expected):
+-    editor, indenter = code_editor
+-    editor.setPlainText(text)
+-    editor.selectAll()
+-    for i in range(n):
+-        indenter.indent_selection()
+-    assert editor.toPlainText() == expected
+diff --git a/ninja_tests/gui/editor/test_python_indenter.py b/ninja_tests/gui/editor/test_python_indenter.py
+deleted file mode 100644
+index 0960c9e1..00000000
+--- a/ninja_tests/gui/editor/test_python_indenter.py
++++ /dev/null
+@@ -1,262 +0,0 @@
+-# -*- coding: utf-8 -*-
+-#
+-# This file is part of NINJA-IDE (http://ninja-ide.org).
+-#
+-# NINJA-IDE is free software; you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 3 of the License, or
+-# any later version.
+-#
+-# NINJA-IDE is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with NINJA-IDE; If not, see <http://www.gnu.org/licenses/>.
+-
+-from ninja_ide.gui.editor.base import BaseTextEditor
+-from ninja_ide.gui.editor.indenter.python_indenter import PythonIndenter
+-
+-
+-def make_editor():
+-    editor = BaseTextEditor()
+-    indenter = PythonIndenter(editor)
+-    return editor, indenter
+-
+-
+-def make_indent(text):
+-    editor, indenter = make_editor()
+-    editor.text = text
+-    cursor = editor.textCursor()
+-    cursor.movePosition(cursor.End)
+-    editor.setTextCursor(cursor)
+-    indenter.indent_block(cursor)
+-    return editor.text
+-
+-
+-def test_1():
+-    assert make_indent('def foo():') == 'def foo():\n    '
+-
+-
+-def test_2():
+-    text = make_indent('def foo():\n    pass')
+-    assert text == 'def foo():\n    pass\n'
+-
+-
+-def test_3():
+-    text = make_indent('def foo():\n    def inner():')
+-    assert text == 'def foo():\n    def inner():\n        '
+-
+-
+-def test_4():
+-    text = make_indent("def foo():\n    def inner():\n        pass")
+-    assert text == 'def foo():\n    def inner():\n        pass\n    '
+-
+-
+-def test_5():
+-    text = make_indent("lista = [23,")
+-    assert text == 'lista = [23,\n         '
+-
+-
+-def test_6():
+-    text = make_indent('def foo(*args,')
+-    assert text == 'def foo(*args,\n        '
+-
+-
+-def test_7():
+-    a_text = "def foo(arg1,\n        arg2, arg3):"
+-    text = make_indent(a_text)
+-    assert text == 'def foo(arg1,\n        arg2, arg3):\n    '
+-
+-
+-def test_8():
+-    a_text = """# Comment
+-    class A(object):
+-        def __init__(self):
+-            self._val = 0
+-
+-        def foo(self):
+-            def bar(arg1,
+-                    arg2):"""
+-
+-    text = make_indent(a_text)
+-    expected = """# Comment
+-    class A(object):
+-        def __init__(self):
+-            self._val = 0
+-
+-        def foo(self):
+-            def bar(arg1,
+-                    arg2):
+-                """
+-    assert text == expected
+-
+-
+-def test_9():
+-    a_text = """# comment
+-    lista = [32,
+-             3232332323, [3232,"""
+-    text = make_indent(a_text)
+-    expected = """# comment
+-    lista = [32,
+-             3232332323, [3232,
+-                          """
+-    assert text == expected
+-
+-
+-def test_10():
+-    # Hang indent
+-    # text = make_indent('tupla = (')
+-    # assert text == 'tupla = (\n    '
+-    pass
+-
+-
+-def test_11():
+-    a_text = "def foo():\n    def inner():\n        return foo()"
+-    text = make_indent(a_text)
+-    expected = "def foo():\n    def inner():\n        return foo()\n    "
+-    assert text == expected
+-
+-
+-def test_12():
+-    a_text = """if __name__ == "__main__":
+-    nombre = input('Nombre: ')
+-    print(nombre)"""
+-    text = make_indent(a_text)
+-    expected = """if __name__ == "__main__":
+-    nombre = input('Nombre: ')
+-    print(nombre)
+-    """
+-    assert text == expected
+-
+-
+-def test_13():
+-    a_text = "d = []"
+-    editor, indenter = make_editor()
+-    editor.text = a_text
+-    editor.cursor_position = 1, 5
+-    indenter.indent_block(editor.textCursor())
+-    expected = "d = [\n    \n]"
+-    assert editor.text == expected
+-
+-
+-def test_14():
+-    a_text = "d = ['one', 'two']"
+-    editor, indenter = make_editor()
+-    editor.text = a_text
+-    editor.cursor_position = 1, 5
+-    indenter.indent_block(editor.textCursor())
+-    expected = "d = [\n    'one', 'two']"
+-    assert editor.text == expected
+-
+-
+-def test_15():
+-    """
+-    {
+-        {
+-        },
+-        | <-- cursor
+-    }
+-    """
+-    a_text = "{\n    {\n    },\n}"
+-    editor, indenter = make_editor()
+-    editor.text = a_text
+-    editor.cursor_position = 2, 6
+-    indenter.indent_block(editor.textCursor())
+-    expected = '{\n    {\n    },\n    \n}'
+-    assert editor.text == expected
+-    assert editor.cursor_position == (3, 4)
+-
+-
+-def test_16():
+-    """
+-    x = [0, 1, 2,
+-         [3, 4, 5,
+-          6, 7, 8],
+-         9, 10, 11]
+-    """
+-
+-    a_text = "x = [0, 1, 2,"
+-    editor, indenter = make_editor()
+-    editor.text = a_text
+-    editor.cursor_position = 1, 13
+-    indenter.indent_block(editor.textCursor())
+-    expected = "x = [0, 1, 2,\n     "
+-    assert editor.text == expected
+-
+-
+-def test_22():
+-    """
+-    x = [0, 1, 2,
+-         [3, 4, 5,
+-          6, 7, 8],
+-         9, 10, 11]
+-    """
+-
+-    a_text = "x = [0, 1, 2,\n     [3, 4, 5,"
+-    editor, indenter = make_editor()
+-    editor.text = a_text
+-    editor.cursor_position = 2, 14
+-    indenter.indent_block(editor.textCursor())
+-    expected = "x = [0, 1, 2,\n     [3, 4, 5,\n      "
+-    assert editor.text == expected
+-
+-
+-def test_23():
+-    """
+-    x = [0, 1, 2,
+-         [3, 4, 5,
+-          6, 7, 8],
+-         9, 10, 11]
+-    """
+-
+-    a_text = "x = [0, 1, 2,\n     [3, 4, 5,\n      6, 7, 8],"
+-    editor, indenter = make_editor()
+-    editor.text = a_text
+-    editor.cursor_position = 3, 15
+-    indenter.indent_block(editor.textCursor())
+-    expected = "x = [0, 1, 2,\n     [3, 4, 5,\n      6, 7, 8],\n     "
+-    assert editor.text == expected
+-
+-
+-def test_24():
+-    """
+-    x = [
+-        0, 1, 2, [3, 4, 5,
+-                  6, 7, 8],
+-        9, 10, 11
+-    ]
+-    """
+-
+-    a_text = "x = [\n    0, 1, 2, [3, 4, 5,"
+-    editor, indenter = make_editor()
+-    editor.text = a_text
+-    editor.cursor_position = 1, 22
+-    indenter.indent_block(editor.textCursor())
+-    expected = "x = [\n    0, 1, 2, [3, 4, 5,\n              "
+-    assert editor.text == expected
+-
+-
+-def test_25():
+-    """
+-    x = [
+-        0, 1, 2, [3, 4, 5,
+-                  6, 7, 8],
+-        9, 10, 11
+-    ]
+-    """
+-
+-    a_text = "x = [\n    0, 1, 2, [3, 4, 5,\n              6, 7, 8],"
+-    editor, indenter = make_editor()
+-    editor.text = a_text
+-    editor.cursor_position = 2, 23
+-    indenter.indent_block(editor.textCursor())
+-    expected = "x = [\n    0, 1, 2, [3, 4, 5,\n              6, 7, 8],\n    "
+-    assert editor.text == expected
+-
+-
+-def test_26():
+-    expected = 'def foo():\n    {}\n'
+-    for kw in ('break', 'continue', 'raise', 'pass', 'return'):
+-        assert make_indent('def foo():\n    {}'.format(kw)) == expected.format(kw)
+\ No newline at end of file
+diff --git a/ninja_translate b/ninja_translate
+deleted file mode 100644
+index fedf60e9..00000000
+--- a/ninja_translate
++++ /dev/null
+@@ -1,5 +0,0 @@
+-
+-SOURCES += ninja_ide/translations.py 
+-
+-
+-TRANSLATIONS = ninja.ts
+diff --git a/run-tests.py b/run-tests.py
+deleted file mode 100755
+index 6ea7588e..00000000
+--- a/run-tests.py
++++ /dev/null
+@@ -1,29 +0,0 @@
+-#!/usr/bin/env python3
+-import sys
+-import os
+-import pytest
+-# Create dirs structure before run tests
+-from ninja_ide import resources
+-resources.create_home_dir_structure()
+-
+-
+-IN_CI = os.getenv('CI', None) is not None
+-
+-
+-def main(path):
+-    if path is None:
+-        path = 'ninja_tests'
+-    args = '{path} -vv'.format(path=path)
+-    if IN_CI:
+-        args += ' -x --cov=ninja_ide --no-cov-on-fail'
+-
+-    errno = pytest.main(args.split())
+-    if errno != 0:
+-        raise SystemExit(errno)
+-
+-
+-if __name__ == '__main__':
+-    path = None
+-    if len(sys.argv) > 1:
+-        path = sys.argv[1]
+-    main(path)
+\ No newline at end of file
+diff --git a/test_requirements.txt b/test_requirements.txt
+deleted file mode 100644
+index edd1a965..00000000
+--- a/test_requirements.txt
++++ /dev/null
+@@ -1,2 +0,0 @@
+-pytest
+-pytest-qt
+-- 
+2.24.1
+
