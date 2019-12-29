@@ -27,12 +27,12 @@ logger_symbols = NinjaLogger(
     'ninja_ide.tools.introspection.obtaining_symbols')
 
 _map_type = {
-    _ast.Tuple: 'tuple',
-    _ast.List: 'list',
-    _ast.Str: 'str',
-    _ast.Dict: 'dict',
-    _ast.Num: 'int',
-    _ast.Call: 'function()',
+    ast.Tuple: 'tuple',
+    ast.List: 'list',
+    ast.Str: 'str',
+    ast.Dict: 'dict',
+    ast.Num: 'int',
+    ast.Call: 'function()',
 }
 
 
